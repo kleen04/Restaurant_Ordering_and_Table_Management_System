@@ -22,14 +22,48 @@ A comprehensive desktop application for managing restaurant operations including
 
 ## Project Structure
 
+```
 Restaurant_Ordering_and_Table_Management_System/
-  Forms/              UI forms (FormStaff, FormTables, etc.)
-  Service/            Business logic (StaffService, OrderService, etc.)
-  Models/             Data models (Staff, Order, MenuItem, etc.)
-  Interfaces/         Service contracts
-  Database/           SQL scripts (schema, stored procedures, sample data)
-  Helper/             Utility classes (DbHelper, ValidationHelper)
-  DBContext/          Database connection management
+├── Forms/
+│   ├── Form1.cs
+│   ├── FormStaff.cs
+│   ├── FormTables.cs
+│   ├── InventoryForm.cs
+│   ├── FormAddOrder.cs
+│   └── FormReports.cs
+├── Service/
+│   ├── StaffService.cs
+│   ├── TableService.cs
+│   ├── OrderService.cs
+│   ├── InventoryService.cs
+│   └── ReportService.cs
+├── Models/
+│   ├── Staff.cs
+│   ├── RestaurantTable.cs
+│   ├── Order.cs
+│   ├── OrderItem.cs
+│   ├── MenuItem.cs
+│   └── InventoryItem.cs
+├── Interfaces/
+│   ├── IStaffService.cs
+│   ├── ITableService.cs
+│   ├── IOrderService.cs
+│   ├── IInventoryService.cs
+│   └── IReportService.cs
+├── Database/
+│   ├── schema.sql
+│   ├── stored_procedures.sql
+│   └── sample_data.sql
+├── Helper/
+│   ├── DbHelper.cs
+│   ├── ValidationHelper.cs
+│   └── MessageHelper.cs
+├── DBContext/
+│   └── DatabaseConnection.cs
+├── App.config
+├── Program.cs
+└── README.md
+```
 
 ## Quick Start
 
