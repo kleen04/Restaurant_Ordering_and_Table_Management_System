@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Restaurant_Ordering_and_Management_System.DBContext;
+using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Models;
+using Restaurant_Ordering_and_Management_System.Service;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class FormTables : Form
     {
+        private TableService _tableService;
+
         public FormTables()
         {
             InitializeComponent();
@@ -19,7 +25,19 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void FormTables_Load(object sender, EventArgs e)
         {
-            InitializeTableData();
+            try
+            {
+                // Initialize services
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                DbHelper dbHelper = new DbHelper(dbConnection);
+                _tableService = new TableService(dbHelper);
+
+                InitializeTableData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading table data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InitializeTableData()
@@ -30,12 +48,25 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             dgvTables.Columns.Add("Status", "Status");
             dgvTables.Columns.Add("CurrentGuests", "Current Guests");
 
-            dgvTables.Rows.Add("1", "2", "Available", "0");
-            dgvTables.Rows.Add("2", "4", "Occupied", "3");
-            dgvTables.Rows.Add("3", "4", "Available", "0");
-            dgvTables.Rows.Add("4", "6", "Reserved", "0");
-            dgvTables.Rows.Add("5", "2", "Occupied", "2");
-            dgvTables.Rows.Add("6", "8", "Available", "0");
+            try
+            {
+                // Load real data from database
+                List<RestaurantTable> tables = _tableService.GetAllTables();
+
+                foreach (RestaurantTable table in tables)
+                {
+                    dgvTables.Rows.Add(
+                        table.TableId,
+                        table.Capacity,
+                        table.Status.ToString(),
+                        table.CurrentGuests
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error populating tables grid: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             dgvTables.AutoResizeColumns();
             dgvTables.CellFormatting += DgvTables_CellFormatting;
@@ -112,8 +143,16 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            dgvTables.Rows.Clear();
-            InitializeTableData();
+            try
+            {
+                dgvTables.Rows.Clear();
+                InitializeTableData();
+                MessageBox.Show("Table data refreshed successfully.", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error refreshing table data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnReturn_Click(object sender, EventArgs e)

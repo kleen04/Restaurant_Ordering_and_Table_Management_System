@@ -1,10 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Restaurant_Ordering_and_Management_System.DBContext;
+using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Models;
+using Restaurant_Ordering_and_Management_System.Service;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class InventoryForm : Form
     {
+        private InventoryService _inventoryService;
+
         public InventoryForm()
         {
             InitializeComponent();
@@ -12,7 +19,19 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void InventoryForm_Load(object sender, EventArgs e)
         {
-            InitializeInventoryData();
+            try
+            {
+                // Initialize services
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                DbHelper dbHelper = new DbHelper(dbConnection);
+                _inventoryService = new InventoryService(dbHelper);
+
+                InitializeInventoryData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading inventory data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InitializeInventoryData()
@@ -27,15 +46,30 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             dgvInventory.Columns.Add("UnitCost", "Unit Cost");
             dgvInventory.Columns.Add("Status", "Status");
 
-            // Add sample data
-            dgvInventory.Rows.Add("1", "Chicken Breast", "Meat", "50", "kg", "20", "₱250.00", "In Stock");
-            dgvInventory.Rows.Add("2", "Rice", "Grains", "100", "kg", "30", "₱45.00", "In Stock");
-            dgvInventory.Rows.Add("3", "Garlic", "Vegetables", "15", "kg", "10", "₱80.00", "In Stock");
-            dgvInventory.Rows.Add("4", "Soy Sauce", "Condiments", "8", "bottles", "5", "₱120.00", "Low Stock");
-            dgvInventory.Rows.Add("5", "Oil", "Cooking Supplies", "6", "liters", "4", "₱200.00", "In Stock");
-            dgvInventory.Rows.Add("6", "Tomato Sauce", "Condiments", "12", "cans", "8", "₱60.00", "In Stock");
-            dgvInventory.Rows.Add("7", "Onion", "Vegetables", "20", "kg", "15", "₱50.00", "In Stock");
-            dgvInventory.Rows.Add("8", "Salt", "Seasonings", "3", "kg", "2", "₱30.00", "Low Stock");
+            try
+            {
+                // Load real data from database
+                List<InventoryItem> items = _inventoryService.GetAllItems();
+
+                foreach (InventoryItem item in items)
+                {
+                    string status = item.IsLowStock ? "Low Stock" : "In Stock";
+                    dgvInventory.Rows.Add(
+                        item.ItemId,
+                        item.ItemName,
+                        item.Category,
+                        item.Quantity.ToString("F2"),
+                        item.Unit,
+                        item.ReorderLevel.ToString("F2"),
+                        $"₱{item.UnitCost:F2}",
+                        status
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error populating inventory grid: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             dgvInventory.AutoResizeColumns();
         }
@@ -75,9 +109,16 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            dgvInventory.Rows.Clear();
-            InitializeInventoryData();
-            MessageBox.Show("Inventory refreshed", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                dgvInventory.Rows.Clear();
+                InitializeInventoryData();
+                MessageBox.Show("Inventory refreshed successfully.", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error refreshing inventory data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnClose_Click(object sender, EventArgs e)

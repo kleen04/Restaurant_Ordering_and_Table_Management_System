@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Restaurant_Ordering_and_Management_System.DBContext;
+using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Models;
+using Restaurant_Ordering_and_Management_System.Service;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class FormStaff : Form
     {
+        private StaffService _staffService;
+
         public FormStaff()
         {
             InitializeComponent();
@@ -19,7 +25,19 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void FormStaff_Load(object sender, EventArgs e)
         {
-            InitializeStaffData();
+            try
+            {
+                // Initialize services
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                DbHelper dbHelper = new DbHelper(dbConnection);
+                _staffService = new StaffService(dbHelper);
+
+                InitializeStaffData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading staff data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InitializeStaffData()
@@ -32,11 +50,28 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             dgvStaff.Columns.Add("Status", "Status");
             dgvStaff.Columns.Add("DateHired", "Date Hired");
 
-            dgvStaff.Rows.Add("1", "Maria Santos", "Head Chef", "0917-123-4567", "Active", "2022-03-14");
-            dgvStaff.Rows.Add("2", "Juan Dela Cruz", "Waiter", "0918-234-5678", "Active", "2023-06-01");
-            dgvStaff.Rows.Add("3", "Ana Reyes", "Cashier", "0919-345-6789", "Active", "2021-11-20");
-            dgvStaff.Rows.Add("4", "Pedro Bautista", "Waiter", "0920-456-7890", "Inactive", "2020-05-09");
-            dgvStaff.Rows.Add("5", "Liza Cruz", "Manager", "0921-567-8901", "Active", "2019-01-15");
+            try
+            {
+                // Load real data from database
+                List<Staff> staffList = _staffService.GetAllStaff();
+
+                foreach (Staff staff in staffList)
+                {
+                    string status = staff.IsActive ? "Active" : "Inactive";
+                    dgvStaff.Rows.Add(
+                        staff.StaffId,
+                        staff.FullName,
+                        staff.Position,
+                        staff.ContactNumber ?? "N/A",
+                        status,
+                        staff.DateHired.ToString("yyyy-MM-dd")
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error populating staff grid: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             dgvStaff.AutoResizeColumns();
         }
@@ -88,8 +123,16 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            dgvStaff.Rows.Clear();
-            InitializeStaffData();
+            try
+            {
+                dgvStaff.Rows.Clear();
+                InitializeStaffData();
+                MessageBox.Show("Staff data refreshed successfully.", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error refreshing staff data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnReturn_Click(object sender, EventArgs e)

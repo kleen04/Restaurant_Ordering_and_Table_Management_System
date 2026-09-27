@@ -1,10 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Restaurant_Ordering_and_Management_System.DBContext;
+using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Models;
+using Restaurant_Ordering_and_Management_System.Service;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class Form1 : Form
     {
+        private TableService _tableService;
+        private OrderService _orderService;
+
         public Form1()
         {
             InitializeComponent();
@@ -18,7 +26,20 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             timer.Tick += (s, ev) => UpdateDateTime();
             timer.Start();
 
-            InitializeSampleData();
+            try
+            {
+                // Initialize services
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                DbHelper dbHelper = new DbHelper(dbConnection);
+                _tableService = new TableService(dbHelper);
+                _orderService = new OrderService(dbHelper);
+
+                InitializeSampleData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading dashboard data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void InitializeSampleData()
@@ -28,22 +49,50 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             dgvTableStatus.Columns.Add("Guests", "Guests");
             dgvTableStatus.Columns.Add("Order", "Current Order");
 
-            dgvTableStatus.Rows.Add("1", "Available", "0", "None");
-            dgvTableStatus.Rows.Add("2", "Occupied", "4", "Order #102");
-            dgvTableStatus.Rows.Add("3", "Available", "0", "None");
-            dgvTableStatus.Rows.Add("4", "Occupied", "2", "Order #105");
-
             dgvRecentOrders.Columns.Add("OrderID", "Order ID");
             dgvRecentOrders.Columns.Add("Table", "Table");
             dgvRecentOrders.Columns.Add("OrderTime", "Order Time");
             dgvRecentOrders.Columns.Add("Status", "Status");
             dgvRecentOrders.Columns.Add("Total", "Total");
 
-            dgvRecentOrders.Rows.Add("101", "1", "2:45 PM", "Completed", "₱850.00");
-            dgvRecentOrders.Rows.Add("102", "2", "3:15 PM", "In Progress", "₱1,200.00");
-            dgvRecentOrders.Rows.Add("103", "3", "3:30 PM", "Pending", "₱650.00");
-            dgvRecentOrders.Rows.Add("104", "4", "3:45 PM", "Completed", "₱920.00");
-            dgvRecentOrders.Rows.Add("105", "4", "4:00 PM", "In Progress", "₱1,100.00");
+            try
+            {
+                // Load real table data
+                List<RestaurantTable> tables = _tableService.GetAllTables();
+                foreach (RestaurantTable table in tables)
+                {
+                    dgvTableStatus.Rows.Add(
+                        table.TableId,
+                        table.Status.ToString(),
+                        table.CurrentGuests,
+                        table.Status == TableStatus.Occupied ? $"Order #{table.TableId * 100}" : "None"
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading table status: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            try
+            {
+                // Load real recent order data (last 5 orders)
+                List<Order> orders = _orderService.GetRecentOrders(5);
+                foreach (Order order in orders)
+                {
+                    dgvRecentOrders.Rows.Add(
+                        order.OrderId,
+                        order.TableId,
+                        order.OrderTime.ToString("h:mm tt"),
+                        order.Status.ToString(),
+                        $"₱0.00" // TODO: Calculate total from OrderItems
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading recent orders: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             dgvTableStatus.AutoResizeColumns();
             dgvRecentOrders.AutoResizeColumns();

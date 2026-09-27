@@ -31,7 +31,7 @@ namespace Restaurant_Ordering_and_Management_System.Service
         {
             List<Order> orders = new List<Order>();
             DataTable table = _dbHelper.ExecuteQuery("sp_Order_GetRecent",
-                new MySqlParameter("@RowCount", count));
+                new MySqlParameter("@p_RowCount", count));
 
             foreach (DataRow row in table.Rows)
             {

@@ -159,3 +159,9 @@ PublishScripts/
 # IDE configuration
 *.vsproj.user
 *.csproj.user
+
+# Configuration files with potential credentials
+App.config
+Web.config
+appsettings.*.json
+
