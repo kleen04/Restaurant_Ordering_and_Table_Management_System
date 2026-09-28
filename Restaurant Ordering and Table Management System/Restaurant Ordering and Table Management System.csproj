@@ -93,6 +93,9 @@
          restores to; this is just a working starting point. -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FilletedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +160,12 @@
     <Compile Include="Service\OrderService.cs" />
     <Compile Include="Service\InventoryService.cs" />
     <Compile Include="Service\ReportService.cs" />
+    <Compile Include="Forms\TransparentDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\TransparentBackgroundGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +196,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -203,6 +213,21 @@
     <None Include="App.config" />
     <None Include="Database\schema.sql" />
     <None Include="Database\stored_procedures.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\home.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\resto2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\LogInBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\tagum_eats_restaurant_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\PersonIcon-removebg-preview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

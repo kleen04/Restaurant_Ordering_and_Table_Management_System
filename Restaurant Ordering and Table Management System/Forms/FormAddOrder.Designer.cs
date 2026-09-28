@@ -28,26 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.lblSubtitle = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.pnlTableSelect = new System.Windows.Forms.Panel();
             this.cmbTable = new System.Windows.Forms.ComboBox();
             this.lblTable = new System.Windows.Forms.Label();
             this.pnlOrder = new System.Windows.Forms.Panel();
             this.dgvOrderItems = new System.Windows.Forms.DataGridView();
-            this.lblOrderItemsHeader = new System.Windows.Forms.Label();
             this.pnlTotal = new System.Windows.Forms.Panel();
             this.btnRemoveItem = new System.Windows.Forms.Button();
             this.lblTotalValue = new System.Windows.Forms.Label();
             this.lblTotalCaption = new System.Windows.Forms.Label();
+            this.lblOrderItemsHeader = new System.Windows.Forms.Label();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.dgvMenu = new System.Windows.Forms.DataGridView();
-            this.lblMenuHeader = new System.Windows.Forms.Label();
             this.pnlAddToOrder = new System.Windows.Forms.Panel();
             this.btnAddToOrder = new System.Windows.Forms.Button();
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
             this.lblQuantity = new System.Windows.Forms.Label();
+            this.lblMenuHeader = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnPlaceOrder = new System.Windows.Forms.Button();
             this.btnReturn = new System.Windows.Forms.Button();
@@ -62,9 +66,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // pnlHeader
-            //
+            // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
             this.pnlHeader.Controls.Add(this.lblSubtitle);
             this.pnlHeader.Controls.Add(this.lblTitle);
@@ -74,31 +78,31 @@
             this.pnlHeader.Padding = new System.Windows.Forms.Padding(20, 10, 20, 10);
             this.pnlHeader.Size = new System.Drawing.Size(1040, 64);
             this.pnlHeader.TabIndex = 0;
-            //
-            // lblTitle
-            //
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(20, 8);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(150, 30);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🧾 New Order";
-            //
+            // 
             // lblSubtitle
-            //
+            // 
             this.lblSubtitle.AutoSize = true;
             this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
             this.lblSubtitle.Location = new System.Drawing.Point(22, 38);
             this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(220, 17);
+            this.lblSubtitle.Size = new System.Drawing.Size(196, 17);
             this.lblSubtitle.TabIndex = 1;
             this.lblSubtitle.Text = "Build an order for a dining table";
-            //
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(20, 8);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(164, 30);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "🧾 New Order";
+            // 
             // pnlTableSelect
-            //
+            // 
             this.pnlTableSelect.BackColor = System.Drawing.Color.White;
             this.pnlTableSelect.Controls.Add(this.cmbTable);
             this.pnlTableSelect.Controls.Add(this.lblTable);
@@ -108,20 +112,9 @@
             this.pnlTableSelect.Padding = new System.Windows.Forms.Padding(20, 12, 20, 12);
             this.pnlTableSelect.Size = new System.Drawing.Size(1040, 52);
             this.pnlTableSelect.TabIndex = 1;
-            //
-            // lblTable
-            //
-            this.lblTable.AutoSize = true;
-            this.lblTable.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTable.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.lblTable.Location = new System.Drawing.Point(20, 15);
-            this.lblTable.Name = "lblTable";
-            this.lblTable.Size = new System.Drawing.Size(48, 19);
-            this.lblTable.TabIndex = 0;
-            this.lblTable.Text = "Table:";
-            //
+            // 
             // cmbTable
-            //
+            // 
             this.cmbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTable.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cmbTable.FormattingEnabled = true;
@@ -136,9 +129,20 @@
             this.cmbTable.Name = "cmbTable";
             this.cmbTable.Size = new System.Drawing.Size(200, 25);
             this.cmbTable.TabIndex = 1;
-            //
+            // 
+            // lblTable
+            // 
+            this.lblTable.AutoSize = true;
+            this.lblTable.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblTable.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.lblTable.Location = new System.Drawing.Point(20, 15);
+            this.lblTable.Name = "lblTable";
+            this.lblTable.Size = new System.Drawing.Size(49, 19);
+            this.lblTable.TabIndex = 0;
+            this.lblTable.Text = "Table:";
+            // 
             // pnlOrder
-            //
+            // 
             this.pnlOrder.BackColor = System.Drawing.Color.White;
             this.pnlOrder.Controls.Add(this.dgvOrderItems);
             this.pnlOrder.Controls.Add(this.pnlTotal);
@@ -149,32 +153,55 @@
             this.pnlOrder.Padding = new System.Windows.Forms.Padding(16, 12, 16, 16);
             this.pnlOrder.Size = new System.Drawing.Size(580, 364);
             this.pnlOrder.TabIndex = 3;
-            //
-            // lblOrderItemsHeader
-            //
-            this.lblOrderItemsHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblOrderItemsHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblOrderItemsHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.lblOrderItemsHeader.Location = new System.Drawing.Point(16, 12);
-            this.lblOrderItemsHeader.Name = "lblOrderItemsHeader";
-            this.lblOrderItemsHeader.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.lblOrderItemsHeader.Size = new System.Drawing.Size(548, 30);
-            this.lblOrderItemsHeader.TabIndex = 0;
-            this.lblOrderItemsHeader.Text = "Current Order";
-            //
+            // 
+            // dgvOrderItems
+            // 
+            this.dgvOrderItems.AllowUserToAddRows = false;
+            this.dgvOrderItems.AllowUserToDeleteRows = false;
+            this.dgvOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvOrderItems.BackgroundColor = System.Drawing.Color.LightGray;
+            this.dgvOrderItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvOrderItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvOrderItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvOrderItems.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvOrderItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOrderItems.EnableHeadersVisualStyles = false;
+            this.dgvOrderItems.Location = new System.Drawing.Point(16, 42);
+            this.dgvOrderItems.Name = "dgvOrderItems";
+            this.dgvOrderItems.ReadOnly = true;
+            this.dgvOrderItems.RowHeadersVisible = false;
+            this.dgvOrderItems.RowTemplate.Height = 30;
+            this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvOrderItems.Size = new System.Drawing.Size(548, 244);
+            this.dgvOrderItems.TabIndex = 1;
+            // 
             // pnlTotal
-            //
+            // 
             this.pnlTotal.Controls.Add(this.btnRemoveItem);
             this.pnlTotal.Controls.Add(this.lblTotalValue);
             this.pnlTotal.Controls.Add(this.lblTotalCaption);
             this.pnlTotal.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlTotal.Location = new System.Drawing.Point(16, 306);
+            this.pnlTotal.Location = new System.Drawing.Point(16, 286);
             this.pnlTotal.Name = "pnlTotal";
             this.pnlTotal.Size = new System.Drawing.Size(548, 62);
             this.pnlTotal.TabIndex = 2;
-            //
+            // 
             // btnRemoveItem
-            //
+            // 
             this.btnRemoveItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
             this.btnRemoveItem.FlatAppearance.BorderSize = 0;
             this.btnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -187,20 +214,20 @@
             this.btnRemoveItem.Text = "🗑️ Remove";
             this.btnRemoveItem.UseVisualStyleBackColor = false;
             this.btnRemoveItem.Click += new System.EventHandler(this.BtnRemoveItem_Click);
-            //
+            // 
             // lblTotalValue
-            //
+            // 
             this.lblTotalValue.AutoSize = true;
             this.lblTotalValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblTotalValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.lblTotalValue.Location = new System.Drawing.Point(90, 12);
             this.lblTotalValue.Name = "lblTotalValue";
-            this.lblTotalValue.Size = new System.Drawing.Size(85, 37);
+            this.lblTotalValue.Size = new System.Drawing.Size(89, 37);
             this.lblTotalValue.TabIndex = 1;
             this.lblTotalValue.Text = "₱0.00";
-            //
+            // 
             // lblTotalCaption
-            //
+            // 
             this.lblTotalCaption.AutoSize = true;
             this.lblTotalCaption.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblTotalCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -209,31 +236,21 @@
             this.lblTotalCaption.Size = new System.Drawing.Size(48, 20);
             this.lblTotalCaption.TabIndex = 0;
             this.lblTotalCaption.Text = "Total:";
-            //
-            // dgvOrderItems
-            //
-            this.dgvOrderItems.AllowUserToAddRows = false;
-            this.dgvOrderItems.AllowUserToDeleteRows = false;
-            this.dgvOrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvOrderItems.BackgroundColor = System.Drawing.Color.White;
-            this.dgvOrderItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvOrderItems.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
-            this.dgvOrderItems.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dgvOrderItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrderItems.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.dgvOrderItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvOrderItems.EnableHeadersVisualStyles = false;
-            this.dgvOrderItems.Location = new System.Drawing.Point(16, 42);
-            this.dgvOrderItems.Name = "dgvOrderItems";
-            this.dgvOrderItems.ReadOnly = true;
-            this.dgvOrderItems.RowHeadersVisible = false;
-            this.dgvOrderItems.RowTemplate.Height = 30;
-            this.dgvOrderItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrderItems.Size = new System.Drawing.Size(548, 264);
-            this.dgvOrderItems.TabIndex = 1;
-            //
+            // 
+            // lblOrderItemsHeader
+            // 
+            this.lblOrderItemsHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblOrderItemsHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblOrderItemsHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.lblOrderItemsHeader.Location = new System.Drawing.Point(16, 12);
+            this.lblOrderItemsHeader.Name = "lblOrderItemsHeader";
+            this.lblOrderItemsHeader.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.lblOrderItemsHeader.Size = new System.Drawing.Size(548, 30);
+            this.lblOrderItemsHeader.TabIndex = 0;
+            this.lblOrderItemsHeader.Text = "Current Order";
+            // 
             // pnlMenu
-            //
+            // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.pnlMenu.Controls.Add(this.dgvMenu);
             this.pnlMenu.Controls.Add(this.pnlAddToOrder);
@@ -244,54 +261,56 @@
             this.pnlMenu.Padding = new System.Windows.Forms.Padding(16, 12, 8, 16);
             this.pnlMenu.Size = new System.Drawing.Size(460, 364);
             this.pnlMenu.TabIndex = 2;
-            //
-            // lblMenuHeader
-            //
-            this.lblMenuHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblMenuHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblMenuHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.lblMenuHeader.Location = new System.Drawing.Point(16, 12);
-            this.lblMenuHeader.Name = "lblMenuHeader";
-            this.lblMenuHeader.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.lblMenuHeader.Size = new System.Drawing.Size(436, 30);
-            this.lblMenuHeader.TabIndex = 0;
-            this.lblMenuHeader.Text = "Menu Items";
-            //
+            // 
+            // dgvMenu
+            // 
+            this.dgvMenu.AllowUserToAddRows = false;
+            this.dgvMenu.AllowUserToDeleteRows = false;
+            this.dgvMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMenu.BackgroundColor = System.Drawing.Color.LightGray;
+            this.dgvMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMenu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMenu.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvMenu.EnableHeadersVisualStyles = false;
+            this.dgvMenu.Location = new System.Drawing.Point(16, 42);
+            this.dgvMenu.MultiSelect = false;
+            this.dgvMenu.Name = "dgvMenu";
+            this.dgvMenu.ReadOnly = true;
+            this.dgvMenu.RowHeadersVisible = false;
+            this.dgvMenu.RowTemplate.Height = 30;
+            this.dgvMenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMenu.Size = new System.Drawing.Size(436, 244);
+            this.dgvMenu.TabIndex = 1;
+            // 
             // pnlAddToOrder
-            //
+            // 
             this.pnlAddToOrder.Controls.Add(this.btnAddToOrder);
             this.pnlAddToOrder.Controls.Add(this.nudQuantity);
             this.pnlAddToOrder.Controls.Add(this.lblQuantity);
             this.pnlAddToOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlAddToOrder.Location = new System.Drawing.Point(16, 306);
+            this.pnlAddToOrder.Location = new System.Drawing.Point(16, 286);
             this.pnlAddToOrder.Name = "pnlAddToOrder";
             this.pnlAddToOrder.Size = new System.Drawing.Size(436, 62);
             this.pnlAddToOrder.TabIndex = 2;
-            //
-            // lblQuantity
-            //
-            this.lblQuantity.AutoSize = true;
-            this.lblQuantity.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblQuantity.Location = new System.Drawing.Point(0, 20);
-            this.lblQuantity.Name = "lblQuantity";
-            this.lblQuantity.Size = new System.Drawing.Size(52, 19);
-            this.lblQuantity.TabIndex = 0;
-            this.lblQuantity.Text = "Qty:";
-            //
-            // nudQuantity
-            //
-            this.nudQuantity.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.nudQuantity.Location = new System.Drawing.Point(56, 16);
-            this.nudQuantity.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            this.nudQuantity.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
-            this.nudQuantity.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            this.nudQuantity.Name = "nudQuantity";
-            this.nudQuantity.Size = new System.Drawing.Size(60, 25);
-            this.nudQuantity.TabIndex = 1;
-            //
+            // 
             // btnAddToOrder
-            //
+            // 
             this.btnAddToOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.btnAddToOrder.FlatAppearance.BorderSize = 0;
             this.btnAddToOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -304,32 +323,55 @@
             this.btnAddToOrder.Text = "➕ Add to Order";
             this.btnAddToOrder.UseVisualStyleBackColor = false;
             this.btnAddToOrder.Click += new System.EventHandler(this.BtnAddToOrder_Click);
-            //
-            // dgvMenu
-            //
-            this.dgvMenu.AllowUserToAddRows = false;
-            this.dgvMenu.AllowUserToDeleteRows = false;
-            this.dgvMenu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvMenu.BackgroundColor = System.Drawing.Color.White;
-            this.dgvMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvMenu.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
-            this.dgvMenu.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMenu.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.dgvMenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvMenu.EnableHeadersVisualStyles = false;
-            this.dgvMenu.Location = new System.Drawing.Point(16, 42);
-            this.dgvMenu.MultiSelect = false;
-            this.dgvMenu.Name = "dgvMenu";
-            this.dgvMenu.ReadOnly = true;
-            this.dgvMenu.RowHeadersVisible = false;
-            this.dgvMenu.RowTemplate.Height = 30;
-            this.dgvMenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMenu.Size = new System.Drawing.Size(436, 264);
-            this.dgvMenu.TabIndex = 1;
-            //
+            // 
+            // nudQuantity
+            // 
+            this.nudQuantity.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.nudQuantity.Location = new System.Drawing.Point(56, 16);
+            this.nudQuantity.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nudQuantity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudQuantity.Name = "nudQuantity";
+            this.nudQuantity.Size = new System.Drawing.Size(60, 25);
+            this.nudQuantity.TabIndex = 1;
+            this.nudQuantity.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblQuantity
+            // 
+            this.lblQuantity.AutoSize = true;
+            this.lblQuantity.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblQuantity.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblQuantity.Location = new System.Drawing.Point(0, 20);
+            this.lblQuantity.Name = "lblQuantity";
+            this.lblQuantity.Size = new System.Drawing.Size(31, 17);
+            this.lblQuantity.TabIndex = 0;
+            this.lblQuantity.Text = "Qty:";
+            // 
+            // lblMenuHeader
+            // 
+            this.lblMenuHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblMenuHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblMenuHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.lblMenuHeader.Location = new System.Drawing.Point(16, 12);
+            this.lblMenuHeader.Name = "lblMenuHeader";
+            this.lblMenuHeader.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.lblMenuHeader.Size = new System.Drawing.Size(436, 30);
+            this.lblMenuHeader.TabIndex = 0;
+            this.lblMenuHeader.Text = "Menu Items";
+            // 
             // pnlButtons
-            //
+            // 
             this.pnlButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.pnlButtons.Controls.Add(this.btnPlaceOrder);
             this.pnlButtons.Controls.Add(this.btnReturn);
@@ -338,9 +380,9 @@
             this.pnlButtons.Name = "pnlButtons";
             this.pnlButtons.Size = new System.Drawing.Size(1040, 64);
             this.pnlButtons.TabIndex = 4;
-            //
+            // 
             // btnPlaceOrder
-            //
+            // 
             this.btnPlaceOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnPlaceOrder.FlatAppearance.BorderSize = 0;
             this.btnPlaceOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -353,9 +395,9 @@
             this.btnPlaceOrder.Text = "✔ Place Order";
             this.btnPlaceOrder.UseVisualStyleBackColor = false;
             this.btnPlaceOrder.Click += new System.EventHandler(this.BtnPlaceOrder_Click);
-            //
+            // 
             // btnReturn
-            //
+            // 
             this.btnReturn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(195)))), ((int)(((byte)(199)))));
             this.btnReturn.FlatAppearance.BorderSize = 0;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -368,9 +410,9 @@
             this.btnReturn.Text = "✕ Cancel";
             this.btnReturn.UseVisualStyleBackColor = false;
             this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
-            //
+            // 
             // FormAddOrder
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));

@@ -34,5 +34,15 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 txtUsername.Focus();
             }
         }
+
+        private void pnlBody_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

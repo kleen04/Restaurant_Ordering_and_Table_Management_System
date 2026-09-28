@@ -1,10 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using Restaurant_Ordering_and_Management_System.DBContext;
 using Restaurant_Ordering_and_Management_System.Helper;
 using Restaurant_Ordering_and_Management_System.Models;
 using Restaurant_Ordering_and_Management_System.Service;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
@@ -20,7 +21,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            UpdateDateTime();
+        UpdateDateTime();
             System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000;
             timer.Tick += (s, ev) => UpdateDateTime();

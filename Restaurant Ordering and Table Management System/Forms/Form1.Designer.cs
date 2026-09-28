@@ -15,6 +15,10 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblCurrentTime = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
@@ -28,35 +32,33 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.btnInventory = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.pnlMainContent = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblTotalOrdersValue = new System.Windows.Forms.Label();
+            this.lblTotalOrdersLabel = new System.Windows.Forms.Label();
+            this.lblTotalRevenueValue = new System.Windows.Forms.Label();
+            this.lblTotalRevenueLabel = new System.Windows.Forms.Label();
+            this.lblActiveTablesValue = new System.Windows.Forms.Label();
+            this.lblActiveTablesLabel = new System.Windows.Forms.Label();
+            this.lblPendingOrdersValue = new System.Windows.Forms.Label();
+            this.lblPendingOrdersLabel = new System.Windows.Forms.Label();
             this.pnlDashboard = new System.Windows.Forms.Panel();
             this.lblTableStatus = new System.Windows.Forms.Label();
             this.dgvTableStatus = new System.Windows.Forms.DataGridView();
             this.lblRecentOrders = new System.Windows.Forms.Label();
             this.dgvRecentOrders = new System.Windows.Forms.DataGridView();
-            this.pnlQuickStats = new System.Windows.Forms.Panel();
-            this.lblPendingOrdersLabel = new System.Windows.Forms.Label();
-            this.lblPendingOrdersValue = new System.Windows.Forms.Label();
-            this.lblActiveTablesLabel = new System.Windows.Forms.Label();
-            this.lblActiveTablesValue = new System.Windows.Forms.Label();
-            this.lblTotalRevenueLabel = new System.Windows.Forms.Label();
-            this.lblTotalRevenueValue = new System.Windows.Forms.Label();
-            this.lblTotalOrdersLabel = new System.Windows.Forms.Label();
-            this.lblTotalOrdersValue = new System.Windows.Forms.Label();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlHeader.SuspendLayout();
             this.pnlSidebar.SuspendLayout();
             this.pnlMainContent.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.pnlDashboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).BeginInit();
-            this.pnlQuickStats.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(35)))), ((int)(((byte)(126)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.pnlHeader.Controls.Add(this.lblCurrentTime);
             this.pnlHeader.Controls.Add(this.lblUser);
             this.pnlHeader.Controls.Add(this.lblRestaurantName);
@@ -64,7 +66,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Padding = new System.Windows.Forms.Padding(20);
-            this.pnlHeader.Size = new System.Drawing.Size(1200, 80);
+            this.pnlHeader.Size = new System.Drawing.Size(1130, 80);
             this.pnlHeader.TabIndex = 0;
             // 
             // lblCurrentTime
@@ -92,17 +94,17 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // lblRestaurantName
             // 
             this.lblRestaurantName.AutoSize = true;
-            this.lblRestaurantName.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblRestaurantName.Font = new System.Drawing.Font("Brush Script MT", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRestaurantName.ForeColor = System.Drawing.Color.White;
             this.lblRestaurantName.Location = new System.Drawing.Point(20, 15);
             this.lblRestaurantName.Name = "lblRestaurantName";
-            this.lblRestaurantName.Size = new System.Drawing.Size(441, 45);
+            this.lblRestaurantName.Size = new System.Drawing.Size(167, 39);
             this.lblRestaurantName.TabIndex = 0;
-            this.lblRestaurantName.Text = "🍽️ Restaurant Management";
+            this.lblRestaurantName.Text = "Tagum-Eats";
             // 
             // pnlSidebar
             // 
-            this.pnlSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.pnlSidebar.BackColor = System.Drawing.Color.Maroon;
             this.pnlSidebar.Controls.Add(this.btnLogout);
             this.pnlSidebar.Controls.Add(this.btnSettings);
             this.pnlSidebar.Controls.Add(this.btnTableManagement);
@@ -134,7 +136,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnSettings
             // 
-            this.btnSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnSettings.BackColor = System.Drawing.Color.Maroon;
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -149,7 +151,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnTableManagement
             // 
-            this.btnTableManagement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnTableManagement.BackColor = System.Drawing.Color.Maroon;
             this.btnTableManagement.FlatAppearance.BorderSize = 0;
             this.btnTableManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTableManagement.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -164,7 +166,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnReports
             // 
-            this.btnReports.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnReports.BackColor = System.Drawing.Color.Maroon;
             this.btnReports.FlatAppearance.BorderSize = 0;
             this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -179,7 +181,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnStaff
             // 
-            this.btnStaff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnStaff.BackColor = System.Drawing.Color.Maroon;
             this.btnStaff.FlatAppearance.BorderSize = 0;
             this.btnStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStaff.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -194,7 +196,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnInventory
             // 
-            this.btnInventory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnInventory.BackColor = System.Drawing.Color.Maroon;
             this.btnInventory.FlatAppearance.BorderSize = 0;
             this.btnInventory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInventory.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -209,7 +211,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnNewOrder
             // 
-            this.btnNewOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnNewOrder.BackColor = System.Drawing.Color.Maroon;
             this.btnNewOrder.FlatAppearance.BorderSize = 0;
             this.btnNewOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewOrder.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -227,188 +229,20 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.pnlMainContent.AutoScroll = true;
             this.pnlMainContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
             this.pnlMainContent.Controls.Add(this.pnlDashboard);
-            this.pnlMainContent.Controls.Add(this.pnlQuickStats);
             this.pnlMainContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMainContent.Location = new System.Drawing.Point(200, 80);
             this.pnlMainContent.Name = "pnlMainContent";
-            this.pnlMainContent.Size = new System.Drawing.Size(1000, 594);
+            this.pnlMainContent.Size = new System.Drawing.Size(930, 594);
             this.pnlMainContent.TabIndex = 2;
-            // 
-            // pnlDashboard
-            // 
-            this.pnlDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.pnlDashboard.Controls.Add(this.lblTableStatus);
-            this.pnlDashboard.Controls.Add(this.dgvTableStatus);
-            this.pnlDashboard.Controls.Add(this.lblRecentOrders);
-            this.pnlDashboard.Controls.Add(this.dgvRecentOrders);
-            this.pnlDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDashboard.Location = new System.Drawing.Point(0, 140);
-            this.pnlDashboard.Name = "pnlDashboard";
-            this.pnlDashboard.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlDashboard.Size = new System.Drawing.Size(1000, 454);
-            this.pnlDashboard.TabIndex = 1;
-            // 
-            // lblTableStatus
-            // 
-            this.lblTableStatus.AutoSize = true;
-            this.lblTableStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTableStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(35)))), ((int)(((byte)(126)))));
-            this.lblTableStatus.Location = new System.Drawing.Point(15, 15);
-            this.lblTableStatus.Name = "lblTableStatus";
-            this.lblTableStatus.Size = new System.Drawing.Size(129, 21);
-            this.lblTableStatus.TabIndex = 0;
-            this.lblTableStatus.Text = "🪑 Table Status";
-            // 
-            // dgvTableStatus
-            // 
-            this.dgvTableStatus.AllowUserToAddRows = false;
-            this.dgvTableStatus.AllowUserToDeleteRows = false;
-            this.dgvTableStatus.BackgroundColor = System.Drawing.Color.White;
-            this.dgvTableStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTableStatus.Location = new System.Drawing.Point(15, 40);
-            this.dgvTableStatus.Name = "dgvTableStatus";
-            this.dgvTableStatus.ReadOnly = true;
-            this.dgvTableStatus.Size = new System.Drawing.Size(970, 180);
-            this.dgvTableStatus.TabIndex = 1;
-            // 
-            // lblRecentOrders
-            // 
-            this.lblRecentOrders.AutoSize = true;
-            this.lblRecentOrders.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblRecentOrders.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(35)))), ((int)(((byte)(126)))));
-            this.lblRecentOrders.Location = new System.Drawing.Point(15, 230);
-            this.lblRecentOrders.Name = "lblRecentOrders";
-            this.lblRecentOrders.Size = new System.Drawing.Size(143, 21);
-            this.lblRecentOrders.TabIndex = 2;
-            this.lblRecentOrders.Text = "📝 Recent Orders";
-            // 
-            // dgvRecentOrders
-            // 
-            this.dgvRecentOrders.AllowUserToAddRows = false;
-            this.dgvRecentOrders.AllowUserToDeleteRows = false;
-            this.dgvRecentOrders.BackgroundColor = System.Drawing.Color.White;
-            this.dgvRecentOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRecentOrders.Location = new System.Drawing.Point(15, 255);
-            this.dgvRecentOrders.Name = "dgvRecentOrders";
-            this.dgvRecentOrders.ReadOnly = true;
-            this.dgvRecentOrders.Size = new System.Drawing.Size(970, 190);
-            this.dgvRecentOrders.TabIndex = 3;
-            // 
-            // pnlQuickStats
-            // 
-            this.pnlQuickStats.BackColor = System.Drawing.Color.White;
-            this.pnlQuickStats.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlQuickStats.Controls.Add(this.lblPendingOrdersLabel);
-            this.pnlQuickStats.Controls.Add(this.lblPendingOrdersValue);
-            this.pnlQuickStats.Controls.Add(this.lblActiveTablesLabel);
-            this.pnlQuickStats.Controls.Add(this.lblActiveTablesValue);
-            this.pnlQuickStats.Controls.Add(this.lblTotalRevenueLabel);
-            this.pnlQuickStats.Controls.Add(this.lblTotalRevenueValue);
-            this.pnlQuickStats.Controls.Add(this.lblTotalOrdersLabel);
-            this.pnlQuickStats.Controls.Add(this.lblTotalOrdersValue);
-            this.pnlQuickStats.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlQuickStats.Location = new System.Drawing.Point(0, 0);
-            this.pnlQuickStats.Name = "pnlQuickStats";
-            this.pnlQuickStats.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlQuickStats.Size = new System.Drawing.Size(1000, 140);
-            this.pnlQuickStats.TabIndex = 0;
-            // 
-            // lblPendingOrdersLabel
-            // 
-            this.lblPendingOrdersLabel.AutoSize = true;
-            this.lblPendingOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblPendingOrdersLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblPendingOrdersLabel.Location = new System.Drawing.Point(780, 75);
-            this.lblPendingOrdersLabel.Name = "lblPendingOrdersLabel";
-            this.lblPendingOrdersLabel.Size = new System.Drawing.Size(104, 19);
-            this.lblPendingOrdersLabel.TabIndex = 7;
-            this.lblPendingOrdersLabel.Text = "Pending Orders";
-            // 
-            // lblPendingOrdersValue
-            // 
-            this.lblPendingOrdersValue.AutoSize = true;
-            this.lblPendingOrdersValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblPendingOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            this.lblPendingOrdersValue.Location = new System.Drawing.Point(780, 20);
-            this.lblPendingOrdersValue.Name = "lblPendingOrdersValue";
-            this.lblPendingOrdersValue.Size = new System.Drawing.Size(44, 51);
-            this.lblPendingOrdersValue.TabIndex = 6;
-            this.lblPendingOrdersValue.Text = "0";
-            // 
-            // lblActiveTablesLabel
-            // 
-            this.lblActiveTablesLabel.AutoSize = true;
-            this.lblActiveTablesLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblActiveTablesLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblActiveTablesLabel.Location = new System.Drawing.Point(530, 75);
-            this.lblActiveTablesLabel.Name = "lblActiveTablesLabel";
-            this.lblActiveTablesLabel.Size = new System.Drawing.Size(86, 19);
-            this.lblActiveTablesLabel.TabIndex = 5;
-            this.lblActiveTablesLabel.Text = "Active Tables";
-            // 
-            // lblActiveTablesValue
-            // 
-            this.lblActiveTablesValue.AutoSize = true;
-            this.lblActiveTablesValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblActiveTablesValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(162)))), ((int)(((byte)(184)))));
-            this.lblActiveTablesValue.Location = new System.Drawing.Point(530, 20);
-            this.lblActiveTablesValue.Name = "lblActiveTablesValue";
-            this.lblActiveTablesValue.Size = new System.Drawing.Size(44, 51);
-            this.lblActiveTablesValue.TabIndex = 4;
-            this.lblActiveTablesValue.Text = "0";
-            // 
-            // lblTotalRevenueLabel
-            // 
-            this.lblTotalRevenueLabel.AutoSize = true;
-            this.lblTotalRevenueLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblTotalRevenueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotalRevenueLabel.Location = new System.Drawing.Point(280, 75);
-            this.lblTotalRevenueLabel.Name = "lblTotalRevenueLabel";
-            this.lblTotalRevenueLabel.Size = new System.Drawing.Size(94, 19);
-            this.lblTotalRevenueLabel.TabIndex = 3;
-            this.lblTotalRevenueLabel.Text = "Total Revenue";
-            // 
-            // lblTotalRevenueValue
-            // 
-            this.lblTotalRevenueValue.AutoSize = true;
-            this.lblTotalRevenueValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTotalRevenueValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            this.lblTotalRevenueValue.Location = new System.Drawing.Point(280, 30);
-            this.lblTotalRevenueValue.Name = "lblTotalRevenueValue";
-            this.lblTotalRevenueValue.Size = new System.Drawing.Size(89, 37);
-            this.lblTotalRevenueValue.TabIndex = 2;
-            this.lblTotalRevenueValue.Text = "₱0.00";
-            // 
-            // lblTotalOrdersLabel
-            // 
-            this.lblTotalOrdersLabel.AutoSize = true;
-            this.lblTotalOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblTotalOrdersLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.lblTotalOrdersLabel.Location = new System.Drawing.Point(30, 75);
-            this.lblTotalOrdersLabel.Name = "lblTotalOrdersLabel";
-            this.lblTotalOrdersLabel.Size = new System.Drawing.Size(84, 19);
-            this.lblTotalOrdersLabel.TabIndex = 1;
-            this.lblTotalOrdersLabel.Text = "Total Orders";
-            // 
-            // lblTotalOrdersValue
-            // 
-            this.lblTotalOrdersValue.AutoSize = true;
-            this.lblTotalOrdersValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblTotalOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
-            this.lblTotalOrdersValue.Location = new System.Drawing.Point(30, 20);
-            this.lblTotalOrdersValue.Name = "lblTotalOrdersValue";
-            this.lblTotalOrdersValue.Size = new System.Drawing.Size(44, 51);
-            this.lblTotalOrdersValue.TabIndex = 0;
-            this.lblTotalOrdersValue.Text = "0";
             // 
             // statusStrip1
             // 
-            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(35)))), ((int)(((byte)(126)))));
+            this.statusStrip1.BackColor = System.Drawing.Color.Maroon;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 674);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1200, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1130, 22);
             this.statusStrip1.TabIndex = 3;
             // 
             // toolStripStatusLabel
@@ -418,12 +252,201 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Ready";
             // 
+            // lblTotalOrdersValue
+            // 
+            this.lblTotalOrdersValue.AutoSize = true;
+            this.lblTotalOrdersValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalOrdersValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.lblTotalOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.lblTotalOrdersValue.Location = new System.Drawing.Point(130, 15);
+            this.lblTotalOrdersValue.Name = "lblTotalOrdersValue";
+            this.lblTotalOrdersValue.Size = new System.Drawing.Size(44, 51);
+            this.lblTotalOrdersValue.TabIndex = 0;
+            this.lblTotalOrdersValue.Text = "0";
+            // 
+            // lblTotalOrdersLabel
+            // 
+            this.lblTotalOrdersLabel.AutoSize = true;
+            this.lblTotalOrdersLabel.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblTotalOrdersLabel.ForeColor = System.Drawing.Color.White;
+            this.lblTotalOrdersLabel.Location = new System.Drawing.Point(119, 79);
+            this.lblTotalOrdersLabel.Name = "lblTotalOrdersLabel";
+            this.lblTotalOrdersLabel.Size = new System.Drawing.Size(84, 19);
+            this.lblTotalOrdersLabel.TabIndex = 1;
+            this.lblTotalOrdersLabel.Text = "Total Orders";
+            // 
+            // lblTotalRevenueValue
+            // 
+            this.lblTotalRevenueValue.AutoSize = true;
+            this.lblTotalRevenueValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalRevenueValue.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalRevenueValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.lblTotalRevenueValue.Location = new System.Drawing.Point(323, 16);
+            this.lblTotalRevenueValue.Name = "lblTotalRevenueValue";
+            this.lblTotalRevenueValue.Size = new System.Drawing.Size(119, 50);
+            this.lblTotalRevenueValue.TabIndex = 2;
+            this.lblTotalRevenueValue.Text = "₱0.00";
+            // 
+            // lblTotalRevenueLabel
+            // 
+            this.lblTotalRevenueLabel.AutoSize = true;
+            this.lblTotalRevenueLabel.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalRevenueLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblTotalRevenueLabel.ForeColor = System.Drawing.Color.White;
+            this.lblTotalRevenueLabel.Location = new System.Drawing.Point(328, 79);
+            this.lblTotalRevenueLabel.Name = "lblTotalRevenueLabel";
+            this.lblTotalRevenueLabel.Size = new System.Drawing.Size(94, 19);
+            this.lblTotalRevenueLabel.TabIndex = 3;
+            this.lblTotalRevenueLabel.Text = "Total Revenue";
+            // 
+            // lblActiveTablesValue
+            // 
+            this.lblActiveTablesValue.AutoSize = true;
+            this.lblActiveTablesValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblActiveTablesValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.lblActiveTablesValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(162)))), ((int)(((byte)(184)))));
+            this.lblActiveTablesValue.Location = new System.Drawing.Point(552, 15);
+            this.lblActiveTablesValue.Name = "lblActiveTablesValue";
+            this.lblActiveTablesValue.Size = new System.Drawing.Size(44, 51);
+            this.lblActiveTablesValue.TabIndex = 4;
+            this.lblActiveTablesValue.Text = "0";
+            // 
+            // lblActiveTablesLabel
+            // 
+            this.lblActiveTablesLabel.AutoSize = true;
+            this.lblActiveTablesLabel.BackColor = System.Drawing.Color.Transparent;
+            this.lblActiveTablesLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblActiveTablesLabel.ForeColor = System.Drawing.Color.White;
+            this.lblActiveTablesLabel.Location = new System.Drawing.Point(543, 79);
+            this.lblActiveTablesLabel.Name = "lblActiveTablesLabel";
+            this.lblActiveTablesLabel.Size = new System.Drawing.Size(86, 19);
+            this.lblActiveTablesLabel.TabIndex = 5;
+            this.lblActiveTablesLabel.Text = "Active Tables";
+            // 
+            // lblPendingOrdersValue
+            // 
+            this.lblPendingOrdersValue.AutoSize = true;
+            this.lblPendingOrdersValue.BackColor = System.Drawing.Color.Transparent;
+            this.lblPendingOrdersValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            this.lblPendingOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.lblPendingOrdersValue.Location = new System.Drawing.Point(735, 15);
+            this.lblPendingOrdersValue.Name = "lblPendingOrdersValue";
+            this.lblPendingOrdersValue.Size = new System.Drawing.Size(44, 51);
+            this.lblPendingOrdersValue.TabIndex = 6;
+            this.lblPendingOrdersValue.Text = "0";
+            // 
+            // lblPendingOrdersLabel
+            // 
+            this.lblPendingOrdersLabel.AutoSize = true;
+            this.lblPendingOrdersLabel.BackColor = System.Drawing.Color.Transparent;
+            this.lblPendingOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblPendingOrdersLabel.ForeColor = System.Drawing.Color.White;
+            this.lblPendingOrdersLabel.Location = new System.Drawing.Point(729, 79);
+            this.lblPendingOrdersLabel.Name = "lblPendingOrdersLabel";
+            this.lblPendingOrdersLabel.Size = new System.Drawing.Size(104, 19);
+            this.lblPendingOrdersLabel.TabIndex = 7;
+            this.lblPendingOrdersLabel.Text = "Pending Orders";
+            // 
+            // pnlDashboard
+            // 
+            this.pnlDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.pnlDashboard.BackgroundImage = global::Restaurant_Ordering_and_Management_System.Properties.Resources.home;
+            this.pnlDashboard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlDashboard.Controls.Add(this.lblPendingOrdersLabel);
+            this.pnlDashboard.Controls.Add(this.lblActiveTablesLabel);
+            this.pnlDashboard.Controls.Add(this.lblPendingOrdersValue);
+            this.pnlDashboard.Controls.Add(this.lblTotalRevenueLabel);
+            this.pnlDashboard.Controls.Add(this.lblActiveTablesValue);
+            this.pnlDashboard.Controls.Add(this.lblTotalOrdersLabel);
+            this.pnlDashboard.Controls.Add(this.lblTotalRevenueValue);
+            this.pnlDashboard.Controls.Add(this.lblTableStatus);
+            this.pnlDashboard.Controls.Add(this.lblTotalOrdersValue);
+            this.pnlDashboard.Controls.Add(this.dgvTableStatus);
+            this.pnlDashboard.Controls.Add(this.lblRecentOrders);
+            this.pnlDashboard.Controls.Add(this.dgvRecentOrders);
+            this.pnlDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDashboard.Location = new System.Drawing.Point(0, 0);
+            this.pnlDashboard.Name = "pnlDashboard";
+            this.pnlDashboard.Padding = new System.Windows.Forms.Padding(15);
+            this.pnlDashboard.Size = new System.Drawing.Size(930, 594);
+            this.pnlDashboard.TabIndex = 1;
+            // 
+            // lblTableStatus
+            // 
+            this.lblTableStatus.AutoSize = true;
+            this.lblTableStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lblTableStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTableStatus.ForeColor = System.Drawing.Color.Transparent;
+            this.lblTableStatus.Location = new System.Drawing.Point(18, 105);
+            this.lblTableStatus.Name = "lblTableStatus";
+            this.lblTableStatus.Size = new System.Drawing.Size(129, 21);
+            this.lblTableStatus.TabIndex = 0;
+            this.lblTableStatus.Text = "🪑 Table Status";
+            // 
+            // dgvTableStatus
+            // 
+            this.dgvTableStatus.AllowUserToAddRows = false;
+            this.dgvTableStatus.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightGray;
+            this.dgvTableStatus.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvTableStatus.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTableStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvTableStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTableStatus.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvTableStatus.Location = new System.Drawing.Point(18, 130);
+            this.dgvTableStatus.Name = "dgvTableStatus";
+            this.dgvTableStatus.ReadOnly = true;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTableStatus.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvTableStatus.Size = new System.Drawing.Size(895, 180);
+            this.dgvTableStatus.TabIndex = 1;
+            // 
+            // lblRecentOrders
+            // 
+            this.lblRecentOrders.AutoSize = true;
+            this.lblRecentOrders.BackColor = System.Drawing.Color.Transparent;
+            this.lblRecentOrders.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblRecentOrders.ForeColor = System.Drawing.Color.White;
+            this.lblRecentOrders.Location = new System.Drawing.Point(19, 348);
+            this.lblRecentOrders.Name = "lblRecentOrders";
+            this.lblRecentOrders.Size = new System.Drawing.Size(143, 21);
+            this.lblRecentOrders.TabIndex = 2;
+            this.lblRecentOrders.Text = "📝 Recent Orders";
+            // 
+            // dgvRecentOrders
+            // 
+            this.dgvRecentOrders.AllowUserToAddRows = false;
+            this.dgvRecentOrders.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightGray;
+            this.dgvRecentOrders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvRecentOrders.BackgroundColor = System.Drawing.Color.White;
+            this.dgvRecentOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRecentOrders.Location = new System.Drawing.Point(19, 373);
+            this.dgvRecentOrders.Name = "dgvRecentOrders";
+            this.dgvRecentOrders.ReadOnly = true;
+            this.dgvRecentOrders.Size = new System.Drawing.Size(895, 190);
+            this.dgvRecentOrders.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
-            this.ClientSize = new System.Drawing.Size(1200, 696);
+            this.ClientSize = new System.Drawing.Size(1130, 696);
             this.Controls.Add(this.pnlMainContent);
             this.Controls.Add(this.pnlSidebar);
             this.Controls.Add(this.pnlHeader);
@@ -437,14 +460,12 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.pnlHeader.PerformLayout();
             this.pnlSidebar.ResumeLayout(false);
             this.pnlMainContent.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.pnlDashboard.ResumeLayout(false);
             this.pnlDashboard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).EndInit();
-            this.pnlQuickStats.ResumeLayout(false);
-            this.pnlQuickStats.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,15 +484,6 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel pnlMainContent;
-        private System.Windows.Forms.Panel pnlQuickStats;
-        private System.Windows.Forms.Label lblTotalOrdersValue;
-        private System.Windows.Forms.Label lblTotalOrdersLabel;
-        private System.Windows.Forms.Label lblTotalRevenueValue;
-        private System.Windows.Forms.Label lblTotalRevenueLabel;
-        private System.Windows.Forms.Label lblActiveTablesValue;
-        private System.Windows.Forms.Label lblActiveTablesLabel;
-        private System.Windows.Forms.Label lblPendingOrdersValue;
-        private System.Windows.Forms.Label lblPendingOrdersLabel;
         private System.Windows.Forms.Panel pnlDashboard;
         private System.Windows.Forms.DataGridView dgvRecentOrders;
         private System.Windows.Forms.DataGridView dgvTableStatus;
@@ -479,5 +491,13 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private System.Windows.Forms.Label lblTableStatus;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.Label lblPendingOrdersLabel;
+        private System.Windows.Forms.Label lblPendingOrdersValue;
+        private System.Windows.Forms.Label lblActiveTablesLabel;
+        private System.Windows.Forms.Label lblActiveTablesValue;
+        private System.Windows.Forms.Label lblTotalRevenueLabel;
+        private System.Windows.Forms.Label lblTotalRevenueValue;
+        private System.Windows.Forms.Label lblTotalOrdersLabel;
+        private System.Windows.Forms.Label lblTotalOrdersValue;
     }
 }
