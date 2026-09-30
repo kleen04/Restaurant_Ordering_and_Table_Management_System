@@ -1,46 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Restaurant_Ordering_and_Management_System.DBContext;
 using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Interfaces;
 using Restaurant_Ordering_and_Management_System.Models;
-using Restaurant_Ordering_and_Management_System.Service;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class FormTables : Form
     {
-        private TableService _tableService;
+        private static readonly string[] StatusChoices = { "Available", "Occupied", "Reserved" };
 
-        public FormTables()
+        private readonly ITableService _tableService;
+
+        public FormTables(ITableService tableService)
         {
+            _tableService = tableService ?? throw new ArgumentNullException(nameof(tableService));
             InitializeComponent();
         }
 
         private void FormTables_Load(object sender, EventArgs e)
         {
-            try
-            {
-                // Initialize services
-                DatabaseConnection dbConnection = new DatabaseConnection();
-                DbHelper dbHelper = new DbHelper(dbConnection);
-                _tableService = new TableService(dbHelper);
-
-                InitializeTableData();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading table data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Attached once here (not on every refresh) so it runs once per cell.
+            dgvTables.CellFormatting += DgvTables_CellFormatting;
+            LoadTables();
         }
 
-        private void InitializeTableData()
+        private void LoadTables()
         {
             dgvTables.Columns.Clear();
             dgvTables.Columns.Add("TableId", "Table #");
@@ -50,26 +37,17 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
             try
             {
-                // Load real data from database
-                List<RestaurantTable> tables = _tableService.GetAllTables();
-
-                foreach (RestaurantTable table in tables)
+                foreach (RestaurantTable table in _tableService.GetAllTables())
                 {
-                    dgvTables.Rows.Add(
-                        table.TableId,
-                        table.Capacity,
-                        table.Status.ToString(),
-                        table.CurrentGuests
-                    );
+                    dgvTables.Rows.Add(table.TableId, table.Capacity, table.Status.ToString(), table.CurrentGuests);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error populating tables grid: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageHelper.ShowError("Error populating tables grid: " + ex.Message, "Database Error");
             }
 
             dgvTables.AutoResizeColumns();
-            dgvTables.CellFormatting += DgvTables_CellFormatting;
         }
 
         private void DgvTables_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -82,77 +60,196 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             switch (e.Value.ToString())
             {
                 case "Available":
-                    e.CellStyle.ForeColor = System.Drawing.Color.FromArgb(30, 132, 73);
-                    e.CellStyle.Font = new System.Drawing.Font(dgvTables.Font, System.Drawing.FontStyle.Bold);
+                    e.CellStyle.ForeColor = Color.FromArgb(30, 132, 73);
+                    e.CellStyle.Font = new Font(dgvTables.Font, FontStyle.Bold);
                     break;
                 case "Occupied":
-                    e.CellStyle.ForeColor = System.Drawing.Color.FromArgb(192, 57, 43);
-                    e.CellStyle.Font = new System.Drawing.Font(dgvTables.Font, System.Drawing.FontStyle.Bold);
+                    e.CellStyle.ForeColor = Color.FromArgb(192, 57, 43);
+                    e.CellStyle.Font = new Font(dgvTables.Font, FontStyle.Bold);
                     break;
                 case "Reserved":
-                    e.CellStyle.ForeColor = System.Drawing.Color.FromArgb(211, 141, 12);
-                    e.CellStyle.Font = new System.Drawing.Font(dgvTables.Font, System.Drawing.FontStyle.Bold);
+                    e.CellStyle.ForeColor = Color.FromArgb(211, 141, 12);
+                    e.CellStyle.Font = new Font(dgvTables.Font, FontStyle.Bold);
                     break;
             }
+        }
+
+        private RestaurantTable GetSelectedTable()
+        {
+            if (dgvTables.SelectedRows.Count == 0)
+            {
+                return null;
+            }
+
+            int tableId = Convert.ToInt32(dgvTables.SelectedRows[0].Cells["TableId"].Value);
+            return _tableService.GetAllTables().Find(t => t.TableId == tableId);
+        }
+
+        // Shared by Add and Edit: shows the dialog and returns the table the user entered (or null).
+        private RestaurantTable PromptForTable(string title, RestaurantTable existing)
+        {
+            List<DialogField> fields = new List<DialogField>
+            {
+                DialogField.Text("Capacity", existing == null ? "" : existing.Capacity.ToString()),
+                DialogField.Choice("Status", existing == null ? "Available" : existing.Status.ToString(), StatusChoices),
+                DialogField.Text("Current Guests", existing == null ? "0" : existing.CurrentGuests.ToString())
+            };
+
+            string[] values = InputDialog.Prompt(this, title, fields, ValidateTableInput);
+            if (values == null)
+            {
+                return null;
+            }
+
+            return new RestaurantTable
+            {
+                TableId = existing == null ? 0 : existing.TableId,
+                Capacity = int.Parse(values[0]),
+                Status = (TableStatus)Enum.Parse(typeof(TableStatus), values[1]),
+                CurrentGuests = int.Parse(values[2])
+            };
+        }
+
+        private static string ValidateTableInput(string[] v)
+        {
+            int capacity;
+            if (!ValidationHelper.IsPositiveInteger(v[0], out capacity))
+            {
+                return "Capacity must be a whole number greater than zero.";
+            }
+
+            int guests;
+            if (!ValidationHelper.IsNonNegativeInteger(v[2], out guests))
+            {
+                return "Current guests must be zero or a positive whole number.";
+            }
+            if (guests > capacity)
+            {
+                return "Current guests cannot be more than the table's capacity.";
+            }
+            if (v[1] == "Available" && guests > 0)
+            {
+                return "An Available table cannot have guests seated. Set guests to 0 or change the status.";
+            }
+
+            return null;
         }
 
         private void BtnAddTable_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Add Table functionality to be implemented", "Add Table", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RestaurantTable table = PromptForTable("Add Table", null);
+            if (table == null)
+            {
+                return;
+            }
+
+            try
+            {
+                _tableService.AddTable(table);
+                LoadTables();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError("Could not add the table: " + ex.Message, "Add Table");
+            }
         }
 
         private void BtnEditTable_Click(object sender, EventArgs e)
         {
-            if (dgvTables.SelectedRows.Count > 0)
+            try
             {
-                MessageBox.Show("Edit Table functionality to be implemented", "Edit Table", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                RestaurantTable existing = GetSelectedTable();
+                if (existing == null)
+                {
+                    MessageHelper.ShowWarning("Please select a table to edit", "Edit Table");
+                    return;
+                }
+
+                RestaurantTable edited = PromptForTable("Edit Table #" + existing.TableId, existing);
+                if (edited == null)
+                {
+                    return;
+                }
+
+                _tableService.UpdateTable(edited);
+                LoadTables();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a table to edit", "Edit Table", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageHelper.ShowError("Could not update the table: " + ex.Message, "Edit Table");
             }
         }
 
         private void BtnUpdateStatus_Click(object sender, EventArgs e)
         {
-            if (dgvTables.SelectedRows.Count > 0)
+            try
             {
-                MessageBox.Show("Update Status functionality to be implemented", "Update Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                RestaurantTable table = GetSelectedTable();
+                if (table == null)
+                {
+                    MessageHelper.ShowWarning("Please select a table to update", "Update Status");
+                    return;
+                }
+
+                List<DialogField> fields = new List<DialogField>
+                {
+                    DialogField.Choice("Status", table.Status.ToString(), StatusChoices),
+                    DialogField.Text("Current Guests", table.CurrentGuests.ToString())
+                };
+
+                string[] values = InputDialog.Prompt(this, "Update Status - Table #" + table.TableId, fields, v =>
+                    ValidateTableInput(new[] { table.Capacity.ToString(), v[0], v[1] }));
+                if (values == null)
+                {
+                    return;
+                }
+
+                _tableService.UpdateTableStatus(table.TableId,
+                    (TableStatus)Enum.Parse(typeof(TableStatus), values[0]), int.Parse(values[1]));
+                LoadTables();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a table to update", "Update Status", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageHelper.ShowError("Could not update the status: " + ex.Message, "Update Status");
             }
         }
 
         private void BtnDeleteTable_Click(object sender, EventArgs e)
         {
-            if (dgvTables.SelectedRows.Count > 0)
+            try
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this table?", "Delete Table", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                RestaurantTable table = GetSelectedTable();
+                if (table == null)
                 {
-                    dgvTables.Rows.RemoveAt(dgvTables.SelectedRows[0].Index);
+                    MessageHelper.ShowWarning("Please select a table to delete", "Delete Table");
+                    return;
                 }
+
+                if (!MessageHelper.Confirm("Are you sure you want to delete Table #" + table.TableId + "?", "Delete Table"))
+                {
+                    return;
+                }
+
+                _tableService.DeleteTable(table.TableId);
+                LoadTables();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a table to delete", "Delete Table", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (DbHelper.IsForeignKeyViolation(ex))
+                {
+                    MessageHelper.ShowWarning("This table has order history and cannot be deleted.", "Delete Table");
+                }
+                else
+                {
+                    MessageHelper.ShowError("Could not delete the table: " + ex.Message, "Delete Table");
+                }
             }
         }
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            try
-            {
-                dgvTables.Rows.Clear();
-                InitializeTableData();
-                MessageBox.Show("Table data refreshed successfully.", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error refreshing table data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            LoadTables();
+            MessageHelper.ShowInfo("Table data refreshed successfully.", "Refresh");
         }
 
         private void btnReturn_Click(object sender, EventArgs e)

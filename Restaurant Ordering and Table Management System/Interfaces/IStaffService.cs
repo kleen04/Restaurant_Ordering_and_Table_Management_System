@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Restaurant_Ordering_and_Management_System.Models;
 
 namespace Restaurant_Ordering_and_Management_System.Interfaces
@@ -9,6 +9,7 @@ namespace Restaurant_Ordering_and_Management_System.Interfaces
         Staff GetStaffById(int staffId);
         void AddStaff(Staff staff);
         void UpdateStaff(Staff staff);
+        void SetStaffActive(int staffId, bool isActive);
         void DeleteStaff(int staffId);
     }
 }

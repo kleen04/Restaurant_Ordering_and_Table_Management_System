@@ -1,19 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Interfaces;
+using Restaurant_Ordering_and_Management_System.Models;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class FormReports : Form
     {
-        public FormReports()
+        private readonly IReportService _reportService;
+
+        // Remembered so Export / Print can name the report that is currently shown.
+        private string _currentReportTitle = "Report";
+
+        public FormReports(IReportService reportService)
         {
+            _reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
             InitializeComponent();
         }
 
@@ -22,95 +25,121 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             dtpFrom.Value = DateTime.Today.AddDays(-7);
             dtpTo.Value = DateTime.Today;
             cmbReportType.SelectedIndex = 0;
-            LoadSalesSummary();
+
+            // The headline figures count Completed orders only.
+            lblTotalOrdersLabel.Text = "Completed Orders";
+
+            GenerateReport();
         }
 
         private void BtnGenerate_Click(object sender, EventArgs e)
         {
-            switch (cmbReportType.SelectedItem?.ToString())
+            GenerateReport();
+        }
+
+        private void GenerateReport()
+        {
+            DateTime from = dtpFrom.Value.Date;
+            DateTime to = dtpTo.Value.Date;
+
+            if (from > to)
             {
-                case "Order History":
-                    LoadOrderHistory();
-                    break;
-                case "Inventory Status":
-                    LoadInventoryStatus();
-                    break;
-                case "Staff Performance":
-                    LoadStaffPerformance();
-                    break;
-                default:
-                    LoadSalesSummary();
-                    break;
+                MessageHelper.ShowWarning("The start date must be on or before the end date.", "Reports");
+                return;
+            }
+
+            string reportType = cmbReportType.SelectedItem == null ? "Sales Summary" : cmbReportType.SelectedItem.ToString();
+            string range = from.ToString("yyyy-MM-dd") + " to " + to.ToString("yyyy-MM-dd");
+
+            try
+            {
+                ShowSummary(_reportService.GetSalesSummary(from, to));
+
+                switch (reportType)
+                {
+                    case "Order History":
+                        ShowReport(_reportService.GetOrderHistory(from, to),
+                            new[] { "Order #", "Table", "Served By", "Order Time", "Status", "Total" },
+                            "OrderTotal");
+                        break;
+
+                    case "Inventory Status":
+                        ShowReport(_reportService.GetInventoryStatus(),
+                            new[] { "Item Name", "Category", "Quantity", "Unit", "Reorder Level", "Status" });
+                        range = "as of " + DateTime.Today.ToString("yyyy-MM-dd");
+                        break;
+
+                    case "Staff Performance":
+                        ShowReport(_reportService.GetStaffPerformance(from, to),
+                            new[] { "Staff Name", "Position", "Orders Handled", "Completed Sales" },
+                            "CompletedSales");
+                        break;
+
+                    default:
+                        reportType = "Sales Summary";
+                        ShowReport(_reportService.GetDailySales(from, to),
+                            new[] { "Date", "Orders", "Revenue" },
+                            "Revenue");
+                        break;
+                }
+
+                _currentReportTitle = reportType + " (" + range + ")";
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError("Could not generate the report: " + ex.Message, "Reports");
             }
         }
 
-        private void LoadSalesSummary()
+        private void ShowSummary(SalesSummary summary)
         {
-            dgvReport.Columns.Clear();
-            dgvReport.Rows.Clear();
-            dgvReport.Columns.Add("Date", "Date");
-            dgvReport.Columns.Add("Orders", "Orders");
-            dgvReport.Columns.Add("Revenue", "Revenue");
-            dgvReport.Rows.Add("2026-09-17", "24", "₱18,450.00");
-            dgvReport.Rows.Add("2026-09-18", "31", "₱22,900.00");
-            dgvReport.Rows.Add("2026-09-19", "28", "₱20,150.00");
-            dgvReport.Rows.Add("2026-09-20", "35", "₱26,700.00");
-            dgvReport.Rows.Add("2026-09-21", "19", "₱14,300.00");
-            dgvReport.AutoResizeColumns();
-
-            lblTotalOrdersValue.Text = "137";
-            lblTotalRevenueValue.Text = "₱102,500.00";
-            lblAvgOrderValue.Text = "₱748.18";
+            lblTotalOrdersValue.Text = summary.TotalOrders.ToString("N0");
+            lblTotalRevenueValue.Text = "₱" + summary.TotalRevenue.ToString("N2");
+            lblAvgOrderValue.Text = "₱" + summary.AverageOrderValue.ToString("N2");
         }
 
-        private void LoadOrderHistory()
+        // Binds a report table to the grid, renames the headers and formats money/dates.
+        private void ShowReport(DataTable data, string[] headers, params string[] currencyColumns)
         {
+            dgvReport.DataSource = null;
             dgvReport.Columns.Clear();
-            dgvReport.Rows.Clear();
-            dgvReport.Columns.Add("OrderId", "Order #");
-            dgvReport.Columns.Add("Table", "Table");
-            dgvReport.Columns.Add("Time", "Time");
-            dgvReport.Columns.Add("Status", "Status");
-            dgvReport.Columns.Add("Total", "Total");
-            dgvReport.Rows.Add("1042", "5", "12:15 PM", "Completed", "₱845.00");
-            dgvReport.Rows.Add("1043", "2", "12:40 PM", "Completed", "₱620.00");
-            dgvReport.Rows.Add("1044", "4", "1:05 PM", "In Progress", "₱1,120.00");
-            dgvReport.AutoResizeColumns();
-        }
+            dgvReport.AutoGenerateColumns = true;
+            dgvReport.DataSource = data;
 
-        private void LoadInventoryStatus()
-        {
-            dgvReport.Columns.Clear();
-            dgvReport.Rows.Clear();
-            dgvReport.Columns.Add("ItemName", "Item Name");
-            dgvReport.Columns.Add("Quantity", "Quantity");
-            dgvReport.Columns.Add("Status", "Status");
-            dgvReport.Rows.Add("Soy Sauce", "8 bottles", "Low Stock");
-            dgvReport.Rows.Add("Salt", "3 kg", "Low Stock");
-            dgvReport.Rows.Add("Rice", "100 kg", "In Stock");
-            dgvReport.AutoResizeColumns();
-        }
+            for (int i = 0; i < headers.Length && i < dgvReport.Columns.Count; i++)
+            {
+                dgvReport.Columns[i].HeaderText = headers[i];
+            }
 
-        private void LoadStaffPerformance()
-        {
-            dgvReport.Columns.Clear();
-            dgvReport.Rows.Clear();
-            dgvReport.Columns.Add("StaffName", "Staff Name");
-            dgvReport.Columns.Add("OrdersHandled", "Orders Handled");
-            dgvReport.Columns.Add("HoursWorked", "Hours Worked");
-            dgvReport.Rows.Add("Juan Dela Cruz", "58", "40");
-            dgvReport.Rows.Add("Pedro Bautista", "44", "32");
+            foreach (string name in currencyColumns)
+            {
+                if (dgvReport.Columns.Contains(name))
+                {
+                    dgvReport.Columns[name].DefaultCellStyle.Format = "₱#,##0.00";
+                }
+            }
+
+            if (dgvReport.Columns.Contains("SaleDate"))
+            {
+                dgvReport.Columns["SaleDate"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            }
+            if (dgvReport.Columns.Contains("OrderTime"))
+            {
+                dgvReport.Columns["OrderTime"].DefaultCellStyle.Format = "yyyy-MM-dd h:mm tt";
+            }
+
             dgvReport.AutoResizeColumns();
         }
 
         private void BtnExport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Export to CSV functionality to be implemented", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string fileName = _currentReportTitle.Replace(" ", "_").Replace("(", "").Replace(")", "").Replace(":", "") + ".csv";
+            ReportExporter.ExportToCsv(dgvReport, fileName);
         }
 
         private void BtnPrint_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Print functionality to be implemented", "Print", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ReportExporter.Print(dgvReport, _currentReportTitle);
         }
 
         private void btnReturn_Click(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
@@ -12,9 +12,7 @@ namespace Restaurant_Ordering_and_Management_System.Service
     // OWNER: Staff module member — backs FormStaff.
     // Stored procedures live in Database/stored_procedures.sql
     // (sp_Staff_GetAll, sp_Staff_GetById, sp_Staff_Insert,
-    //  sp_Staff_Update, sp_Staff_Delete).
-    // GetAllStaff() below is a finished example — copy its shape
-    // for the other four methods.
+    //  sp_Staff_Update, sp_Staff_SetActive, sp_Staff_Delete).
     // ============================================================
     public class StaffService : IStaffService
     {
@@ -40,32 +38,45 @@ namespace Restaurant_Ordering_and_Management_System.Service
 
         public Staff GetStaffById(int staffId)
         {
-            // TODO(Staff owner): call sp_Staff_GetById with @StaffId,
-            // then return MapRowToStaff(table.Rows[0]) (or null if no rows).
-            throw new NotImplementedException();
+            DataTable table = _dbHelper.ExecuteQuery("sp_Staff_GetById",
+                new MySqlParameter("@p_StaffId", staffId));
+
+            return table.Rows.Count > 0 ? MapRowToStaff(table.Rows[0]) : null;
         }
 
         public void AddStaff(Staff staff)
         {
-            // TODO(Staff owner): call sp_Staff_Insert with
-            // @FullName, @Position, @ContactNumber, @DateHired via
-            // _dbHelper.ExecuteNonQuery(...).
-            throw new NotImplementedException();
+            _dbHelper.ExecuteNonQuery("sp_Staff_Insert",
+                new MySqlParameter("@p_FullName", staff.FullName),
+                new MySqlParameter("@p_Position", staff.Position),
+                new MySqlParameter("@p_ContactNumber", staff.ContactNumber),
+                new MySqlParameter("@p_DateHired", staff.DateHired));
         }
 
         public void UpdateStaff(Staff staff)
         {
-            // TODO(Staff owner): call sp_Staff_Update with @StaffId plus
-            // the same fields as AddStaff.
-            throw new NotImplementedException();
+            _dbHelper.ExecuteNonQuery("sp_Staff_Update",
+                new MySqlParameter("@p_StaffId", staff.StaffId),
+                new MySqlParameter("@p_FullName", staff.FullName),
+                new MySqlParameter("@p_Position", staff.Position),
+                new MySqlParameter("@p_ContactNumber", staff.ContactNumber),
+                new MySqlParameter("@p_DateHired", staff.DateHired));
+        }
+
+        public void SetStaffActive(int staffId, bool isActive)
+        {
+            // Deactivating keeps past orders pointing at a valid staff record.
+            _dbHelper.ExecuteNonQuery("sp_Staff_SetActive",
+                new MySqlParameter("@p_StaffId", staffId),
+                new MySqlParameter("@p_IsActive", isActive ? 1 : 0));
         }
 
         public void DeleteStaff(int staffId)
         {
-            // TODO(Staff owner): call sp_Staff_Delete with @StaffId.
-            // Prefer a soft delete (IsActive = 0) over a hard DELETE so
-            // past orders still show who served them.
-            throw new NotImplementedException();
+            // Hard delete. MySQL refuses (FK error 1451) when the staff member has
+            // served orders; callers should then offer to deactivate instead.
+            _dbHelper.ExecuteNonQuery("sp_Staff_Delete",
+                new MySqlParameter("@p_StaffId", staffId));
         }
 
         private static Staff MapRowToStaff(DataRow row)

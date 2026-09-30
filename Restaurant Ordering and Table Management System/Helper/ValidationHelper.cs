@@ -1,4 +1,4 @@
-namespace Restaurant_Ordering_and_Management_System.Helper
+﻿namespace Restaurant_Ordering_and_Management_System.Helper
 {
     
     public static class ValidationHelper
@@ -11,6 +11,11 @@ namespace Restaurant_Ordering_and_Management_System.Helper
         public static bool IsPositiveInteger(string value, out int result)
         {
             return int.TryParse(value, out result) && result > 0;
+        }
+
+        public static bool IsNonNegativeInteger(string value, out int result)
+        {
+            return int.TryParse(value, out result) && result >= 0;
         }
 
         public static bool IsNonNegativeDecimal(string value, out decimal result)

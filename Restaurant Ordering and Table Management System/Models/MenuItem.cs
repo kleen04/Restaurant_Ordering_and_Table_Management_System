@@ -1,4 +1,4 @@
-namespace Restaurant_Ordering_and_Management_System.Models
+﻿namespace Restaurant_Ordering_and_Management_System.Models
 {
     public class MenuItem
     {

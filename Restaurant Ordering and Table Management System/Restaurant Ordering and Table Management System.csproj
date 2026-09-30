@@ -144,12 +144,15 @@
     <Compile Include="Forms\InventoryForm.Designer.cs">
       <DependentUpon>InventoryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IMenuService.cs" />
+    <Compile Include="Forms\InputDialog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBContext\DatabaseConnection.cs" />
     <Compile Include="Helper\DbHelper.cs" />
     <Compile Include="Helper\MessageHelper.cs" />
     <Compile Include="Helper\ValidationHelper.cs" />
+    <Compile Include="Helper\ReportExporter.cs" />
     <Compile Include="Interfaces\IStaffService.cs" />
     <Compile Include="Interfaces\ITableService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
@@ -161,11 +164,14 @@
     <Compile Include="Models\InventoryItem.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
+    <Compile Include="Models\SalesSummary.cs" />
+    <Compile Include="Service\MenuService.cs" />
     <Compile Include="Service\StaffService.cs" />
     <Compile Include="Service\TableService.cs" />
     <Compile Include="Service\OrderService.cs" />
     <Compile Include="Service\InventoryService.cs" />
     <Compile Include="Service\ReportService.cs" />
+    <Compile Include="Service\AppServices.cs" />
     <Compile Include="Forms\TransparentDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -240,6 +246,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\signupImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\sample_data.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

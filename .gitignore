@@ -85,6 +85,8 @@ coveragereport/
 artifacts/
 dist/
 publish/
+bin/
+obj/
 
 # App Insights
 ApplicationInsights.config

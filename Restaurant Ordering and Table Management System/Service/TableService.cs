@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
@@ -11,9 +11,8 @@ namespace Restaurant_Ordering_and_Management_System.Service
     // ============================================================
     // OWNER: Table module member — backs FormTables and the
     // dashboard's dgvTableStatus grid on Form1.
-    // Stored procedures: sp_Table_GetAll, sp_Table_UpdateStatus
-    // (see Database/stored_procedures.sql).
-    // GetAllTables() below is a finished example.
+    // Stored procedures: sp_Table_GetAll, sp_Table_Insert, sp_Table_Update,
+    // sp_Table_UpdateStatus, sp_Table_Delete (see Database/stored_procedures.sql).
     // ============================================================
     public class TableService : ITableService
     {
@@ -43,13 +42,35 @@ namespace Restaurant_Ordering_and_Management_System.Service
             return tables;
         }
 
+        public void AddTable(RestaurantTable table)
+        {
+            _dbHelper.ExecuteNonQuery("sp_Table_Insert",
+                new MySqlParameter("@p_Capacity", table.Capacity),
+                new MySqlParameter("@p_Status", table.Status.ToString()),
+                new MySqlParameter("@p_CurrentGuests", table.CurrentGuests));
+        }
+
+        public void UpdateTable(RestaurantTable table)
+        {
+            _dbHelper.ExecuteNonQuery("sp_Table_Update",
+                new MySqlParameter("@p_TableId", table.TableId),
+                new MySqlParameter("@p_Capacity", table.Capacity),
+                new MySqlParameter("@p_Status", table.Status.ToString()),
+                new MySqlParameter("@p_CurrentGuests", table.CurrentGuests));
+        }
+
+        public void DeleteTable(int tableId)
+        {
+            _dbHelper.ExecuteNonQuery("sp_Table_Delete",
+                new MySqlParameter("@p_TableId", tableId));
+        }
+
         public void UpdateTableStatus(int tableId, TableStatus status, int currentGuests)
         {
-            // TODO(Table owner): call sp_Table_UpdateStatus with
-            // @TableId, @Status, @CurrentGuests via _dbHelper.ExecuteNonQuery(...).
-            // Call this whenever FormAddOrder seats a table or FormTables
-            // marks one free again, so the dashboard grid stays accurate.
-            throw new NotImplementedException();
+            _dbHelper.ExecuteNonQuery("sp_Table_UpdateStatus",
+                new MySqlParameter("@p_TableId", tableId),
+                new MySqlParameter("@p_Status", status.ToString()),
+                new MySqlParameter("@p_CurrentGuests", currentGuests));
         }
     }
 }

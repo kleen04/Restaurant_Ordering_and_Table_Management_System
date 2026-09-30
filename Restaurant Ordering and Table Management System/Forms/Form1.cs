@@ -1,55 +1,57 @@
-using Restaurant_Ordering_and_Management_System.DBContext;
-using Restaurant_Ordering_and_Management_System.Helper;
+﻿using Restaurant_Ordering_and_Management_System.Helper;
+using Restaurant_Ordering_and_Management_System.Interfaces;
 using Restaurant_Ordering_and_Management_System.Models;
 using Restaurant_Ordering_and_Management_System.Service;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class Form1 : Form
     {
-        private TableService _tableService;
-        private OrderService _orderService;
+        private readonly AppServices _services;
+        private readonly ITableService _tableService;
+        private readonly IOrderService _orderService;
 
-        public Form1()
+        private ToolStripMenuItem _markInProgressItem;
+        private ToolStripMenuItem _markCompletedItem;
+        private ToolStripMenuItem _cancelOrderItem;
+
+        public Form1(AppServices services)
         {
+            _services = services ?? throw new ArgumentNullException(nameof(services));
+            _tableService = services.Tables;
+            _orderService = services.Orders;
+
             InitializeComponent();
+            BuildOrderStatusMenu();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        UpdateDateTime();
+            UpdateDateTime();
             System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
             timer.Interval = 1000;
             timer.Tick += (s, ev) => UpdateDateTime();
             timer.Start();
 
-            try
-            {
-                // Initialize services
-                DatabaseConnection dbConnection = new DatabaseConnection();
-                DbHelper dbHelper = new DbHelper(dbConnection);
-                _tableService = new TableService(dbHelper);
-                _orderService = new OrderService(dbHelper);
-
-                InitializeSampleData();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading dashboard data: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            toolStripStatusLabel.Text = "Tip: right-click an order under Recent Orders to update its status.";
+            LoadDashboard();
         }
 
-        private void InitializeSampleData()
+        // ---------------------------------------------------------------
+        // Dashboard data (live from the database)
+        // ---------------------------------------------------------------
+        private void LoadDashboard()
         {
+            dgvTableStatus.Columns.Clear();
             dgvTableStatus.Columns.Add("TableID", "Table ID");
             dgvTableStatus.Columns.Add("Status", "Status");
             dgvTableStatus.Columns.Add("Guests", "Guests");
             dgvTableStatus.Columns.Add("Order", "Current Order");
 
+            dgvRecentOrders.Columns.Clear();
             dgvRecentOrders.Columns.Add("OrderID", "Order ID");
             dgvRecentOrders.Columns.Add("Table", "Table");
             dgvRecentOrders.Columns.Add("OrderTime", "Order Time");
@@ -58,45 +60,53 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
             try
             {
-                // Load real table data
                 List<RestaurantTable> tables = _tableService.GetAllTables();
+                List<Order> orders = _orderService.GetRecentOrders(50);
+
                 foreach (RestaurantTable table in tables)
                 {
-                    dgvTableStatus.Rows.Add(
-                        table.TableId,
-                        table.Status.ToString(),
-                        table.CurrentGuests,
-                        table.Status == TableStatus.Occupied ? $"Order #{table.TableId * 100}" : "None"
-                    );
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading table status: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                    Order openOrder = orders.Find(o => o.TableId == table.TableId && IsOpen(o.Status));
+                    string currentOrder = table.Status == TableStatus.Occupied && openOrder != null
+                        ? "Order #" + openOrder.OrderId
+                        : "None";
 
-            try
-            {
-                // Load real recent order data (last 5 orders)
-                List<Order> orders = _orderService.GetRecentOrders(5);
+                    dgvTableStatus.Rows.Add(table.TableId, table.Status.ToString(), table.CurrentGuests, currentOrder);
+                }
+
+                int shown = 0;
                 foreach (Order order in orders)
                 {
-                    dgvRecentOrders.Rows.Add(
+                    if (shown++ >= 5)
+                    {
+                        break;
+                    }
+
+                    int rowIndex = dgvRecentOrders.Rows.Add(
                         order.OrderId,
                         order.TableId,
                         order.OrderTime.ToString("h:mm tt"),
-                        order.Status.ToString(),
-                        $"₱0.00" // TODO: Calculate total from OrderItems
-                    );
+                        StatusText(order.Status),
+                        "₱" + order.Total.ToString("N2"));
+                    dgvRecentOrders.Rows[rowIndex].Tag = order;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading recent orders: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageHelper.ShowError("Error loading dashboard data: " + ex.Message, "Database Error");
             }
 
             dgvTableStatus.AutoResizeColumns();
             dgvRecentOrders.AutoResizeColumns();
+        }
+
+        private static bool IsOpen(OrderStatus status)
+        {
+            return status == OrderStatus.Pending || status == OrderStatus.InProgress;
+        }
+
+        private static string StatusText(OrderStatus status)
+        {
+            return status == OrderStatus.InProgress ? "In Progress" : status.ToString();
         }
 
         private void UpdateDateTime()
@@ -104,64 +114,149 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             lblCurrentTime.Text = $"📅 Date and Time: {DateTime.Now:MM/dd/yyyy HH:mm:ss}";
         }
 
+        // ---------------------------------------------------------------
+        // Order status: Pending -> In Progress -> Completed / Cancelled
+        // (right-click an order in the Recent Orders grid)
+        // ---------------------------------------------------------------
+        private void BuildOrderStatusMenu()
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
+
+            _markInProgressItem = new ToolStripMenuItem("Mark as In Progress");
+            _markCompletedItem = new ToolStripMenuItem("Mark as Completed");
+            _cancelOrderItem = new ToolStripMenuItem("Cancel Order");
+
+            _markInProgressItem.Click += (s, e) => ChangeSelectedOrderStatus(OrderStatus.InProgress);
+            _markCompletedItem.Click += (s, e) => ChangeSelectedOrderStatus(OrderStatus.Completed);
+            _cancelOrderItem.Click += (s, e) => ChangeSelectedOrderStatus(OrderStatus.Cancelled);
+
+            menu.Items.AddRange(new ToolStripItem[] { _markInProgressItem, _markCompletedItem, _cancelOrderItem });
+            menu.Opening += OrderMenu_Opening;
+
+            dgvRecentOrders.ContextMenuStrip = menu;
+            dgvRecentOrders.CellMouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
+                {
+                    dgvRecentOrders.ClearSelection();
+                    dgvRecentOrders.Rows[e.RowIndex].Selected = true;
+                }
+            };
+        }
+
+        private Order GetSelectedOrder()
+        {
+            if (dgvRecentOrders.SelectedRows.Count == 0)
+            {
+                return null;
+            }
+            return dgvRecentOrders.SelectedRows[0].Tag as Order;
+        }
+
+        private void OrderMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Order order = GetSelectedOrder();
+            if (order == null || !IsOpen(order.Status))
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            _markInProgressItem.Enabled = order.Status == OrderStatus.Pending;
+            _markCompletedItem.Enabled = true;
+            _cancelOrderItem.Enabled = true;
+        }
+
+        private void ChangeSelectedOrderStatus(OrderStatus newStatus)
+        {
+            Order order = GetSelectedOrder();
+            if (order == null)
+            {
+                return;
+            }
+
+            if (newStatus == OrderStatus.Cancelled &&
+                !MessageHelper.Confirm("Cancel order #" + order.OrderId + "? This cannot be undone.", "Cancel Order"))
+            {
+                return;
+            }
+
+            try
+            {
+                _orderService.UpdateOrderStatus(order.OrderId, newStatus);
+                LoadDashboard();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError("Could not update the order: " + ex.Message, "Order Status");
+            }
+        }
+
+        // ---------------------------------------------------------------
+        // Navigation: each child form gets only the services it needs
+        // ---------------------------------------------------------------
         private void BtnNewOrder_Click(object sender, EventArgs e)
         {
-            FormAddOrder formAddOrder = new FormAddOrder();
-            formAddOrder.ShowDialog();
+            using (FormAddOrder form = new FormAddOrder(_services.Menu, _services.Tables, _services.Staff, _services.Orders))
+            {
+                form.ShowDialog();
+            }
 
             this.Show();
+            LoadDashboard();
         }
 
         private void BtnInventory_Click(object sender, EventArgs e)
         {
             this.Hide();
-
-            InventoryForm formInventory = new InventoryForm();
-            formInventory.ShowDialog();
-
+            using (InventoryForm form = new InventoryForm(_services.Inventory))
+            {
+                form.ShowDialog();
+            }
             this.Show();
         }
 
         private void BtnStaff_Click(object sender, EventArgs e)
         {
             this.Hide();
-
-            FormStaff formStaff = new FormStaff();
-            formStaff.ShowDialog();
-
+            using (FormStaff form = new FormStaff(_services.Staff))
+            {
+                form.ShowDialog();
+            }
             this.Show();
+            LoadDashboard();
         }
 
         private void BtnReports_Click(object sender, EventArgs e)
         {
             this.Hide();
-
-            FormReports formReports = new FormReports();
-            formReports.ShowDialog();
-
+            using (FormReports form = new FormReports(_services.Reports))
+            {
+                form.ShowDialog();
+            }
             this.Show();
         }
 
         private void BtnTableManagement_Click(object sender, EventArgs e)
         {
             this.Hide();
-
-            FormTables formTables = new FormTables();
-            formTables.ShowDialog();
-
+            using (FormTables form = new FormTables(_services.Tables))
+            {
+                form.ShowDialog();
+            }
             this.Show();
+            LoadDashboard();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Opening Settings Form...", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            toolStripStatusLabel.Text = "Settings Form opened";
+            MessageHelper.ShowInfo("Settings are not available yet.", "Settings");
+            toolStripStatusLabel.Text = "Settings is planned for a later phase";
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (MessageHelper.Confirm("Are you sure you want to logout?", "Logout"))
             {
                 Application.Exit();
             }

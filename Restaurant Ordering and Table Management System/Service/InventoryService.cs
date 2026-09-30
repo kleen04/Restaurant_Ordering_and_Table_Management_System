@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
@@ -14,7 +14,6 @@ namespace Restaurant_Ordering_and_Management_System.Service
     // Stored procedures: sp_Inventory_GetAll, sp_Inventory_Insert,
     // sp_Inventory_Update, sp_Inventory_Delete
     // (see Database/stored_procedures.sql).
-    // GetAllItems() below is a finished example.
     // ============================================================
     public class InventoryService : IInventoryService
     {
@@ -32,16 +31,7 @@ namespace Restaurant_Ordering_and_Management_System.Service
 
             foreach (DataRow row in table.Rows)
             {
-                items.Add(new InventoryItem
-                {
-                    ItemId = Convert.ToInt32(row["ItemID"]),
-                    ItemName = row["ItemName"].ToString(),
-                    Category = row["Category"].ToString(),
-                    Quantity = Convert.ToDecimal(row["Quantity"]),
-                    Unit = row["Unit"].ToString(),
-                    ReorderLevel = Convert.ToDecimal(row["ReorderLevel"]),
-                    UnitCost = Convert.ToDecimal(row["UnitCost"])
-                });
+                items.Add(MapRowToItem(row));
             }
 
             return items;
@@ -49,27 +39,45 @@ namespace Restaurant_Ordering_and_Management_System.Service
 
         public void AddItem(InventoryItem item)
         {
-            // TODO(Inventory owner): call sp_Inventory_Insert with
-            // @ItemName, @Category, @Quantity, @Unit, @ReorderLevel, @UnitCost.
-            // This replaces InventoryForm's current placeholder MessageBox
-            // in BtnAddItem_Click.
-            throw new NotImplementedException();
+            _dbHelper.ExecuteNonQuery("sp_Inventory_Insert",
+                new MySqlParameter("@p_ItemName", item.ItemName),
+                new MySqlParameter("@p_Category", item.Category),
+                new MySqlParameter("@p_Quantity", item.Quantity),
+                new MySqlParameter("@p_Unit", item.Unit),
+                new MySqlParameter("@p_ReorderLevel", item.ReorderLevel),
+                new MySqlParameter("@p_UnitCost", item.UnitCost));
         }
 
         public void UpdateItem(InventoryItem item)
         {
-            // TODO(Inventory owner): call sp_Inventory_Update with @ItemId plus
-            // the same fields as AddItem. Replaces BtnEditItem_Click's placeholder.
-            throw new NotImplementedException();
+            _dbHelper.ExecuteNonQuery("sp_Inventory_Update",
+                new MySqlParameter("@p_ItemId", item.ItemId),
+                new MySqlParameter("@p_ItemName", item.ItemName),
+                new MySqlParameter("@p_Category", item.Category),
+                new MySqlParameter("@p_Quantity", item.Quantity),
+                new MySqlParameter("@p_Unit", item.Unit),
+                new MySqlParameter("@p_ReorderLevel", item.ReorderLevel),
+                new MySqlParameter("@p_UnitCost", item.UnitCost));
         }
 
         public void DeleteItem(int itemId)
         {
-            // TODO(Inventory owner): call sp_Inventory_Delete with @ItemId.
-            // Replaces the direct dgvInventory.Rows.RemoveAt(...) call in
-            // BtnDeleteItem_Click — the grid should refresh from the database
-            // afterward, not just drop the row from the UI.
-            throw new NotImplementedException();
+            _dbHelper.ExecuteNonQuery("sp_Inventory_Delete",
+                new MySqlParameter("@p_ItemId", itemId));
+        }
+
+        private static InventoryItem MapRowToItem(DataRow row)
+        {
+            return new InventoryItem
+            {
+                ItemId = Convert.ToInt32(row["ItemID"]),
+                ItemName = row["ItemName"].ToString(),
+                Category = row["Category"].ToString(),
+                Quantity = Convert.ToDecimal(row["Quantity"]),
+                Unit = row["Unit"].ToString(),
+                ReorderLevel = Convert.ToDecimal(row["ReorderLevel"]),
+                UnitCost = Convert.ToDecimal(row["UnitCost"])
+            };
         }
     }
 }
