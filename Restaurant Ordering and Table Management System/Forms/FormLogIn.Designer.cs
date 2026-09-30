@@ -33,14 +33,15 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.filletedPanel1 = new FilletedPanel();
+            this.lblSignUp = new System.Windows.Forms.LinkLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.lblSubtitle = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblError = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.chkShowPassword = new System.Windows.Forms.CheckBox();
-            this.lblSubtitle = new System.Windows.Forms.Label();
             this.pnlBody.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.filletedPanel1.SuspendLayout();
@@ -90,7 +91,7 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(18, 268);
+            this.btnLogin.Location = new System.Drawing.Point(18, 267);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(303, 34);
             this.btnLogin.TabIndex = 5;
@@ -101,6 +102,7 @@
             // filletedPanel1
             // 
             this.filletedPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.filletedPanel1.Controls.Add(this.lblSignUp);
             this.filletedPanel1.Controls.Add(this.pictureBox2);
             this.filletedPanel1.Controls.Add(this.txtUsername);
             this.filletedPanel1.Controls.Add(this.lblUsername);
@@ -115,6 +117,19 @@
             this.filletedPanel1.Name = "filletedPanel1";
             this.filletedPanel1.Size = new System.Drawing.Size(344, 361);
             this.filletedPanel1.TabIndex = 8;
+            // 
+            // lblSignUp
+            // 
+            this.lblSignUp.AutoSize = true;
+            this.lblSignUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSignUp.ForeColor = System.Drawing.Color.White;
+            this.lblSignUp.Location = new System.Drawing.Point(71, 327);
+            this.lblSignUp.Name = "lblSignUp";
+            this.lblSignUp.Size = new System.Drawing.Size(180, 15);
+            this.lblSignUp.TabIndex = 9;
+            this.lblSignUp.TabStop = true;
+            this.lblSignUp.Text = "Don\'t have an account? Sign up";
+            this.lblSignUp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblSignUp_LinkClicked);
             // 
             // pictureBox2
             // 
@@ -144,6 +159,17 @@
             this.lblUsername.Size = new System.Drawing.Size(69, 17);
             this.lblUsername.TabIndex = 0;
             this.lblUsername.Text = "Username";
+            // 
+            // lblSubtitle
+            // 
+            this.lblSubtitle.AutoSize = true;
+            this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblSubtitle.ForeColor = System.Drawing.Color.Gray;
+            this.lblSubtitle.Location = new System.Drawing.Point(18, 113);
+            this.lblSubtitle.Name = "lblSubtitle";
+            this.lblSubtitle.Size = new System.Drawing.Size(116, 17);
+            this.lblSubtitle.TabIndex = 1;
+            this.lblSubtitle.Text = "Sign in to continue";
             // 
             // lblPassword
             // 
@@ -188,17 +214,6 @@
             this.chkShowPassword.Text = "Show password";
             this.chkShowPassword.UseVisualStyleBackColor = true;
             // 
-            // lblSubtitle
-            // 
-            this.lblSubtitle.AutoSize = true;
-            this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblSubtitle.ForeColor = System.Drawing.Color.Gray;
-            this.lblSubtitle.Location = new System.Drawing.Point(18, 113);
-            this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(116, 17);
-            this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "Sign in to continue";
-            // 
             // FormLogIn
             // 
             this.AcceptButton = this.btnLogin;
@@ -235,6 +250,7 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblSubtitle;
+        private System.Windows.Forms.LinkLabel lblSignUp;
     }
 }
         #endregion

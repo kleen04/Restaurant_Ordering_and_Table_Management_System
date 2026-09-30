@@ -113,7 +113,6 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             {
                 dgvInventory.Rows.Clear();
                 InitializeInventoryData();
-                MessageBox.Show("Inventory refreshed successfully.", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

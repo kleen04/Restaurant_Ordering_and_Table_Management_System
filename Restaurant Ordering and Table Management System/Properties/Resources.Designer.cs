@@ -103,6 +103,16 @@ namespace Restaurant_Ordering_and_Management_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap signupImage {
+            get {
+                object obj = ResourceManager.GetObject("signupImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tagum_eats_restaurant_logo {
             get {
                 object obj = ResourceManager.GetObject("tagum_eats_restaurant_logo", resourceCulture);

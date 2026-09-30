@@ -127,7 +127,6 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             {
                 dgvStaff.Rows.Clear();
                 InitializeStaffData();
-                MessageBox.Show("Staff data refreshed successfully.", "Refresh", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

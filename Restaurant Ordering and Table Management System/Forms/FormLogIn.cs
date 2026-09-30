@@ -15,6 +15,17 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         public FormLogIn()
         {
             InitializeComponent();
+
+            string fullText = "Don't have an account? Sign Up";
+            string linkText = "Sign Up";
+
+            lblSignUp.Text = fullText;
+
+            int startIndex = fullText.IndexOf(linkText);
+            if (startIndex >= 0)
+            {
+                lblSignUp.LinkArea = new LinkArea(startIndex, linkText.Length);
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -40,9 +51,15 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void lblSignUp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            FormSignUp signUpForm = new FormSignUp();
+            signUpForm.Show();
 
+            this.Hide();
+
+            signUpForm.FormClosed += (s, args) => this.Show();
         }
     }
 }
+ 
