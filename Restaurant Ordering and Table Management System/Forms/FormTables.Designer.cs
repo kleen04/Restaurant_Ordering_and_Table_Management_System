@@ -32,7 +32,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblSubtitle = new System.Windows.Forms.Label();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.dgvTables = new System.Windows.Forms.DataGridView();
+            this.flpTables = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpLegend = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnAddTable = new System.Windows.Forms.Button();
             this.btnEditTable = new System.Windows.Forms.Button();
@@ -42,7 +43,7 @@
             this.btnReturn = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.pnlContent.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).BeginInit();
+            this.flpLegend.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             //
@@ -78,12 +79,13 @@
             this.lblSubtitle.Name = "lblSubtitle";
             this.lblSubtitle.Size = new System.Drawing.Size(240, 17);
             this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "View and update dining table status";
+            this.lblSubtitle.Text = "Restaurant floor plan - click a table to manage it";
             //
             // pnlContent
             //
             this.pnlContent.BackColor = System.Drawing.Color.White;
-            this.pnlContent.Controls.Add(this.dgvTables);
+            this.pnlContent.Controls.Add(this.flpTables);
+            this.pnlContent.Controls.Add(this.flpLegend);
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 64);
             this.pnlContent.Name = "pnlContent";
@@ -91,29 +93,27 @@
             this.pnlContent.Size = new System.Drawing.Size(960, 436);
             this.pnlContent.TabIndex = 1;
             //
-            // dgvTables
+            // flpLegend
             //
-            this.dgvTables.AllowUserToAddRows = false;
-            this.dgvTables.AllowUserToDeleteRows = false;
-            this.dgvTables.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTables.BackgroundColor = System.Drawing.Color.White;
-            this.dgvTables.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvTables.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(248)))), ((int)(((byte)(250)))));
-            this.dgvTables.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dgvTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTables.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.dgvTables.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(240)))), ((int)(((byte)(245)))));
-            this.dgvTables.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvTables.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTables.EnableHeadersVisualStyles = false;
-            this.dgvTables.Location = new System.Drawing.Point(16, 16);
-            this.dgvTables.Name = "dgvTables";
-            this.dgvTables.ReadOnly = true;
-            this.dgvTables.RowHeadersVisible = false;
-            this.dgvTables.RowTemplate.Height = 32;
-            this.dgvTables.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTables.Size = new System.Drawing.Size(928, 404);
-            this.dgvTables.TabIndex = 0;
+            this.flpLegend.BackColor = System.Drawing.Color.White;
+            this.flpLegend.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpLegend.Location = new System.Drawing.Point(16, 16);
+            this.flpLegend.Name = "flpLegend";
+            this.flpLegend.Padding = new System.Windows.Forms.Padding(4, 6, 4, 0);
+            this.flpLegend.Size = new System.Drawing.Size(928, 32);
+            this.flpLegend.TabIndex = 1;
+            //
+            // flpTables
+            //
+            this.flpTables.AutoScroll = true;
+            this.flpTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(246)))), ((int)(((byte)(238)))));
+            this.flpTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpTables.Location = new System.Drawing.Point(16, 48);
+            this.flpTables.Name = "flpTables";
+            this.flpTables.Padding = new System.Windows.Forms.Padding(12);
+            this.flpTables.Size = new System.Drawing.Size(928, 372);
+            this.flpTables.TabIndex = 0;
+            this.flpTables.Click += new System.EventHandler(this.FlpTables_Click);
             //
             // pnlButtons
             //
@@ -237,8 +237,8 @@
             this.Load += new System.EventHandler(this.FormTables_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            this.flpLegend.ResumeLayout(false);
             this.pnlContent.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTables)).EndInit();
             this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -248,7 +248,8 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblSubtitle;
         private System.Windows.Forms.Panel pnlContent;
-        private System.Windows.Forms.DataGridView dgvTables;
+        private System.Windows.Forms.FlowLayoutPanel flpTables;
+        private System.Windows.Forms.FlowLayoutPanel flpLegend;
         private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.Button btnAddTable;
         private System.Windows.Forms.Button btnEditTable;

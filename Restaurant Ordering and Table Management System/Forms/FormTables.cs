@@ -10,9 +10,10 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class FormTables : Form
     {
-        private static readonly string[] StatusChoices = { "Available", "Occupied", "Reserved" };
+        private static readonly string[] StatusChoices = Enum.GetNames(typeof(TableStatus));
 
         private readonly ITableService _tableService;
+        private TableTile _selectedTile;
 
         public FormTables(ITableService tableService)
         {
@@ -22,68 +23,148 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void FormTables_Load(object sender, EventArgs e)
         {
-            // Attached once here (not on every refresh) so it runs once per cell.
-            dgvTables.CellFormatting += DgvTables_CellFormatting;
+            BuildLegend();
             LoadTables();
         }
 
+        // ---- floor plan ----------------------------------------------------
+
         private void LoadTables()
         {
-            dgvTables.Columns.Clear();
-            dgvTables.Columns.Add("TableId", "Table #");
-            dgvTables.Columns.Add("Capacity", "Capacity");
-            dgvTables.Columns.Add("Status", "Status");
-            dgvTables.Columns.Add("CurrentGuests", "Current Guests");
+            int? previouslySelectedId = _selectedTile == null ? (int?)null : _selectedTile.Table.TableId;
+            _selectedTile = null;
 
+            flpTables.SuspendLayout();
             try
             {
+                ClearTiles();
                 foreach (RestaurantTable table in _tableService.GetAllTables())
                 {
-                    dgvTables.Rows.Add(table.TableId, table.Capacity, table.Status.ToString(), table.CurrentGuests);
+                    TableTile tile = AddTile(table);
+                    if (table.TableId == previouslySelectedId)
+                    {
+                        SelectTile(tile);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageHelper.ShowError("Error populating tables grid: " + ex.Message, "Database Error");
+                MessageHelper.ShowError("Error populating tables: " + ex.Message, "Database Error");
             }
-
-            dgvTables.AutoResizeColumns();
-        }
-
-        private void DgvTables_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (dgvTables.Columns[e.ColumnIndex].Name != "Status" || e.Value == null)
+            finally
             {
-                return;
-            }
-
-            switch (e.Value.ToString())
-            {
-                case "Available":
-                    e.CellStyle.ForeColor = Color.FromArgb(30, 132, 73);
-                    e.CellStyle.Font = new Font(dgvTables.Font, FontStyle.Bold);
-                    break;
-                case "Occupied":
-                    e.CellStyle.ForeColor = Color.FromArgb(192, 57, 43);
-                    e.CellStyle.Font = new Font(dgvTables.Font, FontStyle.Bold);
-                    break;
-                case "Reserved":
-                    e.CellStyle.ForeColor = Color.FromArgb(211, 141, 12);
-                    e.CellStyle.Font = new Font(dgvTables.Font, FontStyle.Bold);
-                    break;
+                flpTables.ResumeLayout();
             }
         }
 
-        private RestaurantTable GetSelectedTable()
+        private void ClearTiles()
         {
-            if (dgvTables.SelectedRows.Count == 0)
+            while (flpTables.Controls.Count > 0)
             {
+                Control tile = flpTables.Controls[0];
+                flpTables.Controls.Remove(tile);
+                tile.Dispose();
+            }
+        }
+
+        private TableTile AddTile(RestaurantTable table)
+        {
+            TableTile tile = new TableTile(table);
+            tile.Click += Tile_Click;
+            tile.DoubleClick += Tile_DoubleClick;
+            flpTables.Controls.Add(tile);
+            return tile;
+        }
+
+        private void SelectTile(TableTile tile)
+        {
+            if (_selectedTile != null)
+            {
+                _selectedTile.Selected = false;
+            }
+
+            _selectedTile = tile;
+
+            if (_selectedTile != null)
+            {
+                _selectedTile.Selected = true;
+            }
+        }
+
+        private void Tile_Click(object sender, EventArgs e)
+        {
+            SelectTile((TableTile)sender);
+        }
+
+        private void Tile_DoubleClick(object sender, EventArgs e)
+        {
+            SelectTile((TableTile)sender);
+            UpdateSelectedTableStatus();
+        }
+
+        private void FlpTables_Click(object sender, EventArgs e)
+        {
+            SelectTile(null);
+        }
+
+        // ---- legend --------------------------------------------------------
+
+        private void BuildLegend()
+        {
+            foreach (TableStatus status in TableStatusStyle.All)
+            {
+                flpLegend.Controls.Add(CreateLegendItem(status));
+            }
+
+            flpLegend.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Text = "Click a table to select it  •  Double-click to update its status",
+                ForeColor = Color.FromArgb(108, 117, 125),
+                Margin = new Padding(12, 2, 0, 0)
+            });
+        }
+
+        private static Control CreateLegendItem(TableStatus status)
+        {
+            FlowLayoutPanel item = new FlowLayoutPanel
+            {
+                AutoSize = true,
+                WrapContents = false,
+                Margin = new Padding(0, 0, 18, 0)
+            };
+
+            item.Controls.Add(new Panel
+            {
+                Size = new Size(14, 14),
+                BackColor = TableStatusStyle.GetColor(status),
+                Margin = new Padding(0, 3, 6, 0)
+            });
+            item.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Text = status.ToString(),
+                Margin = new Padding(0, 2, 0, 0)
+            });
+
+            return item;
+        }
+
+        // ---- selection guard -----------------------------------------------
+
+        // Shared by Edit, Update Status and Delete so each doesn't repeat the "nothing selected" check.
+        private RestaurantTable RequireSelectedTable(string action, string title)
+        {
+            if (_selectedTile == null)
+            {
+                MessageHelper.ShowWarning("Please select a table to " + action, title);
                 return null;
             }
 
-            int tableId = Convert.ToInt32(dgvTables.SelectedRows[0].Cells["TableId"].Value);
-            return _tableService.GetAllTables().Find(t => t.TableId == tableId);
+            return _selectedTile.Table;
         }
+
+        // ---- add / edit / status / delete ----------------------------------
 
         // Shared by Add and Edit: shows the dialog and returns the table the user entered (or null).
         private RestaurantTable PromptForTable(string title, RestaurantTable existing)
@@ -158,10 +239,9 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         {
             try
             {
-                RestaurantTable existing = GetSelectedTable();
+                RestaurantTable existing = RequireSelectedTable("edit", "Edit Table");
                 if (existing == null)
                 {
-                    MessageHelper.ShowWarning("Please select a table to edit", "Edit Table");
                     return;
                 }
 
@@ -182,12 +262,17 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void BtnUpdateStatus_Click(object sender, EventArgs e)
         {
+            UpdateSelectedTableStatus();
+        }
+
+        // Shared by the Update Status button and double-clicking a table.
+        private void UpdateSelectedTableStatus()
+        {
             try
             {
-                RestaurantTable table = GetSelectedTable();
+                RestaurantTable table = RequireSelectedTable("update", "Update Status");
                 if (table == null)
                 {
-                    MessageHelper.ShowWarning("Please select a table to update", "Update Status");
                     return;
                 }
 
@@ -218,10 +303,9 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         {
             try
             {
-                RestaurantTable table = GetSelectedTable();
+                RestaurantTable table = RequireSelectedTable("delete", "Delete Table");
                 if (table == null)
                 {
-                    MessageHelper.ShowWarning("Please select a table to delete", "Delete Table");
                     return;
                 }
 
