@@ -31,6 +31,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
 
             InitializeComponent();
+            ThemeHelper.StyleGrid(dgvOrderItems);
+            ThemeHelper.StyleGrid(dgvMenu);
             AddStaffAndGuestControls();
             cmbTable.SelectedIndexChanged += CmbTable_SelectedIndexChanged;
         }

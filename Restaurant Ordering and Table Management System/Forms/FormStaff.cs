@@ -15,6 +15,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         {
             _staffService = staffService ?? throw new ArgumentNullException(nameof(staffService));
             InitializeComponent();
+            ThemeHelper.StyleGrid(dgvStaff);
         }
 
         private void FormStaff_Load(object sender, EventArgs e)

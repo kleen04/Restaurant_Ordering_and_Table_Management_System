@@ -16,6 +16,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         {
             _inventoryService = inventoryService ?? throw new ArgumentNullException(nameof(inventoryService));
             InitializeComponent();
+            ThemeHelper.StyleGrid(dgvInventory);
         }
 
         private void InventoryForm_Load(object sender, EventArgs e)

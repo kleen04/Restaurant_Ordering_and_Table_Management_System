@@ -25,6 +25,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             _orderService = services.Orders;
 
             InitializeComponent();
+            ThemeHelper.StyleGrid(dgvTableStatus);
+            ThemeHelper.StyleGrid(dgvRecentOrders);
             BuildOrderStatusMenu();
         }
 

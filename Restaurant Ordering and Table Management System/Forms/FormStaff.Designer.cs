@@ -48,7 +48,7 @@
             //
             // pnlHeader
             //
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.pnlHeader.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Header;
             this.pnlHeader.Controls.Add(this.lblSubtitle);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -73,7 +73,7 @@
             //
             this.lblSubtitle.AutoSize = true;
             this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
+            this.lblSubtitle.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.OnPrimaryMuted;
             this.lblSubtitle.Location = new System.Drawing.Point(22, 38);
             this.lblSubtitle.Name = "lblSubtitle";
             this.lblSubtitle.Size = new System.Drawing.Size(220, 17);
@@ -96,14 +96,15 @@
             this.dgvStaff.AllowUserToAddRows = false;
             this.dgvStaff.AllowUserToDeleteRows = false;
             this.dgvStaff.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvStaff.BackgroundColor = System.Drawing.Color.White;
+            this.dgvStaff.BackgroundColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
             this.dgvStaff.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvStaff.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(246)))));
+            this.dgvStaff.ColumnHeadersDefaultCellStyle.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.dgvStaff.ColumnHeadersDefaultCellStyle.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.OnPrimary;
             this.dgvStaff.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.dgvStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStaff.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.dgvStaff.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(226)))), ((int)(((byte)(250)))));
-            this.dgvStaff.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvStaff.DefaultCellStyle.SelectionBackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.AccentTint;
+            this.dgvStaff.DefaultCellStyle.SelectionForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
             this.dgvStaff.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStaff.EnableHeadersVisualStyles = false;
             this.dgvStaff.Location = new System.Drawing.Point(16, 16);
@@ -117,7 +118,7 @@
             //
             // pnlButtons
             //
-            this.pnlButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.pnlButtons.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Bar;
             this.pnlButtons.Controls.Add(this.btnAddStaff);
             this.pnlButtons.Controls.Add(this.btnEditStaff);
             this.pnlButtons.Controls.Add(this.btnToggleActive);
@@ -132,7 +133,7 @@
             //
             // btnAddStaff
             //
-            this.btnAddStaff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnAddStaff.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.btnAddStaff.FlatAppearance.BorderSize = 0;
             this.btnAddStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddStaff.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -147,7 +148,7 @@
             //
             // btnEditStaff
             //
-            this.btnEditStaff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnEditStaff.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.btnEditStaff.FlatAppearance.BorderSize = 0;
             this.btnEditStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditStaff.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -162,7 +163,7 @@
             //
             // btnToggleActive
             //
-            this.btnToggleActive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.btnToggleActive.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.btnToggleActive.FlatAppearance.BorderSize = 0;
             this.btnToggleActive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToggleActive.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -177,7 +178,7 @@
             //
             // btnDeleteStaff
             //
-            this.btnDeleteStaff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnDeleteStaff.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Danger;
             this.btnDeleteStaff.FlatAppearance.BorderSize = 0;
             this.btnDeleteStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteStaff.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -192,7 +193,7 @@
             //
             // btnRefresh
             //
-            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
+            this.btnRefresh.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Neutral;
             this.btnRefresh.FlatAppearance.BorderSize = 0;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -207,7 +208,7 @@
             //
             // btnReturn
             //
-            this.btnReturn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(195)))), ((int)(((byte)(199)))));
+            this.btnReturn.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Neutral;
             this.btnReturn.FlatAppearance.BorderSize = 0;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReturn.Font = new System.Drawing.Font("Segoe UI", 9.75F);

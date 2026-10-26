@@ -50,7 +50,7 @@
             // 
             // pnlBody
             // 
-            this.pnlBody.BackColor = System.Drawing.Color.Maroon;
+            this.pnlBody.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.pnlBody.Controls.Add(this.lblTitle);
             this.pnlBody.Controls.Add(this.filletedPanel1);
             this.pnlBody.Controls.Add(this.pictureBox1);
@@ -86,7 +86,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnLogin.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
@@ -101,7 +101,7 @@
             // 
             // filletedPanel1
             // 
-            this.filletedPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.filletedPanel1.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.PrimaryDark;
             this.filletedPanel1.Controls.Add(this.lblSignUp);
             this.filletedPanel1.Controls.Add(this.pictureBox2);
             this.filletedPanel1.Controls.Add(this.txtUsername);
@@ -186,7 +186,7 @@
             // 
             this.lblError.AutoSize = true;
             this.lblError.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblError.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Danger;
             this.lblError.Location = new System.Drawing.Point(18, 308);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(0, 15);

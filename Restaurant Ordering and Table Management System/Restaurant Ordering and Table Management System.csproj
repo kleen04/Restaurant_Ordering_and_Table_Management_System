@@ -155,6 +155,8 @@
     <Compile Include="Helper\DbHelper.cs" />
     <Compile Include="Helper\MessageHelper.cs" />
     <Compile Include="Helper\ValidationHelper.cs" />
+    <Compile Include="Helper\AppTheme.cs" />
+    <Compile Include="Helper\ThemeHelper.cs" />
     <Compile Include="Helper\TableStatusStyle.cs" />
     <Compile Include="Helper\GraphicsHelper.cs" />
     <Compile Include="Helper\ReportExporter.cs" />

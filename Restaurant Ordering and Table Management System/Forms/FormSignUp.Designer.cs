@@ -130,7 +130,7 @@
             // 
             // btnSignUp
             // 
-            this.btnSignUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnSignUp.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.btnSignUp.FlatAppearance.BorderSize = 0;
             this.btnSignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSignUp.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
@@ -212,7 +212,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Maroon;
+            this.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.ClientSize = new System.Drawing.Size(827, 512);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label7);

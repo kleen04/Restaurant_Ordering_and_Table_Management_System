@@ -34,11 +34,11 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private const int SeatsBeforeEndChairs = 6;
 
         private static readonly Color EmptyChairColor = Color.FromArgb(189, 195, 199);
-        private static readonly Color HoverBackColor = Color.FromArgb(240, 248, 250);
-        private static readonly Color SelectedBackColor = Color.FromArgb(209, 240, 245);
-        private static readonly Color SelectedBorderColor = Color.FromArgb(23, 162, 184);
-        private static readonly Color PrimaryTextColor = Color.FromArgb(44, 62, 80);
-        private static readonly Color SecondaryTextColor = Color.FromArgb(108, 117, 125);
+        private static readonly Color HoverBackColor = AppTheme.AccentTintLight;
+        private static readonly Color SelectedBackColor = AppTheme.AccentTint;
+        private static readonly Color SelectedBorderColor = AppTheme.Accent;
+        private static readonly Color PrimaryTextColor = AppTheme.TextDark;
+        private static readonly Color SecondaryTextColor = AppTheme.TextMuted;
 
         private readonly Font _idFont = new Font("Segoe UI", 11F, FontStyle.Bold);
         private readonly Font _infoFont = new Font("Segoe UI", 9F);

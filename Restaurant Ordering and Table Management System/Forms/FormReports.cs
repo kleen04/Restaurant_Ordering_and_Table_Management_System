@@ -18,6 +18,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         {
             _reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
             InitializeComponent();
+            ThemeHelper.StyleGrid(dgvReport);
         }
 
         private void FormReports_Load(object sender, EventArgs e)

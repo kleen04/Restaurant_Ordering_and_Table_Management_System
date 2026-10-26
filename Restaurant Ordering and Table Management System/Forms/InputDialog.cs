@@ -117,6 +117,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
             Button okButton = new Button { Text = "Save", Width = 90, Height = 30, Left = left + labelWidth + inputWidth - 190, Top = y + 10 };
             Button cancelButton = new Button { Text = "Cancel", Width = 90, Height = 30, Left = left + labelWidth + inputWidth - 90, Top = y + 10, DialogResult = DialogResult.Cancel };
+            ThemeHelper.StyleButton(okButton, AppTheme.Accent);
+            ThemeHelper.StyleButton(cancelButton, AppTheme.Neutral);
             okButton.Click += OkButton_Click;
             Controls.Add(okButton);
             Controls.Add(cancelButton);

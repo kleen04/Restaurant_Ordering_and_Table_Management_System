@@ -64,7 +64,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.pnlHeader.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Header;
             this.pnlHeader.Controls.Add(this.lblSubtitle);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -78,7 +78,7 @@
             // 
             this.lblSubtitle.AutoSize = true;
             this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(247)))), ((int)(((byte)(233)))));
+            this.lblSubtitle.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.OnPrimaryMuted;
             this.lblSubtitle.Location = new System.Drawing.Point(22, 38);
             this.lblSubtitle.Name = "lblSubtitle";
             this.lblSubtitle.Size = new System.Drawing.Size(237, 17);
@@ -115,7 +115,7 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.btnGenerate.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.btnGenerate.FlatAppearance.BorderSize = 0;
             this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -141,7 +141,7 @@
             // 
             this.lblTo.AutoSize = true;
             this.lblTo.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblTo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblTo.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
             this.lblTo.Location = new System.Drawing.Point(488, 21);
             this.lblTo.Name = "lblTo";
             this.lblTo.Size = new System.Drawing.Size(25, 17);
@@ -161,7 +161,7 @@
             // 
             this.lblFrom.AutoSize = true;
             this.lblFrom.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblFrom.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
             this.lblFrom.Location = new System.Drawing.Point(310, 21);
             this.lblFrom.Name = "lblFrom";
             this.lblFrom.Size = new System.Drawing.Size(41, 17);
@@ -187,7 +187,7 @@
             // 
             this.lblReportType.AutoSize = true;
             this.lblReportType.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblReportType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblReportType.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
             this.lblReportType.Location = new System.Drawing.Point(20, 21);
             this.lblReportType.Name = "lblReportType";
             this.lblReportType.Size = new System.Drawing.Size(82, 17);
@@ -196,7 +196,7 @@
             // 
             // pnlSummary
             // 
-            this.pnlSummary.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.pnlSummary.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Page;
             this.pnlSummary.Controls.Add(this.lblTotalOrdersValue);
             this.pnlSummary.Controls.Add(this.lblTotalOrdersLabel);
             this.pnlSummary.Controls.Add(this.lblTotalRevenueValue);
@@ -214,7 +214,7 @@
             // 
             this.lblTotalOrdersValue.AutoSize = true;
             this.lblTotalOrdersValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTotalOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.lblTotalOrdersValue.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.lblTotalOrdersValue.Location = new System.Drawing.Point(20, 14);
             this.lblTotalOrdersValue.Name = "lblTotalOrdersValue";
             this.lblTotalOrdersValue.Size = new System.Drawing.Size(33, 37);
@@ -225,7 +225,7 @@
             // 
             this.lblTotalOrdersLabel.AutoSize = true;
             this.lblTotalOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.lblTotalOrdersLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblTotalOrdersLabel.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextMuted;
             this.lblTotalOrdersLabel.Location = new System.Drawing.Point(22, 52);
             this.lblTotalOrdersLabel.Name = "lblTotalOrdersLabel";
             this.lblTotalOrdersLabel.Size = new System.Drawing.Size(81, 17);
@@ -236,7 +236,7 @@
             // 
             this.lblTotalRevenueValue.AutoSize = true;
             this.lblTotalRevenueValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTotalRevenueValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblTotalRevenueValue.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.lblTotalRevenueValue.Location = new System.Drawing.Point(300, 14);
             this.lblTotalRevenueValue.Name = "lblTotalRevenueValue";
             this.lblTotalRevenueValue.Size = new System.Drawing.Size(89, 37);
@@ -247,7 +247,7 @@
             // 
             this.lblTotalRevenueLabel.AutoSize = true;
             this.lblTotalRevenueLabel.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.lblTotalRevenueLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblTotalRevenueLabel.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextMuted;
             this.lblTotalRevenueLabel.Location = new System.Drawing.Point(302, 52);
             this.lblTotalRevenueLabel.Name = "lblTotalRevenueLabel";
             this.lblTotalRevenueLabel.Size = new System.Drawing.Size(89, 17);
@@ -258,7 +258,7 @@
             // 
             this.lblAvgOrderValue.AutoSize = true;
             this.lblAvgOrderValue.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblAvgOrderValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.lblAvgOrderValue.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.PrimaryDark;
             this.lblAvgOrderValue.Location = new System.Drawing.Point(580, 14);
             this.lblAvgOrderValue.Name = "lblAvgOrderValue";
             this.lblAvgOrderValue.Size = new System.Drawing.Size(89, 37);
@@ -269,7 +269,7 @@
             // 
             this.lblAvgOrderLabel.AutoSize = true;
             this.lblAvgOrderLabel.Font = new System.Drawing.Font("Segoe UI", 9.5F);
-            this.lblAvgOrderLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lblAvgOrderLabel.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextMuted;
             this.lblAvgOrderLabel.Location = new System.Drawing.Point(582, 52);
             this.lblAvgOrderLabel.Name = "lblAvgOrderLabel";
             this.lblAvgOrderLabel.Size = new System.Drawing.Size(130, 17);
@@ -292,23 +292,23 @@
             this.dgvReport.AllowUserToAddRows = false;
             this.dgvReport.AllowUserToDeleteRows = false;
             this.dgvReport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvReport.BackgroundColor = System.Drawing.Color.White;
+            this.dgvReport.BackgroundColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
             this.dgvReport.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(247)))), ((int)(((byte)(233)))));
+            dataGridViewCellStyle1.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.OnPrimary;
+            dataGridViewCellStyle1.SelectionBackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            dataGridViewCellStyle1.SelectionForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.OnPrimary;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
+            dataGridViewCellStyle2.SelectionBackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.AccentTint;
+            dataGridViewCellStyle2.SelectionForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvReport.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvReport.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -324,7 +324,7 @@
             // 
             // pnlButtons
             // 
-            this.pnlButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.pnlButtons.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Bar;
             this.pnlButtons.Controls.Add(this.btnExport);
             this.pnlButtons.Controls.Add(this.btnPrint);
             this.pnlButtons.Controls.Add(this.btnReturn);
@@ -336,7 +336,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
+            this.btnExport.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.btnExport.FlatAppearance.BorderSize = 0;
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -351,7 +351,7 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
+            this.btnPrint.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Neutral;
             this.btnPrint.FlatAppearance.BorderSize = 0;
             this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrint.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -366,7 +366,7 @@
             // 
             // btnReturn
             // 
-            this.btnReturn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(195)))), ((int)(((byte)(199)))));
+            this.btnReturn.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Neutral;
             this.btnReturn.FlatAppearance.BorderSize = 0;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReturn.Font = new System.Drawing.Font("Segoe UI", 9.75F);

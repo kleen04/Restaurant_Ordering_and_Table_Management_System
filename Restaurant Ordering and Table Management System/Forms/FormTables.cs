@@ -120,7 +120,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             {
                 AutoSize = true,
                 Text = "Click a table to select it  •  Double-click to update its status",
-                ForeColor = Color.FromArgb(108, 117, 125),
+                ForeColor = AppTheme.TextMuted,
                 Margin = new Padding(12, 2, 0, 0)
             });
         }

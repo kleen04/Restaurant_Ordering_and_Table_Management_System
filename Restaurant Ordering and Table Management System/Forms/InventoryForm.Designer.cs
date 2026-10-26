@@ -1,4 +1,4 @@
-namespace Restaurant_Ordering_and_Management_System.Forms
+﻿namespace Restaurant_Ordering_and_Management_System.Forms
 {
     partial class InventoryForm
     {
@@ -33,7 +33,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.pnlHeader.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Header;
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -68,7 +68,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.dgvInventory.AllowUserToAddRows = false;
             this.dgvInventory.AllowUserToDeleteRows = false;
             this.dgvInventory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvInventory.BackgroundColor = System.Drawing.Color.White;
+            this.dgvInventory.BackgroundColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInventory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInventory.Location = new System.Drawing.Point(10, 10);
@@ -81,7 +81,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // pnlButtons
             // 
-            this.pnlButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.pnlButtons.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Bar;
             this.pnlButtons.Controls.Add(this.btnAddItem);
             this.pnlButtons.Controls.Add(this.btnEditItem);
             this.pnlButtons.Controls.Add(this.btnDeleteItem);
@@ -95,7 +95,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnAddItem
             // 
-            this.btnAddItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnAddItem.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
             this.btnAddItem.ForeColor = System.Drawing.Color.White;
             this.btnAddItem.Location = new System.Drawing.Point(20, 15);
             this.btnAddItem.Name = "btnAddItem";
@@ -107,7 +107,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnEditItem
             // 
-            this.btnEditItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnEditItem.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.btnEditItem.ForeColor = System.Drawing.Color.White;
             this.btnEditItem.Location = new System.Drawing.Point(130, 15);
             this.btnEditItem.Name = "btnEditItem";
@@ -119,7 +119,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnDeleteItem
             // 
-            this.btnDeleteItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnDeleteItem.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Danger;
             this.btnDeleteItem.ForeColor = System.Drawing.Color.White;
             this.btnDeleteItem.Location = new System.Drawing.Point(240, 15);
             this.btnDeleteItem.Name = "btnDeleteItem";
@@ -131,7 +131,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnRefresh
             // 
-            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
+            this.btnRefresh.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Neutral;
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
             this.btnRefresh.Location = new System.Drawing.Point(350, 15);
             this.btnRefresh.Name = "btnRefresh";
@@ -143,7 +143,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(195)))), ((int)(((byte)(199)))));
+            this.btnClose.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Neutral;
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Location = new System.Drawing.Point(780, 15);
             this.btnClose.Name = "btnClose";
