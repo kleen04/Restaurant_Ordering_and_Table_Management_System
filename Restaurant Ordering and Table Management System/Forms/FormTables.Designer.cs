@@ -32,8 +32,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblSubtitle = new System.Windows.Forms.Label();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.flpTables = new System.Windows.Forms.FlowLayoutPanel();
-            this.flpLegend = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpTables = new Restaurant_Ordering_and_Management_System.Forms.TableFloorPanel();
+            this.flpLegend = new Restaurant_Ordering_and_Management_System.Forms.TableStatusLegend();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnAddTable = new System.Windows.Forms.Button();
             this.btnEditTable = new System.Windows.Forms.Button();
@@ -97,6 +97,7 @@
             //
             this.flpLegend.BackColor = System.Drawing.Color.White;
             this.flpLegend.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpLegend.Hint = "Click a table to select it  •  Double-click to update its status";
             this.flpLegend.Location = new System.Drawing.Point(16, 16);
             this.flpLegend.Name = "flpLegend";
             this.flpLegend.Padding = new System.Windows.Forms.Padding(4, 6, 4, 0);
@@ -113,7 +114,7 @@
             this.flpTables.Padding = new System.Windows.Forms.Padding(12);
             this.flpTables.Size = new System.Drawing.Size(928, 372);
             this.flpTables.TabIndex = 0;
-            this.flpTables.Click += new System.EventHandler(this.FlpTables_Click);
+            this.flpTables.TableDoubleClicked += new System.EventHandler<Restaurant_Ordering_and_Management_System.Forms.TableEventArgs>(this.FlpTables_TableDoubleClicked);
             //
             // pnlButtons
             //
@@ -248,8 +249,8 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblSubtitle;
         private System.Windows.Forms.Panel pnlContent;
-        private System.Windows.Forms.FlowLayoutPanel flpTables;
-        private System.Windows.Forms.FlowLayoutPanel flpLegend;
+        private Restaurant_Ordering_and_Management_System.Forms.TableFloorPanel flpTables;
+        private Restaurant_Ordering_and_Management_System.Forms.TableStatusLegend flpLegend;
         private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.Button btnAddTable;
         private System.Windows.Forms.Button btnEditTable;

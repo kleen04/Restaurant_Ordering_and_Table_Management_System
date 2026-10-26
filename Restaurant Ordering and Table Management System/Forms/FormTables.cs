@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using Restaurant_Ordering_and_Management_System.Helper;
 using Restaurant_Ordering_and_Management_System.Interfaces;
@@ -13,7 +12,6 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private static readonly string[] StatusChoices = Enum.GetNames(typeof(TableStatus));
 
         private readonly ITableService _tableService;
-        private TableTile _selectedTile;
 
         public FormTables(ITableService tableService)
         {
@@ -23,7 +21,6 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void FormTables_Load(object sender, EventArgs e)
         {
-            BuildLegend();
             LoadTables();
         }
 
@@ -31,123 +28,21 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void LoadTables()
         {
-            int? previouslySelectedId = _selectedTile == null ? (int?)null : _selectedTile.Table.TableId;
-            _selectedTile = null;
-
-            flpTables.SuspendLayout();
             try
             {
-                ClearTiles();
-                foreach (RestaurantTable table in _tableService.GetAllTables())
-                {
-                    TableTile tile = AddTile(table);
-                    if (table.TableId == previouslySelectedId)
-                    {
-                        SelectTile(tile);
-                    }
-                }
+                List<RestaurantTable> tables = _tableService.GetAllTables();
+                flpTables.SetTables(tables);
+                flpLegend.SetTables(tables);
             }
             catch (Exception ex)
             {
                 MessageHelper.ShowError("Error populating tables: " + ex.Message, "Database Error");
             }
-            finally
-            {
-                flpTables.ResumeLayout();
-            }
         }
 
-        private void ClearTiles()
+        private void FlpTables_TableDoubleClicked(object sender, TableEventArgs e)
         {
-            while (flpTables.Controls.Count > 0)
-            {
-                Control tile = flpTables.Controls[0];
-                flpTables.Controls.Remove(tile);
-                tile.Dispose();
-            }
-        }
-
-        private TableTile AddTile(RestaurantTable table)
-        {
-            TableTile tile = new TableTile(table);
-            tile.Click += Tile_Click;
-            tile.DoubleClick += Tile_DoubleClick;
-            flpTables.Controls.Add(tile);
-            return tile;
-        }
-
-        private void SelectTile(TableTile tile)
-        {
-            if (_selectedTile != null)
-            {
-                _selectedTile.Selected = false;
-            }
-
-            _selectedTile = tile;
-
-            if (_selectedTile != null)
-            {
-                _selectedTile.Selected = true;
-            }
-        }
-
-        private void Tile_Click(object sender, EventArgs e)
-        {
-            SelectTile((TableTile)sender);
-        }
-
-        private void Tile_DoubleClick(object sender, EventArgs e)
-        {
-            SelectTile((TableTile)sender);
             UpdateSelectedTableStatus();
-        }
-
-        private void FlpTables_Click(object sender, EventArgs e)
-        {
-            SelectTile(null);
-        }
-
-        // ---- legend --------------------------------------------------------
-
-        private void BuildLegend()
-        {
-            foreach (TableStatus status in TableStatusStyle.All)
-            {
-                flpLegend.Controls.Add(CreateLegendItem(status));
-            }
-
-            flpLegend.Controls.Add(new Label
-            {
-                AutoSize = true,
-                Text = "Click a table to select it  •  Double-click to update its status",
-                ForeColor = AppTheme.TextMuted,
-                Margin = new Padding(12, 2, 0, 0)
-            });
-        }
-
-        private static Control CreateLegendItem(TableStatus status)
-        {
-            FlowLayoutPanel item = new FlowLayoutPanel
-            {
-                AutoSize = true,
-                WrapContents = false,
-                Margin = new Padding(0, 0, 18, 0)
-            };
-
-            item.Controls.Add(new Panel
-            {
-                Size = new Size(14, 14),
-                BackColor = TableStatusStyle.GetColor(status),
-                Margin = new Padding(0, 3, 6, 0)
-            });
-            item.Controls.Add(new Label
-            {
-                AutoSize = true,
-                Text = status.ToString(),
-                Margin = new Padding(0, 2, 0, 0)
-            });
-
-            return item;
         }
 
         // ---- selection guard -----------------------------------------------
@@ -155,13 +50,13 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         // Shared by Edit, Update Status and Delete so each doesn't repeat the "nothing selected" check.
         private RestaurantTable RequireSelectedTable(string action, string title)
         {
-            if (_selectedTile == null)
+            RestaurantTable table = flpTables.SelectedTable;
+            if (table == null)
             {
                 MessageHelper.ShowWarning("Please select a table to " + action, title);
-                return null;
             }
 
-            return _selectedTile.Table;
+            return table;
         }
 
         // ---- add / edit / status / delete ----------------------------------

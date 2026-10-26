@@ -15,10 +15,6 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblCurrentTime = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
@@ -34,25 +30,29 @@
             this.pnlMainContent = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblTotalOrdersValue = new System.Windows.Forms.Label();
-            this.lblTotalOrdersLabel = new System.Windows.Forms.Label();
-            this.lblTotalRevenueValue = new System.Windows.Forms.Label();
-            this.lblTotalRevenueLabel = new System.Windows.Forms.Label();
-            this.lblActiveTablesValue = new System.Windows.Forms.Label();
-            this.lblActiveTablesLabel = new System.Windows.Forms.Label();
-            this.lblPendingOrdersValue = new System.Windows.Forms.Label();
-            this.lblPendingOrdersLabel = new System.Windows.Forms.Label();
+            this.toolStripLastUpdated = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlDashboard = new System.Windows.Forms.Panel();
             this.lblTableStatus = new System.Windows.Forms.Label();
-            this.dgvTableStatus = new System.Windows.Forms.DataGridView();
+            this.tlpStats = new System.Windows.Forms.TableLayoutPanel();
+            this.cardCompletedToday = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
+            this.cardRevenueToday = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
+            this.cardTablesOccupied = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
+            this.cardOpenOrders = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
+            this.pnlTableCard = new FilletedPanel();
+            this.flpTableLegend = new Restaurant_Ordering_and_Management_System.Forms.TableStatusLegend();
+            this.flpDashTables = new Restaurant_Ordering_and_Management_System.Forms.TableFloorPanel();
             this.lblRecentOrders = new System.Windows.Forms.Label();
-            this.dgvRecentOrders = new System.Windows.Forms.DataGridView();
+            this.pnlOrdersCard = new FilletedPanel();
+            this.dgvRecentOrders = new Restaurant_Ordering_and_Management_System.Forms.RecentOrdersGrid();
             this.pnlHeader.SuspendLayout();
             this.pnlSidebar.SuspendLayout();
             this.pnlMainContent.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.pnlDashboard.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableStatus)).BeginInit();
+            this.tlpStats.SuspendLayout();
+            this.pnlTableCard.SuspendLayout();
+            this.pnlOrdersCard.SuspendLayout();
+            this.flpTableLegend.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).BeginInit();
             this.SuspendLayout();
             // 
@@ -239,7 +239,8 @@
             // 
             this.statusStrip1.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
+            this.toolStripStatusLabel,
+            this.toolStripLastUpdated});
             this.statusStrip1.Location = new System.Drawing.Point(0, 674);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1130, 22);
@@ -249,122 +250,26 @@
             // 
             this.toolStripStatusLabel.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(1038, 17);
+            this.toolStripStatusLabel.Spring = true;
             this.toolStripStatusLabel.Text = "Ready";
+            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lblTotalOrdersValue
+            // toolStripLastUpdated
             // 
-            this.lblTotalOrdersValue.AutoSize = true;
-            this.lblTotalOrdersValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalOrdersValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblTotalOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(107)))), ((int)(((byte)(53)))));
-            this.lblTotalOrdersValue.Location = new System.Drawing.Point(130, 15);
-            this.lblTotalOrdersValue.Name = "lblTotalOrdersValue";
-            this.lblTotalOrdersValue.Size = new System.Drawing.Size(44, 51);
-            this.lblTotalOrdersValue.TabIndex = 0;
-            this.lblTotalOrdersValue.Text = "0";
-            // 
-            // lblTotalOrdersLabel
-            // 
-            this.lblTotalOrdersLabel.AutoSize = true;
-            this.lblTotalOrdersLabel.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblTotalOrdersLabel.ForeColor = System.Drawing.Color.White;
-            this.lblTotalOrdersLabel.Location = new System.Drawing.Point(119, 79);
-            this.lblTotalOrdersLabel.Name = "lblTotalOrdersLabel";
-            this.lblTotalOrdersLabel.Size = new System.Drawing.Size(84, 19);
-            this.lblTotalOrdersLabel.TabIndex = 1;
-            this.lblTotalOrdersLabel.Text = "Total Orders";
-            // 
-            // lblTotalRevenueValue
-            // 
-            this.lblTotalRevenueValue.AutoSize = true;
-            this.lblTotalRevenueValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalRevenueValue.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalRevenueValue.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.OnPrimary;
-            this.lblTotalRevenueValue.Location = new System.Drawing.Point(323, 16);
-            this.lblTotalRevenueValue.Name = "lblTotalRevenueValue";
-            this.lblTotalRevenueValue.Size = new System.Drawing.Size(119, 50);
-            this.lblTotalRevenueValue.TabIndex = 2;
-            this.lblTotalRevenueValue.Text = "₱0.00";
-            // 
-            // lblTotalRevenueLabel
-            // 
-            this.lblTotalRevenueLabel.AutoSize = true;
-            this.lblTotalRevenueLabel.BackColor = System.Drawing.Color.Transparent;
-            this.lblTotalRevenueLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblTotalRevenueLabel.ForeColor = System.Drawing.Color.White;
-            this.lblTotalRevenueLabel.Location = new System.Drawing.Point(328, 79);
-            this.lblTotalRevenueLabel.Name = "lblTotalRevenueLabel";
-            this.lblTotalRevenueLabel.Size = new System.Drawing.Size(94, 19);
-            this.lblTotalRevenueLabel.TabIndex = 3;
-            this.lblTotalRevenueLabel.Text = "Total Revenue";
-            // 
-            // lblActiveTablesValue
-            // 
-            this.lblActiveTablesValue.AutoSize = true;
-            this.lblActiveTablesValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblActiveTablesValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblActiveTablesValue.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.AccentTint;
-            this.lblActiveTablesValue.Location = new System.Drawing.Point(552, 15);
-            this.lblActiveTablesValue.Name = "lblActiveTablesValue";
-            this.lblActiveTablesValue.Size = new System.Drawing.Size(44, 51);
-            this.lblActiveTablesValue.TabIndex = 4;
-            this.lblActiveTablesValue.Text = "0";
-            // 
-            // lblActiveTablesLabel
-            // 
-            this.lblActiveTablesLabel.AutoSize = true;
-            this.lblActiveTablesLabel.BackColor = System.Drawing.Color.Transparent;
-            this.lblActiveTablesLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblActiveTablesLabel.ForeColor = System.Drawing.Color.White;
-            this.lblActiveTablesLabel.Location = new System.Drawing.Point(543, 79);
-            this.lblActiveTablesLabel.Name = "lblActiveTablesLabel";
-            this.lblActiveTablesLabel.Size = new System.Drawing.Size(86, 19);
-            this.lblActiveTablesLabel.TabIndex = 5;
-            this.lblActiveTablesLabel.Text = "Active Tables";
-            // 
-            // lblPendingOrdersValue
-            // 
-            this.lblPendingOrdersValue.AutoSize = true;
-            this.lblPendingOrdersValue.BackColor = System.Drawing.Color.Transparent;
-            this.lblPendingOrdersValue.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblPendingOrdersValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            this.lblPendingOrdersValue.Location = new System.Drawing.Point(735, 15);
-            this.lblPendingOrdersValue.Name = "lblPendingOrdersValue";
-            this.lblPendingOrdersValue.Size = new System.Drawing.Size(44, 51);
-            this.lblPendingOrdersValue.TabIndex = 6;
-            this.lblPendingOrdersValue.Text = "0";
-            // 
-            // lblPendingOrdersLabel
-            // 
-            this.lblPendingOrdersLabel.AutoSize = true;
-            this.lblPendingOrdersLabel.BackColor = System.Drawing.Color.Transparent;
-            this.lblPendingOrdersLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblPendingOrdersLabel.ForeColor = System.Drawing.Color.White;
-            this.lblPendingOrdersLabel.Location = new System.Drawing.Point(729, 79);
-            this.lblPendingOrdersLabel.Name = "lblPendingOrdersLabel";
-            this.lblPendingOrdersLabel.Size = new System.Drawing.Size(104, 19);
-            this.lblPendingOrdersLabel.TabIndex = 7;
-            this.lblPendingOrdersLabel.Text = "Pending Orders";
+            this.toolStripLastUpdated.ForeColor = System.Drawing.Color.White;
+            this.toolStripLastUpdated.Name = "toolStripLastUpdated";
+            this.toolStripLastUpdated.Size = new System.Drawing.Size(77, 17);
+            this.toolStripLastUpdated.Text = "Not updated yet";
             // 
             // pnlDashboard
             // 
             this.pnlDashboard.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Page;
             this.pnlDashboard.BackgroundImage = global::Restaurant_Ordering_and_Management_System.Properties.Resources.home;
             this.pnlDashboard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlDashboard.Controls.Add(this.lblPendingOrdersLabel);
-            this.pnlDashboard.Controls.Add(this.lblActiveTablesLabel);
-            this.pnlDashboard.Controls.Add(this.lblPendingOrdersValue);
-            this.pnlDashboard.Controls.Add(this.lblTotalRevenueLabel);
-            this.pnlDashboard.Controls.Add(this.lblActiveTablesValue);
-            this.pnlDashboard.Controls.Add(this.lblTotalOrdersLabel);
-            this.pnlDashboard.Controls.Add(this.lblTotalRevenueValue);
-            this.pnlDashboard.Controls.Add(this.lblTableStatus);
-            this.pnlDashboard.Controls.Add(this.lblTotalOrdersValue);
-            this.pnlDashboard.Controls.Add(this.dgvTableStatus);
-            this.pnlDashboard.Controls.Add(this.lblRecentOrders);
-            this.pnlDashboard.Controls.Add(this.dgvRecentOrders);
+            this.pnlDashboard.Controls.Add(this.tlpStats);
+            this.pnlDashboard.Controls.Add(this.pnlTableCard);
+            this.pnlDashboard.Controls.Add(this.pnlOrdersCard);
             this.pnlDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDashboard.Location = new System.Drawing.Point(0, 0);
             this.pnlDashboard.Name = "pnlDashboard";
@@ -372,74 +277,161 @@
             this.pnlDashboard.Size = new System.Drawing.Size(930, 594);
             this.pnlDashboard.TabIndex = 1;
             // 
+            // tlpStats
+            // 
+            this.tlpStats.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpStats.BackColor = System.Drawing.Color.Transparent;
+            this.tlpStats.ColumnCount = 4;
+            this.tlpStats.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpStats.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpStats.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpStats.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpStats.Controls.Add(this.cardCompletedToday, 0, 0);
+            this.tlpStats.Controls.Add(this.cardRevenueToday, 1, 0);
+            this.tlpStats.Controls.Add(this.cardTablesOccupied, 2, 0);
+            this.tlpStats.Controls.Add(this.cardOpenOrders, 3, 0);
+            this.tlpStats.Location = new System.Drawing.Point(10, 15);
+            this.tlpStats.Name = "tlpStats";
+            this.tlpStats.RowCount = 1;
+            this.tlpStats.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpStats.Size = new System.Drawing.Size(910, 74);
+            this.tlpStats.TabIndex = 0;
+            // 
+            // cardCompletedToday
+            // 
+            this.cardCompletedToday.AccentColor = System.Drawing.Color.Green;
+            this.cardCompletedToday.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardCompletedToday.Caption = "Completed Today";
+            this.cardCompletedToday.CornerRadius = 14;
+            this.cardCompletedToday.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardCompletedToday.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.cardCompletedToday.Name = "cardCompletedToday";
+            this.cardCompletedToday.TabIndex = 0;
+            this.cardCompletedToday.Value = "0";
+            // 
+            // cardRevenueToday
+            // 
+            this.cardRevenueToday.AccentColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
+            this.cardRevenueToday.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardRevenueToday.Caption = "Revenue Today";
+            this.cardRevenueToday.CornerRadius = 14;
+            this.cardRevenueToday.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardRevenueToday.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.cardRevenueToday.Name = "cardRevenueToday";
+            this.cardRevenueToday.TabIndex = 1;
+            this.cardRevenueToday.Value = "₱0.00";
+            // 
+            // cardTablesOccupied
+            // 
+            this.cardTablesOccupied.AccentColor = System.Drawing.Color.Firebrick;
+            this.cardTablesOccupied.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardTablesOccupied.Caption = "Tables Occupied";
+            this.cardTablesOccupied.CornerRadius = 14;
+            this.cardTablesOccupied.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardTablesOccupied.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.cardTablesOccupied.Name = "cardTablesOccupied";
+            this.cardTablesOccupied.TabIndex = 2;
+            this.cardTablesOccupied.Value = "0 / 0";
+            // 
+            // cardOpenOrders
+            // 
+            this.cardOpenOrders.AccentColor = System.Drawing.Color.Goldenrod;
+            this.cardOpenOrders.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardOpenOrders.Caption = "Open Orders";
+            this.cardOpenOrders.CornerRadius = 14;
+            this.cardOpenOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardOpenOrders.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.cardOpenOrders.Name = "cardOpenOrders";
+            this.cardOpenOrders.TabIndex = 3;
+            this.cardOpenOrders.Value = "0";
+            // 
+            // pnlTableCard
+            // 
+            this.pnlTableCard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTableCard.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.pnlTableCard.Controls.Add(this.flpDashTables);
+            this.pnlTableCard.Controls.Add(this.flpTableLegend);
+            this.pnlTableCard.Controls.Add(this.lblTableStatus);
+            this.pnlTableCard.CornerRadius = 14;
+            this.pnlTableCard.Location = new System.Drawing.Point(15, 100);
+            this.pnlTableCard.Name = "pnlTableCard";
+            this.pnlTableCard.Size = new System.Drawing.Size(900, 252);
+            this.pnlTableCard.TabIndex = 0;
+            // 
             // lblTableStatus
             // 
             this.lblTableStatus.AutoSize = true;
             this.lblTableStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblTableStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTableStatus.ForeColor = System.Drawing.Color.Transparent;
-            this.lblTableStatus.Location = new System.Drawing.Point(18, 105);
+            this.lblTableStatus.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
+            this.lblTableStatus.Location = new System.Drawing.Point(16, 10);
             this.lblTableStatus.Name = "lblTableStatus";
             this.lblTableStatus.Size = new System.Drawing.Size(129, 21);
             this.lblTableStatus.TabIndex = 0;
             this.lblTableStatus.Text = "🪑 Table Status";
             // 
-            // dgvTableStatus
+            // flpTableLegend
             // 
-            this.dgvTableStatus.AllowUserToAddRows = false;
-            this.dgvTableStatus.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.LightGray;
-            this.dgvTableStatus.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvTableStatus.BackgroundColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
-            this.dgvTableStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvTableStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTableStatus.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvTableStatus.Location = new System.Drawing.Point(18, 130);
-            this.dgvTableStatus.Name = "dgvTableStatus";
-            this.dgvTableStatus.ReadOnly = true;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTableStatus.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvTableStatus.Size = new System.Drawing.Size(895, 180);
-            this.dgvTableStatus.TabIndex = 1;
+            this.flpTableLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpTableLegend.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.flpTableLegend.Hint = "Click a free table to start an order";
+            this.flpTableLegend.Location = new System.Drawing.Point(170, 12);
+            this.flpTableLegend.Name = "flpTableLegend";
+            this.flpTableLegend.Size = new System.Drawing.Size(716, 26);
+            this.flpTableLegend.TabIndex = 1;
+            // 
+            // flpDashTables
+            // 
+            this.flpDashTables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpDashTables.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.flpDashTables.Location = new System.Drawing.Point(10, 42);
+            this.flpDashTables.Name = "flpDashTables";
+            this.flpDashTables.SelectionEnabled = false;
+            this.flpDashTables.Size = new System.Drawing.Size(880, 206);
+            this.flpDashTables.TabIndex = 2;
+            this.flpDashTables.TileScale = 0.65F;
+            this.flpDashTables.TileSpacing = 2;
+            this.flpDashTables.TableClicked += new System.EventHandler<Restaurant_Ordering_and_Management_System.Forms.TableEventArgs>(this.FlpDashTables_TableClicked);
+            // 
+            // pnlOrdersCard
+            // 
+            this.pnlOrdersCard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlOrdersCard.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.pnlOrdersCard.Controls.Add(this.dgvRecentOrders);
+            this.pnlOrdersCard.Controls.Add(this.lblRecentOrders);
+            this.pnlOrdersCard.CornerRadius = 14;
+            this.pnlOrdersCard.Location = new System.Drawing.Point(15, 362);
+            this.pnlOrdersCard.Name = "pnlOrdersCard";
+            this.pnlOrdersCard.Size = new System.Drawing.Size(900, 222);
+            this.pnlOrdersCard.TabIndex = 1;
             // 
             // lblRecentOrders
             // 
             this.lblRecentOrders.AutoSize = true;
             this.lblRecentOrders.BackColor = System.Drawing.Color.Transparent;
             this.lblRecentOrders.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblRecentOrders.ForeColor = System.Drawing.Color.White;
-            this.lblRecentOrders.Location = new System.Drawing.Point(19, 348);
+            this.lblRecentOrders.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
+            this.lblRecentOrders.Location = new System.Drawing.Point(16, 10);
             this.lblRecentOrders.Name = "lblRecentOrders";
             this.lblRecentOrders.Size = new System.Drawing.Size(143, 21);
-            this.lblRecentOrders.TabIndex = 2;
+            this.lblRecentOrders.TabIndex = 0;
             this.lblRecentOrders.Text = "📝 Recent Orders";
             // 
             // dgvRecentOrders
             // 
-            this.dgvRecentOrders.AllowUserToAddRows = false;
-            this.dgvRecentOrders.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.LightGray;
-            this.dgvRecentOrders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvRecentOrders.BackgroundColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
-            this.dgvRecentOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRecentOrders.Location = new System.Drawing.Point(19, 373);
+            this.dgvRecentOrders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvRecentOrders.Location = new System.Drawing.Point(10, 40);
             this.dgvRecentOrders.Name = "dgvRecentOrders";
-            this.dgvRecentOrders.ReadOnly = true;
-            this.dgvRecentOrders.Size = new System.Drawing.Size(895, 190);
-            this.dgvRecentOrders.TabIndex = 3;
+            this.dgvRecentOrders.Size = new System.Drawing.Size(880, 178);
+            this.dgvRecentOrders.TabIndex = 1;
             // 
             // Form1
             // 
@@ -462,9 +454,15 @@
             this.pnlMainContent.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.flpTableLegend.ResumeLayout(false);
+            this.flpTableLegend.PerformLayout();
+            this.tlpStats.ResumeLayout(false);
+            this.pnlOrdersCard.ResumeLayout(false);
+            this.pnlOrdersCard.PerformLayout();
+            this.pnlTableCard.ResumeLayout(false);
+            this.pnlTableCard.PerformLayout();
             this.pnlDashboard.ResumeLayout(false);
             this.pnlDashboard.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -485,19 +483,20 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel pnlMainContent;
         private System.Windows.Forms.Panel pnlDashboard;
-        private System.Windows.Forms.DataGridView dgvRecentOrders;
-        private System.Windows.Forms.DataGridView dgvTableStatus;
+        private Restaurant_Ordering_and_Management_System.Forms.RecentOrdersGrid dgvRecentOrders;
+        private FilletedPanel pnlOrdersCard;
+        private System.Windows.Forms.TableLayoutPanel tlpStats;
+        private Restaurant_Ordering_and_Management_System.Forms.StatCard cardCompletedToday;
+        private Restaurant_Ordering_and_Management_System.Forms.StatCard cardRevenueToday;
+        private Restaurant_Ordering_and_Management_System.Forms.StatCard cardTablesOccupied;
+        private Restaurant_Ordering_and_Management_System.Forms.StatCard cardOpenOrders;
+        private FilletedPanel pnlTableCard;
+        private Restaurant_Ordering_and_Management_System.Forms.TableStatusLegend flpTableLegend;
+        private Restaurant_Ordering_and_Management_System.Forms.TableFloorPanel flpDashTables;
         private System.Windows.Forms.Label lblRecentOrders;
         private System.Windows.Forms.Label lblTableStatus;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.Label lblPendingOrdersLabel;
-        private System.Windows.Forms.Label lblPendingOrdersValue;
-        private System.Windows.Forms.Label lblActiveTablesLabel;
-        private System.Windows.Forms.Label lblActiveTablesValue;
-        private System.Windows.Forms.Label lblTotalRevenueLabel;
-        private System.Windows.Forms.Label lblTotalRevenueValue;
-        private System.Windows.Forms.Label lblTotalOrdersLabel;
-        private System.Windows.Forms.Label lblTotalOrdersValue;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripLastUpdated;
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -157,6 +157,22 @@
     <Compile Include="Helper\ValidationHelper.cs" />
     <Compile Include="Helper\AppTheme.cs" />
     <Compile Include="Helper\ThemeHelper.cs" />
+    <Compile Include="Models\DashboardSummary.cs" />
+    <Compile Include="Forms\StatCard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Helper\OrderStatusStyle.cs" />
+    <Compile Include="Helper\RelativeTime.cs" />
+    <Compile Include="Helper\ChipPainter.cs" />
+    <Compile Include="Forms\RecentOrdersGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\TableFloorPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\TableStatusLegend.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Helper\TableStatusStyle.cs" />
     <Compile Include="Helper\GraphicsHelper.cs" />
     <Compile Include="Helper\ReportExporter.cs" />

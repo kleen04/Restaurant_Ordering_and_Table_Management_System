@@ -16,7 +16,7 @@ namespace Restaurant_Ordering_and_Management_System.Helper
         public static readonly Color Accent = Color.FromArgb(255, 107, 53);       // main action on a screen (Add, Save, Export...)
 
         // Screen headers - one value so every form's title bar matches.
-        public static readonly Color Header = Primary;
+        public static readonly Color Header = Color.Orange;
         public static readonly Color OnPrimary = Color.White;                     // text on Primary / Header
         public static readonly Color OnPrimaryMuted = Color.FromArgb(255, 224, 214); // subtitle text on Primary / Header
 

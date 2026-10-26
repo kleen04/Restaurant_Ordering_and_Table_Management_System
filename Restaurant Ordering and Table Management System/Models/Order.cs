@@ -29,6 +29,12 @@ namespace Restaurant_Ordering_and_Management_System.Models
         /// where the line items are not loaded.</summary>
         public decimal SummaryTotal { get; set; }
 
+        /// <summary>True while the order still needs attention (Pending or In Progress).</summary>
+        public bool IsOpen
+        {
+            get { return Status == OrderStatus.Pending || Status == OrderStatus.InProgress; }
+        }
+
         /// <summary>Sum of the line items when they are loaded; otherwise the
         /// database-supplied summary total.</summary>
         public decimal Total

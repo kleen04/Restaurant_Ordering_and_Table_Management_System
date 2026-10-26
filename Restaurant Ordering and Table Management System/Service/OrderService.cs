@@ -10,7 +10,7 @@ namespace Restaurant_Ordering_and_Management_System.Service
 {
     // ============================================================
     // OWNER: Order module member — backs FormAddOrder and the
-    // dashboard's dgvRecentOrders grid on Form1.
+    // dashboard's Recent Orders list on Form1.
     // Stored procedures: sp_Order_GetRecent, sp_Order_GetById,
     // sp_Order_Create, sp_OrderItem_Insert, sp_OrderItem_GetByOrderId,
     // sp_Order_UpdateStatus (see Database/stored_procedures.sql).

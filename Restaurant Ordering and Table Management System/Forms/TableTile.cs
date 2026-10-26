@@ -12,7 +12,9 @@ namespace Restaurant_Ordering_and_Management_System.Forms
     /// <summary>
     /// Draws one dining table as seen from above: a round or rectangular table top,
     /// one chair per seat, and a filled chair for every seated guest.
-    /// Display only - choosing a table and acting on it is the host form's job.
+    /// Display only - choosing a table and acting on it is the host's job.
+    /// The same tile is used full size (Tables page) and compact (dashboard) by
+    /// passing a scale; everything is designed on a 150 x 150 grid and scaled down.
     /// </summary>
     public class TableTile : Control
     {
@@ -40,33 +42,70 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private static readonly Color PrimaryTextColor = AppTheme.TextDark;
         private static readonly Color SecondaryTextColor = AppTheme.TextMuted;
 
-        private readonly Font _idFont = new Font("Segoe UI", 11F, FontStyle.Bold);
-        private readonly Font _infoFont = new Font("Segoe UI", 9F);
-        private readonly Font _statusFont = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+        private readonly float _scale;
+        private readonly Font _idFont;
+        private readonly Font _infoFont;
+        private readonly Font _statusFont;
         private readonly StringFormat _centered = new StringFormat
         {
             Alignment = StringAlignment.Center,
-            LineAlignment = StringAlignment.Center
+            LineAlignment = StringAlignment.Center,
+            FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.NoClip
         };
 
         private bool _selected;
         private bool _hovered;
+        private string _bottomText;
 
         public RestaurantTable Table { get; }
 
-        public TableTile(RestaurantTable table)
+        public TableTile(RestaurantTable table) : this(table, 1f)
+        {
+        }
+
+        public TableTile(RestaurantTable table, float scale)
         {
             Table = table ?? throw new ArgumentNullException(nameof(table));
+            if (scale <= 0f)
+            {
+                throw new ArgumentOutOfRangeException(nameof(scale), "Scale must be greater than zero.");
+            }
+
+            _scale = scale;
+            _idFont = new Font("Segoe UI", ScaledFontSize(11F, 9F), FontStyle.Bold);
+            _infoFont = new Font("Segoe UI", ScaledFontSize(9F, 7.5F));
+            _statusFont = new Font("Segoe UI", ScaledFontSize(8.5F, 7.5F), FontStyle.Bold);
 
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
 
-            Size = new Size(TileSize, TileSize);
-            Margin = new Padding(8);
+            int side = (int)Math.Round(TileSize * scale);
+            Size = new Size(side, side);
+            Margin = new Padding(Math.Max(2, (int)Math.Round(8 * scale)));
             Cursor = Cursors.Hand;
             TabStop = false;
-            AccessibleName = string.Format("Table {0}, {1}, {2} of {3} seated",
-                table.TableId, table.Status, table.CurrentGuests, table.Capacity);
+            AccessibleName = Description;
+        }
+
+        /// <summary>Plain-language summary, used for tooltips and screen readers.</summary>
+        public string Description
+        {
+            get
+            {
+                return string.Format("Table {0}: {1}, {2} of {3} seated",
+                    Table.TableId, Table.Status, Table.CurrentGuests, Table.Capacity);
+            }
+        }
+
+        /// <summary>Text shown under the table. Defaults to the status name.</summary>
+        public string BottomText
+        {
+            get { return string.IsNullOrEmpty(_bottomText) ? Table.Status.ToString() : _bottomText; }
+            set
+            {
+                _bottomText = value;
+                Invalidate();
+            }
         }
 
         public bool Selected
@@ -93,6 +132,11 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             get { return Math.Min(Table.Capacity, MaxChairsDrawn); }
         }
 
+        private float ScaledFontSize(float designSize, float minimum)
+        {
+            return Math.Max(minimum, designSize * _scale);
+        }
+
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
@@ -117,9 +161,14 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             Color statusColor = TableStatusStyle.GetColor(Table.Status);
             RectangleF tableBounds = GetTableBounds();
 
+            // Shapes are drawn on the 150 x 150 design grid and scaled to the control size.
+            g.ScaleTransform(_scale, _scale);
             PaintBackdrop(g);
             PaintChairs(g, tableBounds, statusColor);
             PaintTableTop(g, tableBounds, statusColor);
+            g.ResetTransform();
+
+            // Text is drawn at real size so small tiles stay readable.
             PaintLabels(g, tableBounds, statusColor);
         }
 
@@ -132,7 +181,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 return;
             }
 
-            RectangleF area = new RectangleF(1, 1, Width - 3, Height - 3);
+            RectangleF area = new RectangleF(1, 1, TileSize - 3, TileSize - 3);
             using (GraphicsPath path = GraphicsHelper.RoundedRectangle(area, 14))
             using (SolidBrush fill = new SolidBrush(_selected ? SelectedBackColor : HoverBackColor))
             {
@@ -184,13 +233,13 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             float centerY = tableBounds.Top + tableBounds.Height / 2f;
 
             DrawCentered(g, "T" + Table.TableId, _idFont, PrimaryTextColor,
-                new RectangleF(tableBounds.X, centerY - 20, tableBounds.Width, 20));
+                ToControlSpace(new RectangleF(tableBounds.X, centerY - 20, tableBounds.Width, 20)));
 
             DrawCentered(g, Table.CurrentGuests + "/" + Table.Capacity, _infoFont, SecondaryTextColor,
-                new RectangleF(tableBounds.X, centerY, tableBounds.Width, 18));
+                ToControlSpace(new RectangleF(tableBounds.X, centerY, tableBounds.Width, 18)));
 
-            DrawCentered(g, Table.Status.ToString(), _statusFont, statusColor,
-                new RectangleF(0, Height - 24, Width, 18));
+            DrawCentered(g, BottomText, _statusFont, statusColor,
+                ToControlSpace(new RectangleF(0, TileSize - 24, TileSize, 18)));
         }
 
         private void DrawCentered(Graphics g, string text, Font font, Color color, RectangleF bounds)
@@ -201,7 +250,12 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             }
         }
 
-        // ---- geometry ------------------------------------------------------
+        private RectangleF ToControlSpace(RectangleF r)
+        {
+            return new RectangleF(r.X * _scale, r.Y * _scale, r.Width * _scale, r.Height * _scale);
+        }
+
+        // ---- geometry (all in design-grid units) ----------------------------
 
         private GraphicsPath CreateTableShape(RectangleF bounds)
         {
@@ -216,7 +270,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private RectangleF GetTableBounds()
         {
-            float centerX = Width / 2f;
+            float centerX = TileSize / 2f;
 
             if (IsRound)
             {

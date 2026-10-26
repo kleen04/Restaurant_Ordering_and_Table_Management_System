@@ -15,6 +15,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private readonly ITableService _tableService;
         private readonly IStaffService _staffService;
         private readonly IOrderService _orderService;
+        private readonly int? _preselectedTableId;
 
         // The order being built. The grid is always re-drawn from this list.
         private readonly List<OrderItem> _lines = new List<OrderItem>();
@@ -23,12 +24,14 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private NumericUpDown _nudGuests;
 
         public FormAddOrder(IMenuService menuService, ITableService tableService,
-                            IStaffService staffService, IOrderService orderService)
+                            IStaffService staffService, IOrderService orderService,
+                            int? preselectedTableId = null)
         {
             _menuService = menuService ?? throw new ArgumentNullException(nameof(menuService));
             _tableService = tableService ?? throw new ArgumentNullException(nameof(tableService));
             _staffService = staffService ?? throw new ArgumentNullException(nameof(staffService));
             _orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+            _preselectedTableId = preselectedTableId;
 
             InitializeComponent();
             ThemeHelper.StyleGrid(dgvOrderItems);
@@ -104,13 +107,31 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
             if (cmbTable.Items.Count > 0)
             {
-                cmbTable.SelectedIndex = 0;
+                cmbTable.SelectedIndex = IndexOfPreselectedTable();
             }
             else
             {
                 btnPlaceOrder.Enabled = false;
                 MessageHelper.ShowWarning("There are no free tables right now. Free a table first, then create the order.", "No Free Tables");
             }
+        }
+
+        // The table the caller asked for (e.g. clicked on the dashboard), or the first free one.
+        private int IndexOfPreselectedTable()
+        {
+            if (_preselectedTableId.HasValue)
+            {
+                for (int i = 0; i < cmbTable.Items.Count; i++)
+                {
+                    TableChoice choice = cmbTable.Items[i] as TableChoice;
+                    if (choice != null && choice.Table.TableId == _preselectedTableId.Value)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return 0;
         }
 
         private void LoadStaff()

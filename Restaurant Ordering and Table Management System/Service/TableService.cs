@@ -10,7 +10,7 @@ namespace Restaurant_Ordering_and_Management_System.Service
 {
     // ============================================================
     // OWNER: Table module member — backs FormTables and the
-    // dashboard's dgvTableStatus grid on Form1.
+    // dashboard's table status tiles on Form1.
     // Stored procedures: sp_Table_GetAll, sp_Table_Insert, sp_Table_Update,
     // sp_Table_UpdateStatus, sp_Table_Delete (see Database/stored_procedures.sql).
     // ============================================================
