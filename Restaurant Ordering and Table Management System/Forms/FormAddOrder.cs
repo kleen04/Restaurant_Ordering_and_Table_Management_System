@@ -19,6 +19,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         // The order being built. The grid is always re-drawn from this list.
         private readonly List<OrderItem> _lines = new List<OrderItem>();
+        private readonly List<MenuItem> _availableMenuItems = new List<MenuItem>();
 
         private ComboBox _cmbStaff;
         private NumericUpDown _nudGuests;
@@ -38,6 +39,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             ThemeHelper.StyleGrid(dgvMenu);
             AddStaffAndGuestControls();
             cmbTable.SelectedIndexChanged += CmbTable_SelectedIndexChanged;
+            txtMenuSearch.TextChanged += TxtMenuSearch_TextChanged;
         }
 
         // Items shown in the combo boxes: real records, readable text.
@@ -179,15 +181,37 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             dgvMenu.Columns.Add("Price", "Price");
             dgvMenu.Columns["Price"].DefaultCellStyle.Format = "N2";
 
+            _availableMenuItems.Clear();
             foreach (MenuItem item in _menuService.GetAllMenuItems())
             {
                 if (item.IsAvailable)
                 {
-                    dgvMenu.Rows.Add(item.MenuItemId, item.Name, item.Category, item.Price);
+                    _availableMenuItems.Add(item);
                 }
             }
 
+            FilterMenuItems();
             dgvMenu.AutoResizeColumns();
+        }
+
+        private void TxtMenuSearch_TextChanged(object sender, EventArgs e)
+        {
+            FilterMenuItems();
+        }
+
+        private void FilterMenuItems()
+        {
+            string searchText = txtMenuSearch.Text.Trim();
+            dgvMenu.Rows.Clear();
+
+            foreach (MenuItem item in _availableMenuItems)
+            {
+                if (item.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                    || item.Category.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    dgvMenu.Rows.Add(item.MenuItemId, item.Name, item.Category, item.Price);
+                }
+            }
         }
 
         private void InitializeOrderGrid()

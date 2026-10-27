@@ -47,6 +47,9 @@
             this.lblOrderItemsHeader = new System.Windows.Forms.Label();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.dgvMenu = new System.Windows.Forms.DataGridView();
+            this.pnlMenuSearch = new System.Windows.Forms.Panel();
+            this.lblMenuSearch = new System.Windows.Forms.Label();
+            this.txtMenuSearch = new System.Windows.Forms.TextBox();
             this.pnlAddToOrder = new System.Windows.Forms.Panel();
             this.btnAddToOrder = new System.Windows.Forms.Button();
             this.nudQuantity = new System.Windows.Forms.NumericUpDown();
@@ -62,6 +65,7 @@
             this.pnlTotal.SuspendLayout();
             this.pnlMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenu)).BeginInit();
+            this.pnlMenuSearch.SuspendLayout();
             this.pnlAddToOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -254,6 +258,7 @@
             this.pnlMenu.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Page;
             this.pnlMenu.Controls.Add(this.dgvMenu);
             this.pnlMenu.Controls.Add(this.pnlAddToOrder);
+            this.pnlMenu.Controls.Add(this.pnlMenuSearch);
             this.pnlMenu.Controls.Add(this.lblMenuHeader);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 116);
@@ -297,6 +302,35 @@
             this.dgvMenu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMenu.Size = new System.Drawing.Size(436, 244);
             this.dgvMenu.TabIndex = 1;
+            // 
+            // pnlMenuSearch
+            // 
+            this.pnlMenuSearch.Controls.Add(this.txtMenuSearch);
+            this.pnlMenuSearch.Controls.Add(this.lblMenuSearch);
+            this.pnlMenuSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlMenuSearch.Location = new System.Drawing.Point(16, 42);
+            this.pnlMenuSearch.Name = "pnlMenuSearch";
+            this.pnlMenuSearch.Size = new System.Drawing.Size(436, 34);
+            this.pnlMenuSearch.TabIndex = 3;
+            // 
+            // lblMenuSearch
+            // 
+            this.lblMenuSearch.AutoSize = true;
+            this.lblMenuSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblMenuSearch.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
+            this.lblMenuSearch.Location = new System.Drawing.Point(0, 8);
+            this.lblMenuSearch.Name = "lblMenuSearch";
+            this.lblMenuSearch.Size = new System.Drawing.Size(42, 15);
+            this.lblMenuSearch.TabIndex = 0;
+            this.lblMenuSearch.Text = "Search:";
+            // 
+            // txtMenuSearch
+            // 
+            this.txtMenuSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtMenuSearch.Location = new System.Drawing.Point(50, 4);
+            this.txtMenuSearch.Name = "txtMenuSearch";
+            this.txtMenuSearch.Size = new System.Drawing.Size(386, 25);
+            this.txtMenuSearch.TabIndex = 1;
             // 
             // pnlAddToOrder
             // 
@@ -438,6 +472,8 @@
             this.pnlTotal.PerformLayout();
             this.pnlMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenu)).EndInit();
+            this.pnlMenuSearch.ResumeLayout(false);
+            this.pnlMenuSearch.PerformLayout();
             this.pnlAddToOrder.ResumeLayout(false);
             this.pnlAddToOrder.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudQuantity)).EndInit();
@@ -455,6 +491,9 @@
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Label lblMenuHeader;
         private System.Windows.Forms.DataGridView dgvMenu;
+        private System.Windows.Forms.Panel pnlMenuSearch;
+        private System.Windows.Forms.Label lblMenuSearch;
+        private System.Windows.Forms.TextBox txtMenuSearch;
         private System.Windows.Forms.Panel pnlAddToOrder;
         private System.Windows.Forms.Label lblQuantity;
         private System.Windows.Forms.NumericUpDown nudQuantity;

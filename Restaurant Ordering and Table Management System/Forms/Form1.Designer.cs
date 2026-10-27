@@ -15,6 +15,14 @@
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblCurrentTime = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
@@ -28,37 +36,41 @@
             this.btnInventory = new System.Windows.Forms.Button();
             this.btnNewOrder = new System.Windows.Forms.Button();
             this.pnlMainContent = new System.Windows.Forms.Panel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripLastUpdated = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlDashboard = new System.Windows.Forms.Panel();
-            this.lblTableStatus = new System.Windows.Forms.Label();
             this.tlpStats = new System.Windows.Forms.TableLayoutPanel();
             this.cardCompletedToday = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
             this.cardRevenueToday = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
             this.cardTablesOccupied = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
             this.cardOpenOrders = new Restaurant_Ordering_and_Management_System.Forms.StatCard();
             this.pnlTableCard = new FilletedPanel();
-            this.flpTableLegend = new Restaurant_Ordering_and_Management_System.Forms.TableStatusLegend();
             this.flpDashTables = new Restaurant_Ordering_and_Management_System.Forms.TableFloorPanel();
-            this.lblRecentOrders = new System.Windows.Forms.Label();
+            this.flpTableLegend = new Restaurant_Ordering_and_Management_System.Forms.TableStatusLegend();
+            this.lblTableStatus = new System.Windows.Forms.Label();
             this.pnlOrdersCard = new FilletedPanel();
             this.dgvRecentOrders = new Restaurant_Ordering_and_Management_System.Forms.RecentOrdersGrid();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblRecentOrders = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLastUpdated = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlHeader.SuspendLayout();
             this.pnlSidebar.SuspendLayout();
             this.pnlMainContent.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.pnlDashboard.SuspendLayout();
             this.tlpStats.SuspendLayout();
             this.pnlTableCard.SuspendLayout();
             this.pnlOrdersCard.SuspendLayout();
-            this.flpTableLegend.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Header;
+            this.pnlHeader.BackColor = System.Drawing.Color.Orange;
             this.pnlHeader.Controls.Add(this.lblCurrentTime);
             this.pnlHeader.Controls.Add(this.lblUser);
             this.pnlHeader.Controls.Add(this.lblRestaurantName);
@@ -76,7 +88,7 @@
             this.lblCurrentTime.ForeColor = System.Drawing.Color.White;
             this.lblCurrentTime.Location = new System.Drawing.Point(850, 45);
             this.lblCurrentTime.Name = "lblCurrentTime";
-            this.lblCurrentTime.Size = new System.Drawing.Size(260, 19);
+            this.lblCurrentTime.Size = new System.Drawing.Size(312, 23);
             this.lblCurrentTime.TabIndex = 2;
             this.lblCurrentTime.Text = "📅 Date and Time: 00/00/0000 00:00:00";
             // 
@@ -87,24 +99,24 @@
             this.lblUser.ForeColor = System.Drawing.Color.White;
             this.lblUser.Location = new System.Drawing.Point(850, 20);
             this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(157, 19);
+            this.lblUser.Size = new System.Drawing.Size(194, 23);
             this.lblUser.TabIndex = 1;
             this.lblUser.Text = "👤 Logged in as: Admin";
             // 
             // lblRestaurantName
             // 
             this.lblRestaurantName.AutoSize = true;
-            this.lblRestaurantName.Font = new System.Drawing.Font("Brush Script MT", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRestaurantName.Font = new System.Drawing.Font("Pristina", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRestaurantName.ForeColor = System.Drawing.Color.White;
             this.lblRestaurantName.Location = new System.Drawing.Point(20, 15);
             this.lblRestaurantName.Name = "lblRestaurantName";
-            this.lblRestaurantName.Size = new System.Drawing.Size(167, 39);
+            this.lblRestaurantName.Size = new System.Drawing.Size(202, 52);
             this.lblRestaurantName.TabIndex = 0;
             this.lblRestaurantName.Text = "Tagum-Eats";
             // 
             // pnlSidebar
             // 
-            this.pnlSidebar.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.pnlSidebar.BackColor = System.Drawing.Color.Maroon;
             this.pnlSidebar.Controls.Add(this.btnLogout);
             this.pnlSidebar.Controls.Add(this.btnSettings);
             this.pnlSidebar.Controls.Add(this.btnTableManagement);
@@ -116,12 +128,12 @@
             this.pnlSidebar.Location = new System.Drawing.Point(0, 80);
             this.pnlSidebar.Name = "pnlSidebar";
             this.pnlSidebar.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            this.pnlSidebar.Size = new System.Drawing.Size(200, 594);
+            this.pnlSidebar.Size = new System.Drawing.Size(200, 590);
             this.pnlSidebar.TabIndex = 1;
             // 
             // btnLogout
             // 
-            this.btnLogout.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Danger;
+            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnLogout.FlatAppearance.BorderSize = 0;
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -136,7 +148,7 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.btnSettings.BackColor = System.Drawing.Color.Maroon;
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -151,7 +163,7 @@
             // 
             // btnTableManagement
             // 
-            this.btnTableManagement.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.btnTableManagement.BackColor = System.Drawing.Color.Maroon;
             this.btnTableManagement.FlatAppearance.BorderSize = 0;
             this.btnTableManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTableManagement.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -166,7 +178,7 @@
             // 
             // btnReports
             // 
-            this.btnReports.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.btnReports.BackColor = System.Drawing.Color.Maroon;
             this.btnReports.FlatAppearance.BorderSize = 0;
             this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -181,7 +193,7 @@
             // 
             // btnStaff
             // 
-            this.btnStaff.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.btnStaff.BackColor = System.Drawing.Color.Maroon;
             this.btnStaff.FlatAppearance.BorderSize = 0;
             this.btnStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStaff.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -196,7 +208,7 @@
             // 
             // btnInventory
             // 
-            this.btnInventory.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.btnInventory.BackColor = System.Drawing.Color.Maroon;
             this.btnInventory.FlatAppearance.BorderSize = 0;
             this.btnInventory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInventory.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -211,7 +223,7 @@
             // 
             // btnNewOrder
             // 
-            this.btnNewOrder.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
+            this.btnNewOrder.BackColor = System.Drawing.Color.Maroon;
             this.btnNewOrder.FlatAppearance.BorderSize = 0;
             this.btnNewOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewOrder.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
@@ -227,44 +239,17 @@
             // pnlMainContent
             // 
             this.pnlMainContent.AutoScroll = true;
-            this.pnlMainContent.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Page;
+            this.pnlMainContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
             this.pnlMainContent.Controls.Add(this.pnlDashboard);
             this.pnlMainContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMainContent.Location = new System.Drawing.Point(200, 80);
             this.pnlMainContent.Name = "pnlMainContent";
-            this.pnlMainContent.Size = new System.Drawing.Size(930, 594);
+            this.pnlMainContent.Size = new System.Drawing.Size(930, 590);
             this.pnlMainContent.TabIndex = 2;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Primary;
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel,
-            this.toolStripLastUpdated});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 674);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1130, 22);
-            this.statusStrip1.TabIndex = 3;
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(1038, 17);
-            this.toolStripStatusLabel.Spring = true;
-            this.toolStripStatusLabel.Text = "Ready";
-            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // toolStripLastUpdated
-            // 
-            this.toolStripLastUpdated.ForeColor = System.Drawing.Color.White;
-            this.toolStripLastUpdated.Name = "toolStripLastUpdated";
-            this.toolStripLastUpdated.Size = new System.Drawing.Size(77, 17);
-            this.toolStripLastUpdated.Text = "Not updated yet";
             // 
             // pnlDashboard
             // 
-            this.pnlDashboard.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Page;
+            this.pnlDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
             this.pnlDashboard.BackgroundImage = global::Restaurant_Ordering_and_Management_System.Properties.Resources.home;
             this.pnlDashboard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlDashboard.Controls.Add(this.tlpStats);
@@ -274,7 +259,7 @@
             this.pnlDashboard.Location = new System.Drawing.Point(0, 0);
             this.pnlDashboard.Name = "pnlDashboard";
             this.pnlDashboard.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlDashboard.Size = new System.Drawing.Size(930, 594);
+            this.pnlDashboard.Size = new System.Drawing.Size(930, 590);
             this.pnlDashboard.TabIndex = 1;
             // 
             // tlpStats
@@ -301,56 +286,61 @@
             // cardCompletedToday
             // 
             this.cardCompletedToday.AccentColor = System.Drawing.Color.Green;
-            this.cardCompletedToday.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardCompletedToday.BackColor = System.Drawing.Color.White;
             this.cardCompletedToday.Caption = "Completed Today";
             this.cardCompletedToday.CornerRadius = 14;
             this.cardCompletedToday.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardCompletedToday.Location = new System.Drawing.Point(5, 0);
             this.cardCompletedToday.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cardCompletedToday.Name = "cardCompletedToday";
+            this.cardCompletedToday.Size = new System.Drawing.Size(217, 74);
             this.cardCompletedToday.TabIndex = 0;
-            this.cardCompletedToday.Value = "0";
             // 
             // cardRevenueToday
             // 
-            this.cardRevenueToday.AccentColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Accent;
-            this.cardRevenueToday.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardRevenueToday.BackColor = System.Drawing.Color.White;
             this.cardRevenueToday.Caption = "Revenue Today";
             this.cardRevenueToday.CornerRadius = 14;
             this.cardRevenueToday.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardRevenueToday.Location = new System.Drawing.Point(232, 0);
             this.cardRevenueToday.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cardRevenueToday.Name = "cardRevenueToday";
+            this.cardRevenueToday.Size = new System.Drawing.Size(217, 74);
             this.cardRevenueToday.TabIndex = 1;
             this.cardRevenueToday.Value = "₱0.00";
             // 
             // cardTablesOccupied
             // 
             this.cardTablesOccupied.AccentColor = System.Drawing.Color.Firebrick;
-            this.cardTablesOccupied.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardTablesOccupied.BackColor = System.Drawing.Color.White;
             this.cardTablesOccupied.Caption = "Tables Occupied";
             this.cardTablesOccupied.CornerRadius = 14;
             this.cardTablesOccupied.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardTablesOccupied.Location = new System.Drawing.Point(459, 0);
             this.cardTablesOccupied.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cardTablesOccupied.Name = "cardTablesOccupied";
+            this.cardTablesOccupied.Size = new System.Drawing.Size(217, 74);
             this.cardTablesOccupied.TabIndex = 2;
             this.cardTablesOccupied.Value = "0 / 0";
             // 
             // cardOpenOrders
             // 
             this.cardOpenOrders.AccentColor = System.Drawing.Color.Goldenrod;
-            this.cardOpenOrders.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.cardOpenOrders.BackColor = System.Drawing.Color.White;
             this.cardOpenOrders.Caption = "Open Orders";
             this.cardOpenOrders.CornerRadius = 14;
             this.cardOpenOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardOpenOrders.Location = new System.Drawing.Point(686, 0);
             this.cardOpenOrders.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.cardOpenOrders.Name = "cardOpenOrders";
+            this.cardOpenOrders.Size = new System.Drawing.Size(219, 74);
             this.cardOpenOrders.TabIndex = 3;
-            this.cardOpenOrders.Value = "0";
             // 
             // pnlTableCard
             // 
             this.pnlTableCard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlTableCard.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.pnlTableCard.BackColor = System.Drawing.Color.White;
             this.pnlTableCard.Controls.Add(this.flpDashTables);
             this.pnlTableCard.Controls.Add(this.flpTableLegend);
             this.pnlTableCard.Controls.Add(this.lblTableStatus);
@@ -360,35 +350,13 @@
             this.pnlTableCard.Size = new System.Drawing.Size(900, 252);
             this.pnlTableCard.TabIndex = 0;
             // 
-            // lblTableStatus
-            // 
-            this.lblTableStatus.AutoSize = true;
-            this.lblTableStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblTableStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTableStatus.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
-            this.lblTableStatus.Location = new System.Drawing.Point(16, 10);
-            this.lblTableStatus.Name = "lblTableStatus";
-            this.lblTableStatus.Size = new System.Drawing.Size(129, 21);
-            this.lblTableStatus.TabIndex = 0;
-            this.lblTableStatus.Text = "🪑 Table Status";
-            // 
-            // flpTableLegend
-            // 
-            this.flpTableLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flpTableLegend.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
-            this.flpTableLegend.Hint = "Click a free table to start an order";
-            this.flpTableLegend.Location = new System.Drawing.Point(170, 12);
-            this.flpTableLegend.Name = "flpTableLegend";
-            this.flpTableLegend.Size = new System.Drawing.Size(716, 26);
-            this.flpTableLegend.TabIndex = 1;
-            // 
             // flpDashTables
             // 
             this.flpDashTables.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flpDashTables.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.flpDashTables.AutoScroll = true;
+            this.flpDashTables.BackColor = System.Drawing.Color.White;
             this.flpDashTables.Location = new System.Drawing.Point(10, 42);
             this.flpDashTables.Name = "flpDashTables";
             this.flpDashTables.SelectionEnabled = false;
@@ -398,11 +366,35 @@
             this.flpDashTables.TileSpacing = 2;
             this.flpDashTables.TableClicked += new System.EventHandler<Restaurant_Ordering_and_Management_System.Forms.TableEventArgs>(this.FlpDashTables_TableClicked);
             // 
+            // flpTableLegend
+            // 
+            this.flpTableLegend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpTableLegend.BackColor = System.Drawing.Color.White;
+            this.flpTableLegend.Hint = "Click a free table to start an order";
+            this.flpTableLegend.Location = new System.Drawing.Point(170, 12);
+            this.flpTableLegend.Name = "flpTableLegend";
+            this.flpTableLegend.Size = new System.Drawing.Size(716, 26);
+            this.flpTableLegend.TabIndex = 1;
+            this.flpTableLegend.WrapContents = false;
+            // 
+            // lblTableStatus
+            // 
+            this.lblTableStatus.AutoSize = true;
+            this.lblTableStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lblTableStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTableStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblTableStatus.Location = new System.Drawing.Point(16, 10);
+            this.lblTableStatus.Name = "lblTableStatus";
+            this.lblTableStatus.Size = new System.Drawing.Size(161, 28);
+            this.lblTableStatus.TabIndex = 0;
+            this.lblTableStatus.Text = "🪑 Table Status";
+            // 
             // pnlOrdersCard
             // 
             this.pnlOrdersCard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlOrdersCard.BackColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.Surface;
+            this.pnlOrdersCard.BackColor = System.Drawing.Color.White;
             this.pnlOrdersCard.Controls.Add(this.dgvRecentOrders);
             this.pnlOrdersCard.Controls.Add(this.lblRecentOrders);
             this.pnlOrdersCard.CornerRadius = 14;
@@ -411,31 +403,158 @@
             this.pnlOrdersCard.Size = new System.Drawing.Size(900, 222);
             this.pnlOrdersCard.TabIndex = 1;
             // 
+            // dgvRecentOrders
+            // 
+            this.dgvRecentOrders.AllowUserToAddRows = false;
+            this.dgvRecentOrders.AllowUserToDeleteRows = false;
+            this.dgvRecentOrders.AllowUserToResizeRows = false;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(248)))), ((int)(((byte)(245)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.dgvRecentOrders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvRecentOrders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvRecentOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRecentOrders.BackgroundColor = System.Drawing.Color.White;
+            this.dgvRecentOrders.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvRecentOrders.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvRecentOrders.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecentOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvRecentOrders.ColumnHeadersHeight = 26;
+            this.dgvRecentOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvRecentOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(237)))), ((int)(((byte)(227)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRecentOrders.DefaultCellStyle = dataGridViewCellStyle16;
+            this.dgvRecentOrders.EnableHeadersVisualStyles = false;
+            this.dgvRecentOrders.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.dgvRecentOrders.Location = new System.Drawing.Point(10, 40);
+            this.dgvRecentOrders.MultiSelect = false;
+            this.dgvRecentOrders.Name = "dgvRecentOrders";
+            this.dgvRecentOrders.ReadOnly = true;
+            this.dgvRecentOrders.RowHeadersVisible = false;
+            this.dgvRecentOrders.RowHeadersWidth = 51;
+            this.dgvRecentOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRecentOrders.Size = new System.Drawing.Size(880, 178);
+            this.dgvRecentOrders.TabIndex = 1;
+            this.dgvRecentOrders.WaitWarning = System.TimeSpan.Parse("00:15:00");
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridViewTextBoxColumn1.FillWeight = 14F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Order";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridViewTextBoxColumn2.FillWeight = 14F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Table";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle13;
+            this.dataGridViewTextBoxColumn3.FillWeight = 24F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dataGridViewTextBoxColumn4.FillWeight = 24F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Placed";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle15;
+            this.dataGridViewTextBoxColumn5.FillWeight = 24F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Total";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // lblRecentOrders
             // 
             this.lblRecentOrders.AutoSize = true;
             this.lblRecentOrders.BackColor = System.Drawing.Color.Transparent;
             this.lblRecentOrders.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblRecentOrders.ForeColor = global::Restaurant_Ordering_and_Management_System.Helper.AppTheme.TextDark;
+            this.lblRecentOrders.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lblRecentOrders.Location = new System.Drawing.Point(16, 10);
             this.lblRecentOrders.Name = "lblRecentOrders";
-            this.lblRecentOrders.Size = new System.Drawing.Size(143, 21);
+            this.lblRecentOrders.Size = new System.Drawing.Size(180, 28);
             this.lblRecentOrders.TabIndex = 0;
             this.lblRecentOrders.Text = "📝 Recent Orders";
             // 
-            // dgvRecentOrders
+            // statusStrip1
             // 
-            this.dgvRecentOrders.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvRecentOrders.Location = new System.Drawing.Point(10, 40);
-            this.dgvRecentOrders.Name = "dgvRecentOrders";
-            this.dgvRecentOrders.Size = new System.Drawing.Size(880, 178);
-            this.dgvRecentOrders.TabIndex = 1;
+            this.statusStrip1.BackColor = System.Drawing.Color.Maroon;
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel,
+            this.toolStripLastUpdated});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 670);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1130, 26);
+            this.statusStrip1.TabIndex = 3;
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(997, 20);
+            this.toolStripStatusLabel.Spring = true;
+            this.toolStripStatusLabel.Text = "Ready";
+            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripLastUpdated
+            // 
+            this.toolStripLastUpdated.ForeColor = System.Drawing.Color.White;
+            this.toolStripLastUpdated.Name = "toolStripLastUpdated";
+            this.toolStripLastUpdated.Size = new System.Drawing.Size(118, 20);
+            this.toolStripLastUpdated.Text = "Not updated yet";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
             this.ClientSize = new System.Drawing.Size(1130, 696);
@@ -452,18 +571,15 @@
             this.pnlHeader.PerformLayout();
             this.pnlSidebar.ResumeLayout(false);
             this.pnlMainContent.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.flpTableLegend.ResumeLayout(false);
-            this.flpTableLegend.PerformLayout();
+            this.pnlDashboard.ResumeLayout(false);
             this.tlpStats.ResumeLayout(false);
-            this.pnlOrdersCard.ResumeLayout(false);
-            this.pnlOrdersCard.PerformLayout();
             this.pnlTableCard.ResumeLayout(false);
             this.pnlTableCard.PerformLayout();
-            this.pnlDashboard.ResumeLayout(false);
-            this.pnlDashboard.PerformLayout();
+            this.pnlOrdersCard.ResumeLayout(false);
+            this.pnlOrdersCard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -498,5 +614,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripLastUpdated;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }
