@@ -97,14 +97,14 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(46, 358);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(303, 20);
+            this.textBox3.Size = new System.Drawing.Size(303, 26);
             this.textBox3.TabIndex = 8;
             // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(46, 305);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(303, 20);
+            this.textBox4.Size = new System.Drawing.Size(303, 26);
             this.textBox4.TabIndex = 7;
             // 
             // cbxPrivacyPolicy
@@ -115,7 +115,7 @@
             this.cbxPrivacyPolicy.Name = "cbxPrivacyPolicy";
             this.cbxPrivacyPolicy.Size = new System.Drawing.Size(92, 17);
             this.cbxPrivacyPolicy.TabIndex = 11;
-            this.cbxPrivacyPolicy.Text = "I agree to the ";
+            this.cbxPrivacyPolicy.Text = "Show passwords";
             this.cbxPrivacyPolicy.UseVisualStyleBackColor = true;
             // 
             // linkLabel1
@@ -126,7 +126,7 @@
             this.linkLabel1.Size = new System.Drawing.Size(97, 13);
             this.linkLabel1.TabIndex = 12;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = " Privacy and Policy";
+            this.linkLabel1.Text = "Back to Log In";
             // 
             // btnSignUp
             // 
@@ -139,7 +139,7 @@
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(303, 34);
             this.btnSignUp.TabIndex = 14;
-            this.btnSignUp.Text = "Sign Up";
+            this.btnSignUp.Text = "Create Administrator Account";
             this.btnSignUp.UseVisualStyleBackColor = false;
             // 
             // lblUsername
@@ -229,8 +229,9 @@
             this.Controls.Add(this.cbxPrivacyPolicy);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.btnSignUp);
+            this.AcceptButton = this.btnSignUp;
             this.Name = "FormSignUp";
-            this.Text = "FormSignUp";
+            this.Text = "Create Administrator Account";
             this.filletedPanel1.ResumeLayout(false);
             this.filletedPanel1.PerformLayout();
             this.ResumeLayout(false);

@@ -12,4 +12,11 @@ namespace Restaurant_Ordering_and_Management_System.Interfaces
         void SetStaffActive(int staffId, bool isActive);
         void DeleteStaff(int staffId);
     }
+
+    public interface IAccountService
+    {
+        bool HasAccounts();
+        AuthenticatedUser Authenticate(string username, string password);
+        void RegisterFirstAdmin(string username, string email, string password);
+    }
 }

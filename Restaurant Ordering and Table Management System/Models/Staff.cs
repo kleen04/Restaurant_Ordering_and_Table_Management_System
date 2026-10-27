@@ -11,4 +11,12 @@ namespace Restaurant_Ordering_and_Management_System.Models
         public bool IsActive { get; set; }
         public DateTime DateHired { get; set; }
     }
+
+    public class AuthenticatedUser
+    {
+        public int UserId { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+    }
 }

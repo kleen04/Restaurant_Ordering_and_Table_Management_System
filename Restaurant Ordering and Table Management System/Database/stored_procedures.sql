@@ -15,6 +15,60 @@
 USE RestaurantDb;
 
 -- ------------------------------------------------------------
+-- ACCOUNT MODULE
+-- ------------------------------------------------------------
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS sp_Account_HasAny$$
+CREATE PROCEDURE sp_Account_HasAny()
+BEGIN
+    SELECT COUNT(*) AS AccountCount FROM AppUsers;
+END$$
+
+DROP PROCEDURE IF EXISTS sp_Account_GetByUsername$$
+CREATE PROCEDURE sp_Account_GetByUsername(IN p_Username VARCHAR(32))
+BEGIN
+    SELECT UserID, Username, Email, PasswordSalt, PasswordHash, Role
+    FROM AppUsers
+    WHERE Username = p_Username;
+END$$
+
+DROP PROCEDURE IF EXISTS sp_Account_CreateFirstAdmin$$
+CREATE PROCEDURE sp_Account_CreateFirstAdmin(
+    IN p_Username VARCHAR(32),
+    IN p_Email VARCHAR(254),
+    IN p_PasswordSalt VARBINARY(16),
+    IN p_PasswordHash VARBINARY(32)
+)
+BEGIN
+    DECLARE v_LockID INT;
+    DECLARE v_AccountCount INT;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+    SELECT LockID INTO v_LockID
+    FROM AccountBootstrapLock
+    WHERE LockID = 1
+    FOR UPDATE;
+
+    SELECT COUNT(*) INTO v_AccountCount FROM AppUsers;
+    IF v_AccountCount > 0 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Initial administrator setup is already complete.';
+    END IF;
+
+    INSERT INTO AppUsers (Username, Email, PasswordSalt, PasswordHash, Role)
+    VALUES (p_Username, p_Email, p_PasswordSalt, p_PasswordHash, 'Admin');
+    COMMIT;
+END$$
+
+DELIMITER ;
+
+-- ------------------------------------------------------------
 -- STAFF MODULE  (owner: Staff module member)
 -- ------------------------------------------------------------
 DELIMITER $$

@@ -24,7 +24,7 @@ NotImplementedException()` with a `// TODO(<module> owner): ...` comment
 saying exactly which stored procedure to call and what it should do. Copy
 the pattern from the finished method.
 
-## One-time setup 
+## One-time setup
 
 1. Install MySQL locally (or point at a shared instance).
 2. Run `Database/schema.sql`, then `Database/stored_procedures.sql`, in that
@@ -36,6 +36,13 @@ the pattern from the finished method.
    ```
    Install-Package MySql.Data -Version 8.0.33
    ```
+5. On first launch, use **Sign Up** to create the administrator account. This
+   one-time setup is disabled once an account exists; staff account management
+   will be provided through the admin features.
+
+For an existing database, rerun `Database/schema.sql` and then
+`Database/stored_procedures.sql` to add the account tables and procedures used
+by sign-in.
    The `.csproj` already has a `packages.config` and a `MySql.Data`
    `<Reference>` pointing at where NuGet *should* put the DLL — if the
    HintPath doesn't match after restore, right-click the reference in

@@ -27,6 +27,22 @@ CREATE TABLE IF NOT EXISTS RestaurantTables (
     CurrentGuests   INT             NOT NULL DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS AppUsers (
+    UserID          INT AUTO_INCREMENT PRIMARY KEY,
+    Username        VARCHAR(32)     NOT NULL UNIQUE,
+    Email           VARCHAR(254)    NOT NULL UNIQUE,
+    PasswordSalt    VARBINARY(16)   NOT NULL,
+    PasswordHash    VARBINARY(32)   NOT NULL,
+    Role            ENUM('Admin', 'Staff') NOT NULL DEFAULT 'Staff',
+    CreatedAt       DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS AccountBootstrapLock (
+    LockID           INT             PRIMARY KEY
+);
+
+INSERT IGNORE INTO AccountBootstrapLock (LockID) VALUES (1);
+
 CREATE TABLE IF NOT EXISTS MenuItems (
     MenuItemID      INT AUTO_INCREMENT PRIMARY KEY,
     Name            VARCHAR(100)    NOT NULL,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Restaurant_Ordering_and_Management_System.Models;
 using Restaurant_Ordering_and_Management_System.Service;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
@@ -17,6 +18,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             string linkText = "Sign Up";
 
             lblSignUp.Text = fullText;
+            Load += FormLogIn_Load;
 
             int startIndex = fullText.IndexOf(linkText);
             if (startIndex >= 0)
@@ -25,21 +27,50 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             }
         }
 
+        private void FormLogIn_Load(object sender, EventArgs e)
+        {
+            RefreshSignupAvailability();
+        }
+
+        private void RefreshSignupAvailability()
+        {
+            try
+            {
+                lblSignUp.Visible = !_services.Accounts.HasAccounts();
+                btnLogin.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                btnLogin.Enabled = false;
+                lblSignUp.Visible = false;
+                MessageBox.Show("Could not check account setup: " + ex.Message,
+                    "Account Setup Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (txtUsername.Text == "admin" && txtPassword.Text == "password")
+            try
             {
-                MessageBox.Show("Login Success", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
+                AuthenticatedUser account = _services.Accounts.Authenticate(txtUsername.Text, txtPassword.Text);
+                if (account == null)
+                {
+                    MessageBox.Show("Invalid username or password.", "Sign In Failed",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Clear();
+                    txtUsername.Focus();
+                    return;
+                }
+
+                Hide();
                 Form1 mainForm = new Form1(_services);
                 mainForm.ShowDialog();
-                this.Close();
+                Close();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid Username or Password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPassword.Clear();
-                txtUsername.Focus();
+                MessageBox.Show("Sign in could not be completed: " + ex.Message,
+                    "Sign In Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -50,12 +81,16 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void lblSignUp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormSignUp signUpForm = new FormSignUp();
-            signUpForm.Show();
+            using (FormSignUp signUpForm = new FormSignUp(_services.Accounts))
+            {
+                if (signUpForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    txtUsername.Text = signUpForm.CreatedUsername;
+                    txtPassword.Clear();
+                }
+            }
 
-            this.Hide();
-
-            signUpForm.FormClosed += (s, args) => this.Show();
+            RefreshSignupAvailability();
         }
     }
 }
