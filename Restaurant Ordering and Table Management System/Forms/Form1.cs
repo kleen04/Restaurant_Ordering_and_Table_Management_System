@@ -320,7 +320,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         {
             if (MessageHelper.Confirm("Are you sure you want to logout?", "Logout"))
             {
-                Application.Exit();
+                DialogResult = DialogResult.Retry;
+                Close();
             }
         }
     }
