@@ -10,13 +10,15 @@ namespace Restaurant_Ordering_and_Management_System.Forms
     public partial class FormReports : Form
     {
         private readonly IReportService _reportService;
+        private readonly ProgramPreferences _preferences;
 
         // Remembered so Export / Print can name the report that is currently shown.
         private string _currentReportTitle = "Report";
 
-        public FormReports(IReportService reportService)
+        public FormReports(IReportService reportService, ProgramPreferences preferences)
         {
             _reportService = reportService ?? throw new ArgumentNullException(nameof(reportService));
+            _preferences = preferences ?? throw new ArgumentNullException(nameof(preferences));
             InitializeComponent();
             ThemeHelper.StyleGrid(dgvReport);
         }
@@ -126,7 +128,9 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             }
             if (dgvReport.Columns.Contains("OrderTime"))
             {
-                dgvReport.Columns["OrderTime"].DefaultCellStyle.Format = "yyyy-MM-dd h:mm tt";
+                dgvReport.Columns["OrderTime"].DefaultCellStyle.Format = _preferences.Use24HourClock
+                    ? "yyyy-MM-dd HH:mm"
+                    : "yyyy-MM-dd h:mm tt";
             }
 
             dgvReport.AutoResizeColumns();

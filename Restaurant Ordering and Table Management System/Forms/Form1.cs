@@ -16,7 +16,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
     {
         private readonly AppServices _services;
         private readonly string _loggedInUsername;
-        private DashboardPreferences _preferences;
+        private ProgramPreferences _preferences;
         private readonly ITableService _tableService;
         private readonly IOrderService _orderService;
         private readonly IReportService _reportService;
@@ -26,9 +26,6 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         // The Recent Orders list shows this many rows, open orders first.
         private const int RecentOrderRows = 6;
-
-        // The dashboard refreshes itself this often so it can be left open on a spare screen.
-        private const int AutoRefreshSeconds = 30;
 
         private System.Windows.Forms.Timer _clockTimer;
         private System.Windows.Forms.Timer _refreshTimer;
@@ -48,7 +45,9 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             _reportService = services.Reports;
 
             InitializeComponent();
-            _preferences = DashboardPreferencesStore.Load();
+            _preferences = ProgramPreferencesStore.Load();
+            WindowState = _preferences.StartMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
+            Text = _preferences.RestaurantName + " - Restaurant Ordering and Table Management System";
             lblUser.Text = "👤 Logged in as: " + _loggedInUsername;
             lblRestaurantName.Text = _preferences.RestaurantName;
             lblCurrentTime.Visible = _preferences.ShowDateTime;
@@ -119,11 +118,11 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 SalesSummary salesToday = _reportService.GetSalesSummary(DateTime.Today, DateTime.Today);
                 ShowSummary(DashboardSummary.Build(tables, orders, salesToday));
 
-                toolStripLastUpdated.Text = "Updated " + DateTime.Now.ToString("h:mm:ss tt");
+                toolStripLastUpdated.Text = "Updated " + DateTime.Now.ToString(_preferences.Use24HourClock ? "HH:mm:ss" : "h:mm:ss tt");
             }
             catch (Exception ex)
             {
-                toolStripLastUpdated.Text = "Update failed at " + DateTime.Now.ToString("h:mm:ss tt");
+                toolStripLastUpdated.Text = "Update failed at " + DateTime.Now.ToString(_preferences.Use24HourClock ? "HH:mm:ss" : "h:mm:ss tt");
                 if (showErrors)
                 {
                     MessageHelper.ShowError("Error loading dashboard data: " + ex.Message, "Database Error");
@@ -197,7 +196,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void UpdateDateTime()
         {
-            lblCurrentTime.Text = $"📅 Date and Time: {DateTime.Now:MM/dd/yyyy h:mm:ss tt}";
+            string timeFormat = _preferences.Use24HourClock ? "HH:mm:ss" : "h:mm:ss tt";
+            lblCurrentTime.Text = "📅 Date and Time: " + DateTime.Now.ToString("MM/dd/yyyy " + timeFormat);
             LayoutHeaderLabels();
         }
 
@@ -356,7 +356,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private void BtnReports_Click(object sender, EventArgs e)
         {
             this.Hide();
-            using (FormReports form = new FormReports(_services.Reports))
+            using (FormReports form = new FormReports(_services.Reports, _preferences))
             {
                 form.ShowDialog();
             }
@@ -385,14 +385,16 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
                 try
                 {
-                    DashboardPreferencesStore.Save(dialog.Preferences);
+                    ProgramPreferencesStore.Save(dialog.Preferences);
                     _preferences = dialog.Preferences;
                     lblRestaurantName.Text = _preferences.RestaurantName;
+                    Text = _preferences.RestaurantName + " - Restaurant Ordering and Table Management System";
                     lblCurrentTime.Visible = _preferences.ShowDateTime;
                     if (_refreshTimer != null)
                     {
                         _refreshTimer.Interval = _preferences.RefreshIntervalSeconds * 1000;
                     }
+                    WindowState = _preferences.StartMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
                     UpdateDateTime();
                     toolStripStatusLabel.Text = "Settings saved";
                 }
@@ -405,7 +407,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void BtnLogout_Click(object sender, EventArgs e)
         {
-            if (MessageHelper.Confirm("Are you sure you want to logout?", "Logout"))
+            if (!_preferences.ConfirmBeforeLogout || MessageHelper.Confirm("Are you sure you want to logout?", "Logout"))
             {
                 DialogResult = DialogResult.Retry;
                 Close();
@@ -413,57 +415,61 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         }
     }
 
-    public sealed class DashboardPreferences
+    [XmlRoot("DashboardPreferences")]
+    public sealed class ProgramPreferences
     {
         public string RestaurantName { get; set; } = "Tagum-Eats";
         public int RefreshIntervalSeconds { get; set; } = 30;
         public bool ShowDateTime { get; set; } = true;
+        public bool Use24HourClock { get; set; }
+        public bool StartMaximized { get; set; }
+        public bool ConfirmBeforeLogout { get; set; } = true;
     }
 
-    internal static class DashboardPreferencesStore
+    internal static class ProgramPreferencesStore
     {
         private static readonly string SettingsPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "RestaurantOrderingAndTableManagementSystem", "dashboard-settings.xml");
 
-        public static DashboardPreferences Load()
+        public static ProgramPreferences Load()
         {
             if (!File.Exists(SettingsPath))
             {
-                return new DashboardPreferences();
+                return new ProgramPreferences();
             }
 
-            DashboardPreferences preferences;
-            XmlSerializer serializer = new XmlSerializer(typeof(DashboardPreferences));
+            ProgramPreferences preferences;
+            XmlSerializer serializer = new XmlSerializer(typeof(ProgramPreferences));
             using (FileStream stream = File.OpenRead(SettingsPath))
             {
-                preferences = serializer.Deserialize(stream) as DashboardPreferences;
+                preferences = serializer.Deserialize(stream) as ProgramPreferences;
             }
 
             if (preferences == null)
             {
-                throw new InvalidDataException("The saved dashboard settings file is empty or invalid.");
+                throw new InvalidDataException("The saved program settings file is empty or invalid.");
             }
 
             Validate(preferences);
             return preferences;
         }
 
-        public static void Save(DashboardPreferences preferences)
+        public static void Save(ProgramPreferences preferences)
         {
             if (preferences == null) throw new ArgumentNullException(nameof(preferences));
             Validate(preferences);
 
             string directory = Path.GetDirectoryName(SettingsPath);
             Directory.CreateDirectory(directory);
-            XmlSerializer serializer = new XmlSerializer(typeof(DashboardPreferences));
+            XmlSerializer serializer = new XmlSerializer(typeof(ProgramPreferences));
             using (FileStream stream = File.Create(SettingsPath))
             {
                 serializer.Serialize(stream, preferences);
             }
         }
 
-        private static void Validate(DashboardPreferences preferences)
+        private static void Validate(ProgramPreferences preferences)
         {
             if (string.IsNullOrWhiteSpace(preferences.RestaurantName) || preferences.RestaurantName.Trim().Length > 80)
             {
@@ -481,20 +487,23 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private readonly TextBox _restaurantName;
         private readonly NumericUpDown _refreshInterval;
         private readonly CheckBox _showDateTime;
+        private readonly CheckBox _use24HourClock;
+        private readonly CheckBox _startMaximized;
+        private readonly CheckBox _confirmBeforeLogout;
 
-        public DashboardPreferences Preferences { get; private set; }
+        public ProgramPreferences Preferences { get; private set; }
 
-        public FormSettingsDialog(DashboardPreferences current)
+        public FormSettingsDialog(ProgramPreferences current)
         {
             if (current == null) throw new ArgumentNullException(nameof(current));
 
-            Text = "Settings";
+            Text = "Program Settings";
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MinimizeBox = false;
             MaximizeBox = false;
             ShowInTaskbar = false;
-            ClientSize = new Size(500, 280);
+            ClientSize = new Size(560, 470);
             Font = new Font("Segoe UI", 9F);
             BackColor = AppTheme.Page;
 
@@ -503,20 +512,25 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 Dock = DockStyle.Fill,
                 Padding = new Padding(24),
                 ColumnCount = 2,
-                RowCount = 5,
+                RowCount = 10,
                 BackColor = AppTheme.Page
             };
-            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 190));
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 205));
             layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
             layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 42));
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 36));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 36));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 36));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 42));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 36));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
             Label heading = new Label
             {
-                Text = "Dashboard Settings",
+                Text = "Program Settings",
                 Font = new Font("Segoe UI", 15F, FontStyle.Bold),
                 ForeColor = AppTheme.TextDark,
                 Dock = DockStyle.Fill,
@@ -525,8 +539,12 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             layout.Controls.Add(heading, 0, 0);
             layout.SetColumnSpan(heading, 2);
 
+            Label generalHeading = CreateSectionLabel("General");
+            layout.Controls.Add(generalHeading, 0, 1);
+            layout.SetColumnSpan(generalHeading, 2);
+
             Label restaurantLabel = CreateFieldLabel("Restaurant name:");
-            layout.Controls.Add(restaurantLabel, 0, 1);
+            layout.Controls.Add(restaurantLabel, 0, 2);
             _restaurantName = new TextBox
             {
                 Text = current.RestaurantName,
@@ -534,10 +552,23 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 Dock = DockStyle.Fill,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right
             };
-            layout.Controls.Add(_restaurantName, 1, 1);
+            layout.Controls.Add(_restaurantName, 1, 2);
 
+            _startMaximized = CreateOptionCheckBox("Start dashboard maximized", current.StartMaximized);
+            layout.Controls.Add(_startMaximized, 0, 3);
+            layout.SetColumnSpan(_startMaximized, 2);
+            _confirmBeforeLogout = CreateOptionCheckBox("Confirm before logging out", current.ConfirmBeforeLogout);
+            layout.Controls.Add(_confirmBeforeLogout, 0, 4);
+            layout.SetColumnSpan(_confirmBeforeLogout, 2);
+            _use24HourClock = CreateOptionCheckBox("Use 24-hour time format", current.Use24HourClock);
+            layout.Controls.Add(_use24HourClock, 0, 5);
+            layout.SetColumnSpan(_use24HourClock, 2);
+
+            Label dashboardHeading = CreateSectionLabel("Dashboard");
+            layout.Controls.Add(dashboardHeading, 0, 6);
+            layout.SetColumnSpan(dashboardHeading, 2);
             Label refreshLabel = CreateFieldLabel("Refresh interval (seconds):");
-            layout.Controls.Add(refreshLabel, 0, 2);
+            layout.Controls.Add(refreshLabel, 0, 7);
             _refreshInterval = new NumericUpDown
             {
                 Minimum = 10,
@@ -547,7 +578,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 Width = 100,
                 Anchor = AnchorStyles.Left
             };
-            layout.Controls.Add(_refreshInterval, 1, 2);
+            layout.Controls.Add(_refreshInterval, 1, 7);
 
             _showDateTime = new CheckBox
             {
@@ -557,7 +588,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 ForeColor = AppTheme.TextDark,
                 Anchor = AnchorStyles.Left
             };
-            layout.Controls.Add(_showDateTime, 0, 3);
+            layout.Controls.Add(_showDateTime, 0, 8);
             layout.SetColumnSpan(_showDateTime, 2);
 
             FlowLayoutPanel buttons = new FlowLayoutPanel
@@ -593,11 +624,36 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             cancelButton.FlatAppearance.BorderSize = 0;
             buttons.Controls.Add(saveButton);
             buttons.Controls.Add(cancelButton);
-            layout.Controls.Add(buttons, 0, 4);
+            layout.Controls.Add(buttons, 0, 9);
             layout.SetColumnSpan(buttons, 2);
             Controls.Add(layout);
             AcceptButton = saveButton;
             CancelButton = cancelButton;
+        }
+
+        private static Label CreateSectionLabel(string text)
+        {
+            return new Label
+            {
+                Text = text,
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = AppTheme.Primary,
+                Anchor = AnchorStyles.Left,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+        }
+
+        private static CheckBox CreateOptionCheckBox(string text, bool isChecked)
+        {
+            return new CheckBox
+            {
+                Text = text,
+                Checked = isChecked,
+                AutoSize = true,
+                ForeColor = AppTheme.TextDark,
+                Anchor = AnchorStyles.Left
+            };
         }
 
         private static Label CreateFieldLabel(string text)
@@ -622,11 +678,14 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 return;
             }
 
-            Preferences = new DashboardPreferences
+            Preferences = new ProgramPreferences
             {
                 RestaurantName = name,
                 RefreshIntervalSeconds = (int)_refreshInterval.Value,
-                ShowDateTime = _showDateTime.Checked
+                ShowDateTime = _showDateTime.Checked,
+                Use24HourClock = _use24HourClock.Checked,
+                StartMaximized = _startMaximized.Checked,
+                ConfirmBeforeLogout = _confirmBeforeLogout.Checked
             };
             DialogResult = DialogResult.OK;
             Close();

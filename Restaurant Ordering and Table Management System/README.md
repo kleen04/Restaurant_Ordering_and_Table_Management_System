@@ -49,6 +49,14 @@ by sign-in.
    Solution Explorer → Remove, then re-add it from
    `packages\MySql.Data.<version>\lib\...\MySql.Data.dll`.
 
+## Program settings
+
+The Settings option saves preferences for the current Windows user under
+`%LOCALAPPDATA%`. It includes the restaurant name, startup window state, logout
+confirmation, 12/24-hour clock format, dashboard refresh interval, and whether
+the dashboard header shows the date and time. The refresh interval can be set
+from 10 to 300 seconds.
+
 ## How the pieces fit together (SOLID/DRY, in plain terms)
 
 - **Single Responsibility** — `DatabaseConnection` only knows how to open a
