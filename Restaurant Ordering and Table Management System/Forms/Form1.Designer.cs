@@ -86,22 +86,24 @@
             this.lblCurrentTime.AutoSize = true;
             this.lblCurrentTime.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblCurrentTime.ForeColor = System.Drawing.Color.White;
+            this.lblCurrentTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCurrentTime.Location = new System.Drawing.Point(850, 45);
             this.lblCurrentTime.Name = "lblCurrentTime";
             this.lblCurrentTime.Size = new System.Drawing.Size(312, 23);
             this.lblCurrentTime.TabIndex = 2;
-            this.lblCurrentTime.Text = "📅 Date and Time: 00/00/0000 00:00:00";
+            this.lblCurrentTime.Text = "📅 Date and Time: 00/00/0000 12:00:00 AM";
             // 
             // lblUser
             // 
             this.lblUser.AutoSize = true;
             this.lblUser.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblUser.ForeColor = System.Drawing.Color.White;
+            this.lblUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUser.Location = new System.Drawing.Point(850, 20);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(194, 23);
             this.lblUser.TabIndex = 1;
-            this.lblUser.Text = "👤 Logged in as: Admin";
+            this.lblUser.Text = "👤 Logged in as: User";
             // 
             // lblRestaurantName
             // 
@@ -138,6 +140,7 @@
             this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Bottom)));
             this.btnLogout.Location = new System.Drawing.Point(10, 536);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(180, 45);
@@ -392,7 +395,8 @@
             // 
             // pnlOrdersCard
             // 
-            this.pnlOrdersCard.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlOrdersCard.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlOrdersCard.BackColor = System.Drawing.Color.White;
             this.pnlOrdersCard.Controls.Add(this.dgvRecentOrders);
@@ -558,6 +562,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
             this.ClientSize = new System.Drawing.Size(1130, 696);
+            this.MinimumSize = new System.Drawing.Size(1000, 650);
             this.Controls.Add(this.pnlMainContent);
             this.Controls.Add(this.pnlSidebar);
             this.Controls.Add(this.pnlHeader);

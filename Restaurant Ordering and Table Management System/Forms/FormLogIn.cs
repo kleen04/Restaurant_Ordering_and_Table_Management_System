@@ -63,7 +63,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 }
 
                 Hide();
-                using (Form1 mainForm = new Form1(_services))
+                using (Form1 mainForm = new Form1(_services, account))
                 {
                     DialogResult result = mainForm.ShowDialog(this);
                     if (result == DialogResult.Retry)

@@ -4,14 +4,19 @@ using Restaurant_Ordering_and_Management_System.Models;
 using Restaurant_Ordering_and_Management_System.Service;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Restaurant_Ordering_and_Management_System.Forms
 {
     public partial class Form1 : Form
     {
         private readonly AppServices _services;
+        private readonly string _loggedInUsername;
+        private DashboardPreferences _preferences;
         private readonly ITableService _tableService;
         private readonly IOrderService _orderService;
         private readonly IReportService _reportService;
@@ -33,24 +38,34 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private ToolStripMenuItem _markCompletedItem;
         private ToolStripMenuItem _cancelOrderItem;
 
-        public Form1(AppServices services)
+        public Form1(AppServices services, AuthenticatedUser account)
         {
             _services = services ?? throw new ArgumentNullException(nameof(services));
+            if (account == null) throw new ArgumentNullException(nameof(account));
+            _loggedInUsername = account.Username;
             _tableService = services.Tables;
             _orderService = services.Orders;
             _reportService = services.Reports;
 
             InitializeComponent();
+            _preferences = DashboardPreferencesStore.Load();
+            lblUser.Text = "👤 Logged in as: " + _loggedInUsername;
+            lblRestaurantName.Text = _preferences.RestaurantName;
+            lblCurrentTime.Visible = _preferences.ShowDateTime;
             flpDashTables.CaptionProvider = GetTableCaption;
+            pnlDashboard.Resize += PnlDashboard_Resize;
+            pnlHeader.Resize += PnlHeader_Resize;
             ApplyStatCardColors();
             BuildOrderStatusMenu();
+            LayoutDashboard();
+            LayoutHeaderLabels();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateDateTime();
             _clockTimer = StartTimer(1000, (s, ev) => UpdateDateTime());
-            _refreshTimer = StartTimer(AutoRefreshSeconds * 1000, RefreshTimer_Tick);
+            _refreshTimer = StartTimer(_preferences.RefreshIntervalSeconds * 1000, RefreshTimer_Tick);
 
             toolStripStatusLabel.Text = "Tip: right-click an order under Recent Orders to update its status.";
             LoadDashboard();
@@ -182,7 +197,56 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void UpdateDateTime()
         {
-            lblCurrentTime.Text = $"📅 Date and Time: {DateTime.Now:MM/dd/yyyy HH:mm:ss}";
+            lblCurrentTime.Text = $"📅 Date and Time: {DateTime.Now:MM/dd/yyyy h:mm:ss tt}";
+            LayoutHeaderLabels();
+        }
+
+        private void PnlDashboard_Resize(object sender, EventArgs e)
+        {
+            LayoutDashboard();
+        }
+
+        private void LayoutDashboard()
+        {
+            if (pnlDashboard == null || pnlDashboard.ClientSize.Width <= 0 || pnlDashboard.ClientSize.Height <= 0)
+            {
+                return;
+            }
+
+            int width = pnlDashboard.ClientSize.Width;
+            int height = pnlDashboard.ClientSize.Height;
+            int tableTop = tlpStats.Bottom + 11;
+            int bottomPadding = 15;
+            int gap = 10;
+            int availableHeight = Math.Max(0, height - tableTop - bottomPadding - gap);
+            int tableHeight = Math.Min(availableHeight, Math.Max(180, (int)(availableHeight * 0.48)));
+            int ordersTop = tableTop + tableHeight + gap;
+            int ordersHeight = Math.Max(0, height - ordersTop - bottomPadding);
+
+            tlpStats.Location = new System.Drawing.Point(10, 15);
+            tlpStats.Width = Math.Max(0, width - 20);
+            pnlTableCard.Location = new System.Drawing.Point(15, tableTop);
+            pnlTableCard.Size = new System.Drawing.Size(Math.Max(0, width - 30), tableHeight);
+            pnlOrdersCard.Location = new System.Drawing.Point(15, ordersTop);
+            pnlOrdersCard.Size = new System.Drawing.Size(Math.Max(0, width - 30), ordersHeight);
+        }
+
+        private void PnlHeader_Resize(object sender, EventArgs e)
+        {
+            LayoutHeaderLabels();
+        }
+
+        private void LayoutHeaderLabels()
+        {
+            if (pnlHeader == null || lblUser == null || lblCurrentTime == null)
+            {
+                return;
+            }
+
+            lblUser.Location = new System.Drawing.Point(
+                Math.Max(lblRestaurantName.Right + 20, pnlHeader.ClientSize.Width - lblUser.Width - 20), 20);
+            lblCurrentTime.Location = new System.Drawing.Point(
+                Math.Max(lblRestaurantName.Right + 20, pnlHeader.ClientSize.Width - lblCurrentTime.Width - 20), 45);
         }
 
         // ---------------------------------------------------------------
@@ -312,8 +376,31 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            MessageHelper.ShowInfo("Settings are not available yet.", "Settings");
-            toolStripStatusLabel.Text = "Settings is planned for a later phase";
+            using (FormSettingsDialog dialog = new FormSettingsDialog(_preferences))
+            {
+                if (dialog.ShowDialog(this) != DialogResult.OK)
+                {
+                    return;
+                }
+
+                try
+                {
+                    DashboardPreferencesStore.Save(dialog.Preferences);
+                    _preferences = dialog.Preferences;
+                    lblRestaurantName.Text = _preferences.RestaurantName;
+                    lblCurrentTime.Visible = _preferences.ShowDateTime;
+                    if (_refreshTimer != null)
+                    {
+                        _refreshTimer.Interval = _preferences.RefreshIntervalSeconds * 1000;
+                    }
+                    UpdateDateTime();
+                    toolStripStatusLabel.Text = "Settings saved";
+                }
+                catch (Exception ex)
+                {
+                    MessageHelper.ShowError("Could not save settings: " + ex.Message, "Settings");
+                }
+            }
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)
@@ -323,6 +410,226 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 DialogResult = DialogResult.Retry;
                 Close();
             }
+        }
+    }
+
+    public sealed class DashboardPreferences
+    {
+        public string RestaurantName { get; set; } = "Tagum-Eats";
+        public int RefreshIntervalSeconds { get; set; } = 30;
+        public bool ShowDateTime { get; set; } = true;
+    }
+
+    internal static class DashboardPreferencesStore
+    {
+        private static readonly string SettingsPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "RestaurantOrderingAndTableManagementSystem", "dashboard-settings.xml");
+
+        public static DashboardPreferences Load()
+        {
+            if (!File.Exists(SettingsPath))
+            {
+                return new DashboardPreferences();
+            }
+
+            DashboardPreferences preferences;
+            XmlSerializer serializer = new XmlSerializer(typeof(DashboardPreferences));
+            using (FileStream stream = File.OpenRead(SettingsPath))
+            {
+                preferences = serializer.Deserialize(stream) as DashboardPreferences;
+            }
+
+            if (preferences == null)
+            {
+                throw new InvalidDataException("The saved dashboard settings file is empty or invalid.");
+            }
+
+            Validate(preferences);
+            return preferences;
+        }
+
+        public static void Save(DashboardPreferences preferences)
+        {
+            if (preferences == null) throw new ArgumentNullException(nameof(preferences));
+            Validate(preferences);
+
+            string directory = Path.GetDirectoryName(SettingsPath);
+            Directory.CreateDirectory(directory);
+            XmlSerializer serializer = new XmlSerializer(typeof(DashboardPreferences));
+            using (FileStream stream = File.Create(SettingsPath))
+            {
+                serializer.Serialize(stream, preferences);
+            }
+        }
+
+        private static void Validate(DashboardPreferences preferences)
+        {
+            if (string.IsNullOrWhiteSpace(preferences.RestaurantName) || preferences.RestaurantName.Trim().Length > 80)
+            {
+                throw new InvalidDataException("Restaurant name must contain 1 to 80 characters.");
+            }
+            if (preferences.RefreshIntervalSeconds < 10 || preferences.RefreshIntervalSeconds > 300)
+            {
+                throw new InvalidDataException("Dashboard refresh interval must be between 10 and 300 seconds.");
+            }
+        }
+    }
+
+    internal sealed class FormSettingsDialog : Form
+    {
+        private readonly TextBox _restaurantName;
+        private readonly NumericUpDown _refreshInterval;
+        private readonly CheckBox _showDateTime;
+
+        public DashboardPreferences Preferences { get; private set; }
+
+        public FormSettingsDialog(DashboardPreferences current)
+        {
+            if (current == null) throw new ArgumentNullException(nameof(current));
+
+            Text = "Settings";
+            StartPosition = FormStartPosition.CenterParent;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MinimizeBox = false;
+            MaximizeBox = false;
+            ShowInTaskbar = false;
+            ClientSize = new Size(500, 280);
+            Font = new Font("Segoe UI", 9F);
+            BackColor = AppTheme.Page;
+
+            TableLayoutPanel layout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                Padding = new Padding(24),
+                ColumnCount = 2,
+                RowCount = 5,
+                BackColor = AppTheme.Page
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 190));
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 48));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 42));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+
+            Label heading = new Label
+            {
+                Text = "Dashboard Settings",
+                Font = new Font("Segoe UI", 15F, FontStyle.Bold),
+                ForeColor = AppTheme.TextDark,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+            layout.Controls.Add(heading, 0, 0);
+            layout.SetColumnSpan(heading, 2);
+
+            Label restaurantLabel = CreateFieldLabel("Restaurant name:");
+            layout.Controls.Add(restaurantLabel, 0, 1);
+            _restaurantName = new TextBox
+            {
+                Text = current.RestaurantName,
+                MaxLength = 80,
+                Dock = DockStyle.Fill,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right
+            };
+            layout.Controls.Add(_restaurantName, 1, 1);
+
+            Label refreshLabel = CreateFieldLabel("Refresh interval (seconds):");
+            layout.Controls.Add(refreshLabel, 0, 2);
+            _refreshInterval = new NumericUpDown
+            {
+                Minimum = 10,
+                Maximum = 300,
+                Increment = 5,
+                Value = current.RefreshIntervalSeconds,
+                Width = 100,
+                Anchor = AnchorStyles.Left
+            };
+            layout.Controls.Add(_refreshInterval, 1, 2);
+
+            _showDateTime = new CheckBox
+            {
+                Text = "Show date and time in dashboard header",
+                Checked = current.ShowDateTime,
+                AutoSize = true,
+                ForeColor = AppTheme.TextDark,
+                Anchor = AnchorStyles.Left
+            };
+            layout.Controls.Add(_showDateTime, 0, 3);
+            layout.SetColumnSpan(_showDateTime, 2);
+
+            FlowLayoutPanel buttons = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.RightToLeft,
+                WrapContents = false
+            };
+            Button saveButton = new Button
+            {
+                Text = "Save",
+                DialogResult = DialogResult.None,
+                BackColor = AppTheme.Accent,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Width = 100,
+                Height = 34,
+                Margin = new Padding(8, 4, 0, 0)
+            };
+            saveButton.FlatAppearance.BorderSize = 0;
+            saveButton.Click += SaveButton_Click;
+            Button cancelButton = new Button
+            {
+                Text = "Cancel",
+                DialogResult = DialogResult.Cancel,
+                BackColor = AppTheme.Neutral,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Width = 100,
+                Height = 34,
+                Margin = new Padding(8, 4, 0, 0)
+            };
+            cancelButton.FlatAppearance.BorderSize = 0;
+            buttons.Controls.Add(saveButton);
+            buttons.Controls.Add(cancelButton);
+            layout.Controls.Add(buttons, 0, 4);
+            layout.SetColumnSpan(buttons, 2);
+            Controls.Add(layout);
+            AcceptButton = saveButton;
+            CancelButton = cancelButton;
+        }
+
+        private static Label CreateFieldLabel(string text)
+        {
+            return new Label
+            {
+                Text = text,
+                AutoSize = true,
+                ForeColor = AppTheme.TextDark,
+                Anchor = AnchorStyles.Left,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            string name = _restaurantName.Text.Trim();
+            if (name.Length == 0)
+            {
+                MessageHelper.ShowWarning("Enter a restaurant name.", "Settings");
+                _restaurantName.Focus();
+                return;
+            }
+
+            Preferences = new DashboardPreferences
+            {
+                RestaurantName = name,
+                RefreshIntervalSeconds = (int)_refreshInterval.Value,
+                ShowDateTime = _showDateTime.Checked
+            };
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }
