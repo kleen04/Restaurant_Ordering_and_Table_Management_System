@@ -29,11 +29,11 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private System.Windows.Forms.Timer _clockTimer;
         private System.Windows.Forms.Timer _refreshTimer;
-        private ContextMenuStrip _orderMenu;
 
-        private ToolStripMenuItem _markInProgressItem;
-        private ToolStripMenuItem _markCompletedItem;
-        private ToolStripMenuItem _cancelOrderItem;
+
+
+
+
 
         public Form1(AppServices services, AuthenticatedUser account)
         {
@@ -55,8 +55,9 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             pnlDashboard.Resize += PnlDashboard_Resize;
             pnlHeader.Resize += PnlHeader_Resize;
             ApplyStatCardColors();
-            BuildOrderStatusMenu();
+            pnlOrdersCard.Resize += PnlOrdersCard_Resize;
             LayoutDashboard();
+            LayoutOrdersCard();
             LayoutHeaderLabels();
         }
 
@@ -66,7 +67,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             _clockTimer = StartTimer(1000, (s, ev) => UpdateDateTime());
             _refreshTimer = StartTimer(_preferences.RefreshIntervalSeconds * 1000, RefreshTimer_Tick);
 
-            toolStripStatusLabel.Text = "Tip: right-click an order under Recent Orders to update its status.";
+            toolStripStatusLabel.Text = "Tip: select an order under Recent Orders, then click a status button below to update it.";
             LoadDashboard();
         }
 
@@ -82,7 +83,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         // (this form is hidden or disabled by a dialog) or while the right-click menu is showing.
         private void RefreshTimer_Tick(object sender, EventArgs e)
         {
-            if (!Visible || !Enabled || _orderMenu.Visible)
+            if (!Visible || !Enabled)
             {
                 return;
             }
@@ -204,6 +205,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
         private void PnlDashboard_Resize(object sender, EventArgs e)
         {
             LayoutDashboard();
+            LayoutOrdersCard();
         }
 
         private void LayoutDashboard()
@@ -269,39 +271,70 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         // ---------------------------------------------------------------
         // Order status: Pending -> In Progress -> Completed / Cancelled
-        // (right-click an order in the Recent Orders grid)
+        // (select an order under Recent Orders, then click a status button)
         // ---------------------------------------------------------------
-        private void BuildOrderStatusMenu()
+        private void PnlOrdersCard_Resize(object sender, EventArgs e)
         {
-            ContextMenuStrip menu = new ContextMenuStrip();
-            _orderMenu = menu;
-
-            _markInProgressItem = new ToolStripMenuItem("Mark as In Progress");
-            _markCompletedItem = new ToolStripMenuItem("Mark as Completed");
-            _cancelOrderItem = new ToolStripMenuItem("Cancel Order");
-
-            _markInProgressItem.Click += (s, e) => ChangeSelectedOrderStatus(OrderStatus.InProgress);
-            _markCompletedItem.Click += (s, e) => ChangeSelectedOrderStatus(OrderStatus.Completed);
-            _cancelOrderItem.Click += (s, e) => ChangeSelectedOrderStatus(OrderStatus.Cancelled);
-
-            menu.Items.AddRange(new ToolStripItem[] { _markInProgressItem, _markCompletedItem, _cancelOrderItem });
-            menu.Opening += OrderMenu_Opening;
-
-            dgvRecentOrders.ContextMenuStrip = menu;
+            LayoutOrdersCard();
         }
 
-        private void OrderMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void LayoutOrdersCard()
         {
-            Order order = dgvRecentOrders.SelectedOrder;
-            if (order == null || !order.IsOpen)
+            if (pnlOrdersCard == null || dgvRecentOrders == null || tlpOrderActions == null)
             {
-                e.Cancel = true;
                 return;
             }
 
-            _markInProgressItem.Enabled = order.Status == OrderStatus.Pending;
-            _markCompletedItem.Enabled = true;
-            _cancelOrderItem.Enabled = true;
+            int cardWidth = pnlOrdersCard.ClientSize.Width;
+            int cardHeight = pnlOrdersCard.ClientSize.Height;
+            if (cardWidth <= 0 || cardHeight <= 0)
+            {
+                return;
+            }
+
+            int padX = 10;
+            int padBottom = 10;
+            int actionHeight = 36;
+            int gap = 8;
+            int topOffset = 42;
+
+            int usableWidth = Math.Max(0, cardWidth - padX * 2);
+            int actionTop = Math.Max(topOffset + gap, cardHeight - padBottom - actionHeight);
+
+            tlpOrderActions.Location = new System.Drawing.Point(padX, actionTop);
+            tlpOrderActions.Size = new System.Drawing.Size(usableWidth, actionHeight);
+
+            int gridHeight = Math.Max(40, actionTop - gap - topOffset);
+            dgvRecentOrders.Location = new System.Drawing.Point(padX, topOffset);
+            dgvRecentOrders.Size = new System.Drawing.Size(usableWidth, gridHeight);
+        }
+
+        private void BtnStatusInProgress_Click(object sender, EventArgs e)
+        {
+            ChangeSelectedOrderStatus(OrderStatus.InProgress);
+        }
+
+        private void BtnStatusCompleted_Click(object sender, EventArgs e)
+        {
+            ChangeSelectedOrderStatus(OrderStatus.Completed);
+        }
+
+        private void BtnStatusCancelled_Click(object sender, EventArgs e)
+        {
+            ChangeSelectedOrderStatus(OrderStatus.Cancelled);
+        }
+
+        private void DgvRecentOrders_SelectionChanged(object sender, EventArgs e)
+        {
+            Order order = dgvRecentOrders.SelectedOrder;
+            if (order != null)
+            {
+                toolStripStatusLabel.Text = "Selected Order #" + order.OrderId + " (Table " + order.TableId + ", " + OrderStatusStyle.GetText(order.Status) + ") - click a button to change its status.";
+            }
+            else
+            {
+                toolStripStatusLabel.Text = "Tip: select an order under Recent Orders, then click a status button below to update it.";
+            }
         }
 
         private void ChangeSelectedOrderStatus(OrderStatus newStatus)
@@ -309,6 +342,19 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             Order order = dgvRecentOrders.SelectedOrder;
             if (order == null)
             {
+                MessageHelper.ShowWarning("Please select an order from the Recent Orders list first.", "Order Status");
+                return;
+            }
+
+            if (!order.IsOpen)
+            {
+                MessageHelper.ShowWarning("Order #" + order.OrderId + " is already " + order.Status.ToString().ToLower() + " and cannot be changed.", "Order Status");
+                return;
+            }
+
+            if (order.Status == newStatus)
+            {
+                MessageHelper.ShowInfo("Order #" + order.OrderId + " is already " + OrderStatusStyle.GetText(newStatus) + ".", "Order Status");
                 return;
             }
 
@@ -322,6 +368,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             {
                 _orderService.UpdateOrderStatus(order.OrderId, newStatus);
                 LoadDashboard();
+                toolStripStatusLabel.Text = "Order #" + order.OrderId + " marked as " + OrderStatusStyle.GetText(newStatus) + ".";
             }
             catch (Exception ex)
             {

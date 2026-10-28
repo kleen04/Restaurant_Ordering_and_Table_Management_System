@@ -1,4 +1,4 @@
-﻿namespace Restaurant_Ordering_and_Management_System.Forms
+namespace Restaurant_Ordering_and_Management_System.Forms
 {
     partial class Form1
     {
@@ -44,6 +44,10 @@
             this.pnlOrdersCard = new FilletedPanel();
             this.dgvRecentOrders = new Restaurant_Ordering_and_Management_System.Forms.RecentOrdersGrid();
             this.lblRecentOrders = new System.Windows.Forms.Label();
+            this.tlpOrderActions = new System.Windows.Forms.TableLayoutPanel();
+            this.btnStatusInProgress = new System.Windows.Forms.Button();
+            this.btnStatusCompleted = new System.Windows.Forms.Button();
+            this.btnStatusCancelled = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLastUpdated = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,6 +58,7 @@
             this.tlpStats.SuspendLayout();
             this.pnlTableCard.SuspendLayout();
             this.pnlOrdersCard.SuspendLayout();
+            this.tlpOrderActions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -389,7 +394,9 @@
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlOrdersCard.BackColor = System.Drawing.Color.White;
+
             this.pnlOrdersCard.Controls.Add(this.dgvRecentOrders);
+            this.pnlOrdersCard.Controls.Add(this.tlpOrderActions);
             this.pnlOrdersCard.Controls.Add(this.lblRecentOrders);
             this.pnlOrdersCard.CornerRadius = 14;
             this.pnlOrdersCard.Location = new System.Drawing.Point(15, 362);
@@ -441,9 +448,10 @@
             this.dgvRecentOrders.RowHeadersVisible = false;
             this.dgvRecentOrders.RowHeadersWidth = 51;
             this.dgvRecentOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRecentOrders.Size = new System.Drawing.Size(880, 178);
+            this.dgvRecentOrders.Size = new System.Drawing.Size(880, 130);
             this.dgvRecentOrders.TabIndex = 1;
             this.dgvRecentOrders.WaitWarning = System.TimeSpan.Parse("00:15:00");
+            this.dgvRecentOrders.SelectionChanged += new System.EventHandler(this.DgvRecentOrders_SelectionChanged);
             // 
             // lblRecentOrders
             // 
@@ -456,6 +464,81 @@
             this.lblRecentOrders.Size = new System.Drawing.Size(180, 28);
             this.lblRecentOrders.TabIndex = 0;
             this.lblRecentOrders.Text = "📝 Recent Orders";
+            // 
+            // tlpOrderActions
+            // 
+            this.tlpOrderActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpOrderActions.ColumnCount = 3;
+            this.tlpOrderActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpOrderActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpOrderActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tlpOrderActions.Controls.Add(this.btnStatusInProgress, 0, 0);
+            this.tlpOrderActions.Controls.Add(this.btnStatusCompleted, 1, 0);
+            this.tlpOrderActions.Controls.Add(this.btnStatusCancelled, 2, 0);
+            this.tlpOrderActions.Location = new System.Drawing.Point(10, 176);
+            this.tlpOrderActions.Name = "tlpOrderActions";
+            this.tlpOrderActions.RowCount = 1;
+            this.tlpOrderActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpOrderActions.Size = new System.Drawing.Size(880, 36);
+            this.tlpOrderActions.TabIndex = 2;
+            // 
+            // btnStatusInProgress
+            // 
+            this.btnStatusInProgress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnStatusInProgress.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatusInProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStatusInProgress.FlatAppearance.BorderSize = 0;
+            this.btnStatusInProgress.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnStatusInProgress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatusInProgress.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnStatusInProgress.ForeColor = System.Drawing.Color.White;
+            this.btnStatusInProgress.Location = new System.Drawing.Point(0, 0);
+            this.btnStatusInProgress.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.btnStatusInProgress.Name = "btnStatusInProgress";
+            this.btnStatusInProgress.Size = new System.Drawing.Size(289, 36);
+            this.btnStatusInProgress.TabIndex = 0;
+            this.btnStatusInProgress.Text = "🔄 In Progress";
+            this.btnStatusInProgress.UseVisualStyleBackColor = false;
+            this.btnStatusInProgress.Click += new System.EventHandler(this.BtnStatusInProgress_Click);
+            // 
+            // btnStatusCompleted
+            // 
+            this.btnStatusCompleted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(132)))), ((int)(((byte)(73)))));
+            this.btnStatusCompleted.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatusCompleted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStatusCompleted.FlatAppearance.BorderSize = 0;
+            this.btnStatusCompleted.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(106)))), ((int)(((byte)(59)))));
+            this.btnStatusCompleted.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatusCompleted.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnStatusCompleted.ForeColor = System.Drawing.Color.White;
+            this.btnStatusCompleted.Location = new System.Drawing.Point(297, 0);
+            this.btnStatusCompleted.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.btnStatusCompleted.Name = "btnStatusCompleted";
+            this.btnStatusCompleted.Size = new System.Drawing.Size(289, 36);
+            this.btnStatusCompleted.TabIndex = 1;
+            this.btnStatusCompleted.Text = "✅ Completed";
+            this.btnStatusCompleted.UseVisualStyleBackColor = false;
+            this.btnStatusCompleted.Click += new System.EventHandler(this.BtnStatusCompleted_Click);
+            // 
+            // btnStatusCancelled
+            // 
+            this.btnStatusCancelled.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnStatusCancelled.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStatusCancelled.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStatusCancelled.FlatAppearance.BorderSize = 0;
+            this.btnStatusCancelled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnStatusCancelled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatusCancelled.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnStatusCancelled.ForeColor = System.Drawing.Color.White;
+            this.btnStatusCancelled.Location = new System.Drawing.Point(594, 0);
+            this.btnStatusCancelled.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.btnStatusCancelled.Name = "btnStatusCancelled";
+            this.btnStatusCancelled.Size = new System.Drawing.Size(286, 36);
+            this.btnStatusCancelled.TabIndex = 2;
+            this.btnStatusCancelled.Text = "❌ Cancel Order";
+            this.btnStatusCancelled.UseVisualStyleBackColor = false;
+            this.btnStatusCancelled.Click += new System.EventHandler(this.BtnStatusCancelled_Click);
             // 
             // statusStrip1
             // 
@@ -509,6 +592,7 @@
             this.tlpStats.ResumeLayout(false);
             this.pnlTableCard.ResumeLayout(false);
             this.pnlTableCard.PerformLayout();
+            this.tlpOrderActions.ResumeLayout(false);
             this.pnlOrdersCard.ResumeLayout(false);
             this.pnlOrdersCard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecentOrders)).EndInit();
@@ -548,5 +632,9 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripLastUpdated;
+        private System.Windows.Forms.TableLayoutPanel tlpOrderActions;
+        private System.Windows.Forms.Button btnStatusInProgress;
+        private System.Windows.Forms.Button btnStatusCompleted;
+        private System.Windows.Forms.Button btnStatusCancelled;
     }
 }

@@ -56,10 +56,9 @@
             this.pnlBody.Controls.Add(this.pictureBox1);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBody.Location = new System.Drawing.Point(0, 0);
-            this.pnlBody.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlBody.Name = "pnlBody";
-            this.pnlBody.Padding = new System.Windows.Forms.Padding(35, 27, 35, 27);
-            this.pnlBody.Size = new System.Drawing.Size(1132, 593);
+            this.pnlBody.Padding = new System.Windows.Forms.Padding(26, 22, 26, 22);
+            this.pnlBody.Size = new System.Drawing.Size(849, 482);
             this.pnlBody.TabIndex = 1;
             this.pnlBody.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBody_Paint);
             // 
@@ -69,16 +68,15 @@
             this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("Pristina", 28.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(191, 27);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Location = new System.Drawing.Point(143, 22);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(235, 61);
+            this.lblTitle.Size = new System.Drawing.Size(194, 50);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Tagum-Eats";
             // 
             // filletedPanel1
             // 
-            this.filletedPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.filletedPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.filletedPanel1.Controls.Add(this.lblSignUp);
             this.filletedPanel1.Controls.Add(this.pictureBox2);
             this.filletedPanel1.Controls.Add(this.txtUsername);
@@ -90,10 +88,9 @@
             this.filletedPanel1.Controls.Add(this.btnLogin);
             this.filletedPanel1.Controls.Add(this.chkShowPassword);
             this.filletedPanel1.CornerRadius = 20;
-            this.filletedPanel1.Location = new System.Drawing.Point(85, 107);
-            this.filletedPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filletedPanel1.Location = new System.Drawing.Point(64, 87);
             this.filletedPanel1.Name = "filletedPanel1";
-            this.filletedPanel1.Size = new System.Drawing.Size(459, 444);
+            this.filletedPanel1.Size = new System.Drawing.Size(344, 361);
             this.filletedPanel1.TabIndex = 8;
             // 
             // lblSignUp
@@ -101,10 +98,9 @@
             this.lblSignUp.AutoSize = true;
             this.lblSignUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSignUp.ForeColor = System.Drawing.Color.White;
-            this.lblSignUp.Location = new System.Drawing.Point(95, 402);
-            this.lblSignUp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSignUp.Location = new System.Drawing.Point(71, 327);
             this.lblSignUp.Name = "lblSignUp";
-            this.lblSignUp.Size = new System.Drawing.Size(216, 18);
+            this.lblSignUp.Size = new System.Drawing.Size(180, 15);
             this.lblSignUp.TabIndex = 9;
             this.lblSignUp.TabStop = true;
             this.lblSignUp.Text = "Don\'t have an account? Sign up";
@@ -113,10 +109,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Restaurant_Ordering_and_Management_System.Properties.Resources.PersonIcon_removebg_preview;
-            this.pictureBox2.Location = new System.Drawing.Point(180, 33);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(135, 27);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(89, 85);
+            this.pictureBox2.Size = new System.Drawing.Size(67, 69);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
@@ -124,10 +119,9 @@
             // txtUsername
             // 
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.txtUsername.Location = new System.Drawing.Point(24, 193);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsername.Location = new System.Drawing.Point(18, 157);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(404, 31);
+            this.txtUsername.Size = new System.Drawing.Size(304, 26);
             this.txtUsername.TabIndex = 1;
             // 
             // lblUsername
@@ -135,10 +129,9 @@
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblUsername.ForeColor = System.Drawing.Color.White;
-            this.lblUsername.Location = new System.Drawing.Point(24, 172);
-            this.lblUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUsername.Location = new System.Drawing.Point(18, 140);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(89, 23);
+            this.lblUsername.Size = new System.Drawing.Size(69, 17);
             this.lblUsername.TabIndex = 0;
             this.lblUsername.Text = "Username";
             // 
@@ -147,10 +140,9 @@
             this.lblSubtitle.AutoSize = true;
             this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lblSubtitle.ForeColor = System.Drawing.Color.Gray;
-            this.lblSubtitle.Location = new System.Drawing.Point(24, 139);
-            this.lblSubtitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSubtitle.Location = new System.Drawing.Point(18, 113);
             this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(155, 23);
+            this.lblSubtitle.Size = new System.Drawing.Size(116, 17);
             this.lblSubtitle.TabIndex = 1;
             this.lblSubtitle.Text = "Sign in to continue";
             // 
@@ -159,10 +151,9 @@
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.lblPassword.ForeColor = System.Drawing.Color.White;
-            this.lblPassword.Location = new System.Drawing.Point(24, 236);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPassword.Location = new System.Drawing.Point(18, 192);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(85, 23);
+            this.lblPassword.Size = new System.Drawing.Size(66, 17);
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Password";
             // 
@@ -171,20 +162,18 @@
             this.lblError.AutoSize = true;
             this.lblError.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblError.Location = new System.Drawing.Point(24, 379);
-            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Location = new System.Drawing.Point(18, 308);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(0, 20);
+            this.lblError.Size = new System.Drawing.Size(0, 15);
             this.lblError.TabIndex = 6;
             this.lblError.Visible = false;
             // 
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-            this.txtPassword.Location = new System.Drawing.Point(24, 257);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Location = new System.Drawing.Point(18, 209);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(404, 31);
+            this.txtPassword.Size = new System.Drawing.Size(304, 26);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -195,10 +184,9 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10.5F, System.Drawing.FontStyle.Bold);
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(24, 329);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLogin.Location = new System.Drawing.Point(18, 267);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(404, 42);
+            this.btnLogin.Size = new System.Drawing.Size(303, 34);
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "Log In";
             this.btnLogin.UseVisualStyleBackColor = false;
@@ -209,10 +197,9 @@
             this.chkShowPassword.AutoSize = true;
             this.chkShowPassword.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.chkShowPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.chkShowPassword.Location = new System.Drawing.Point(24, 295);
-            this.chkShowPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkShowPassword.Location = new System.Drawing.Point(18, 240);
             this.chkShowPassword.Name = "chkShowPassword";
-            this.chkShowPassword.Size = new System.Drawing.Size(134, 24);
+            this.chkShowPassword.Size = new System.Drawing.Size(108, 19);
             this.chkShowPassword.TabIndex = 4;
             this.chkShowPassword.Text = "Show password";
             this.chkShowPassword.UseVisualStyleBackColor = true;
@@ -221,9 +208,8 @@
             // 
             this.pictureBox1.Image = global::Restaurant_Ordering_and_Management_System.Properties.Resources.LogInBackground;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1132, 598);
+            this.pictureBox1.Size = new System.Drawing.Size(849, 486);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
@@ -231,13 +217,12 @@
             // FormLogIn
             // 
             this.AcceptButton = this.btnLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1132, 593);
+            this.ClientSize = new System.Drawing.Size(849, 482);
             this.Controls.Add(this.pnlBody);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLogIn";
