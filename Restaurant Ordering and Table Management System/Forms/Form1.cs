@@ -215,20 +215,38 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
             int width = pnlDashboard.ClientSize.Width;
             int height = pnlDashboard.ClientSize.Height;
-            int tableTop = tlpStats.Bottom + 11;
-            int bottomPadding = 15;
-            int gap = 10;
-            int availableHeight = Math.Max(0, height - tableTop - bottomPadding - gap);
-            int tableHeight = Math.Min(availableHeight, Math.Max(180, (int)(availableHeight * 0.48)));
-            int ordersTop = tableTop + tableHeight + gap;
-            int ordersHeight = Math.Max(0, height - ordersTop - bottomPadding);
+            int left = 15;
+            int top = tlpStats.Bottom + 11;
+            int gap = 12;
+            int bottom = 15;
+            int contentWidth = Math.Max(0, width - left * 2);
+            int contentHeight = Math.Max(0, height - top - bottom);
 
             tlpStats.Location = new System.Drawing.Point(10, 15);
             tlpStats.Width = Math.Max(0, width - 20);
-            pnlTableCard.Location = new System.Drawing.Point(15, tableTop);
-            pnlTableCard.Size = new System.Drawing.Size(Math.Max(0, width - 30), tableHeight);
-            pnlOrdersCard.Location = new System.Drawing.Point(15, ordersTop);
-            pnlOrdersCard.Size = new System.Drawing.Size(Math.Max(0, width - 30), ordersHeight);
+
+            if (width >= 900)
+            {
+                int columnGap = 14;
+                int cardsWidth = Math.Max(0, contentWidth - columnGap);
+                int tablesWidth = (int)(cardsWidth * 0.58);
+                int ordersWidth = cardsWidth - tablesWidth;
+                pnlTableCard.Location = new System.Drawing.Point(left, top);
+                pnlTableCard.Size = new System.Drawing.Size(tablesWidth, contentHeight);
+                pnlOrdersCard.Location = new System.Drawing.Point(left + tablesWidth + columnGap, top);
+                pnlOrdersCard.Size = new System.Drawing.Size(ordersWidth, contentHeight);
+                return;
+            }
+
+            int availableHeight = Math.Max(0, contentHeight - gap);
+            int tableHeight = Math.Max(180, (int)(availableHeight * 0.52));
+            tableHeight = Math.Min(tableHeight, availableHeight);
+            int ordersTop = top + tableHeight + gap;
+            int ordersHeight = Math.Max(0, height - ordersTop - bottom);
+            pnlTableCard.Location = new System.Drawing.Point(left, top);
+            pnlTableCard.Size = new System.Drawing.Size(contentWidth, tableHeight);
+            pnlOrdersCard.Location = new System.Drawing.Point(left, ordersTop);
+            pnlOrdersCard.Size = new System.Drawing.Size(contentWidth, ordersHeight);
         }
 
         private void PnlHeader_Resize(object sender, EventArgs e)
