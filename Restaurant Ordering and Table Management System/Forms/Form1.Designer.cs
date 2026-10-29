@@ -357,6 +357,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             this.flpDashTables.BackColor = System.Drawing.Color.White;
             this.flpDashTables.Location = new System.Drawing.Point(10, 42);
             this.flpDashTables.Name = "flpDashTables";
+            this.flpDashTables.CenterRows = true;
             this.flpDashTables.SelectionEnabled = false;
             this.flpDashTables.Size = new System.Drawing.Size(880, 206);
             this.flpDashTables.TabIndex = 2;

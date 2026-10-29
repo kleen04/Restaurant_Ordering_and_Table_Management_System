@@ -23,6 +23,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         // Newest open order per table, rebuilt on every refresh; feeds the caption under each tile.
         private Dictionary<int, Order> _openOrderByTable = new Dictionary<int, Order>();
+        private List<RestaurantTable> _dashboardTables = new List<RestaurantTable>();
 
         // The Recent Orders list shows this many rows, open orders first.
         private const int RecentOrderRows = 6;
@@ -110,6 +111,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 List<RestaurantTable> tables = _tableService.GetAllTables();
                 List<Order> orders = _orderService.GetRecentOrders(50);
 
+                _dashboardTables = tables;
                 _openOrderByTable = BuildOpenOrderLookup(orders);
                 flpDashTables.SetTables(tables);
                 flpTableLegend.SetTables(tables);
@@ -237,6 +239,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                 pnlTableCard.Size = new System.Drawing.Size(tablesWidth, contentHeight);
                 pnlOrdersCard.Location = new System.Drawing.Point(left + tablesWidth + columnGap, top);
                 pnlOrdersCard.Size = new System.Drawing.Size(ordersWidth, contentHeight);
+                LayoutDashboardTableTiles();
                 return;
             }
 
@@ -249,6 +252,25 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             pnlTableCard.Size = new System.Drawing.Size(contentWidth, tableHeight);
             pnlOrdersCard.Location = new System.Drawing.Point(left, ordersTop);
             pnlOrdersCard.Size = new System.Drawing.Size(contentWidth, ordersHeight);
+            LayoutDashboardTableTiles();
+        }
+
+        private void LayoutDashboardTableTiles()
+        {
+            if (flpDashTables == null || flpDashTables.ClientSize.Width <= 0)
+            {
+                return;
+            }
+
+            const int targetColumns = 4;
+            float scale = (flpDashTables.ClientSize.Width - 12f - targetColumns * 2f * flpDashTables.TileSpacing)
+                / (targetColumns * 150f);
+            scale = Math.Max(0.55f, Math.Min(0.82f, scale));
+            if (Math.Abs(flpDashTables.TileScale - scale) > 0.01f)
+            {
+                flpDashTables.TileScale = scale;
+                flpDashTables.SetTables(_dashboardTables);
+            }
         }
 
         private void PnlHeader_Resize(object sender, EventArgs e)

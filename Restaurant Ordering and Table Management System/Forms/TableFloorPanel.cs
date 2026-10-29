@@ -25,6 +25,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
     {
         private readonly ToolTip _toolTip = new ToolTip();
         private TableTile _selectedTile;
+        private bool _centeringRows;
+        private bool _centerRows;
 
         public TableFloorPanel()
         {
@@ -36,6 +38,23 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         public event EventHandler<TableEventArgs> TableClicked;
         public event EventHandler<TableEventArgs> TableDoubleClicked;
+
+        /// <summary>Centers each row of tiles within the available floor area.</summary>
+        [DefaultValue(false)]
+        public bool CenterRows
+        {
+            get { return _centerRows; }
+            set
+            {
+                if (_centerRows == value)
+                {
+                    return;
+                }
+
+                _centerRows = value;
+                PerformLayout();
+            }
+        }
 
         /// <summary>1 = full size (Tables page). Smaller values give compact tiles for the dashboard.</summary>
         [DefaultValue(1f)]
@@ -164,6 +183,52 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             if (handler != null)
             {
                 handler(this, new TableEventArgs(tile.Table));
+            }
+        }
+
+        protected override void OnLayout(LayoutEventArgs levent)
+        {
+            base.OnLayout(levent);
+            if (!_centerRows || _centeringRows || Controls.Count == 0)
+            {
+                return;
+            }
+
+            Dictionary<int, List<Control>> rows = new Dictionary<int, List<Control>>();
+            foreach (Control tile in Controls)
+            {
+                List<Control> row;
+                if (!rows.TryGetValue(tile.Top, out row))
+                {
+                    row = new List<Control>();
+                    rows.Add(tile.Top, row);
+                }
+                row.Add(tile);
+            }
+
+            _centeringRows = true;
+            try
+            {
+                foreach (List<Control> row in rows.Values)
+                {
+                    int left = int.MaxValue;
+                    int right = int.MinValue;
+                    foreach (Control tile in row)
+                    {
+                        left = Math.Min(left, tile.Left - tile.Margin.Left);
+                        right = Math.Max(right, tile.Right + tile.Margin.Right);
+                    }
+
+                    int offset = (ClientSize.Width - (right - left)) / 2 - left;
+                    foreach (Control tile in row)
+                    {
+                        tile.Left += offset;
+                    }
+                }
+            }
+            finally
+            {
+                _centeringRows = false;
             }
         }
 
