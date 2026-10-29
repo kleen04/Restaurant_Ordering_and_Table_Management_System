@@ -213,40 +213,6 @@ BEGIN
     ORDER BY Category, Name;
 END$$
 
-DROP PROCEDURE IF EXISTS sp_MenuItem_Insert$$
-CREATE PROCEDURE sp_MenuItem_Insert(
-    IN p_Name VARCHAR(100),
-    IN p_Category VARCHAR(50),
-    IN p_Price DECIMAL(10,2)
-)
-BEGIN
-    INSERT INTO MenuItems (Name, Category, Price, IsAvailable)
-    VALUES (p_Name, p_Category, p_Price, 1);
-END$$
-
-DROP PROCEDURE IF EXISTS sp_MenuItem_Update$$
-CREATE PROCEDURE sp_MenuItem_Update(
-    IN p_MenuItemId INT,
-    IN p_Name VARCHAR(100),
-    IN p_Category VARCHAR(50),
-    IN p_Price DECIMAL(10,2),
-    IN p_IsAvailable TINYINT(1)
-)
-BEGIN
-    UPDATE MenuItems
-    SET Name = p_Name,
-        Category = p_Category,
-        Price = p_Price,
-        IsAvailable = p_IsAvailable
-    WHERE MenuItemID = p_MenuItemId;
-END$$
-
-DROP PROCEDURE IF EXISTS sp_MenuItem_Delete$$
-CREATE PROCEDURE sp_MenuItem_Delete(IN p_MenuItemId INT)
-BEGIN
-    DELETE FROM MenuItems WHERE MenuItemID = p_MenuItemId;
-END$$
-
 DELIMITER ;
 
 -- ------------------------------------------------------------
