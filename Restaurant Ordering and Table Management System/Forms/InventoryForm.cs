@@ -11,12 +11,60 @@ namespace Restaurant_Ordering_and_Management_System.Forms
     public partial class InventoryForm : Form
     {
         private readonly IInventoryService _inventoryService;
+        private TextBox _txtSearch;
 
         public InventoryForm(IInventoryService inventoryService)
         {
             _inventoryService = inventoryService ?? throw new ArgumentNullException(nameof(inventoryService));
             InitializeComponent();
             ThemeHelper.StyleGrid(dgvInventory);
+            AddSearchControl();
+        }
+
+        private void AddSearchControl()
+        {
+            Panel searchPanel = new Panel { BackColor = Color.White, Height = 42 };
+            Label searchLabel = new Label
+            {
+                Text = "Search inventory:",
+                AutoSize = true,
+                Location = new Point(8, 12),
+                Font = dgvInventory.Font,
+                ForeColor = AppTheme.TextDark
+            };
+            _txtSearch = new TextBox
+            {
+                Location = new Point(120, 8),
+                Width = 240,
+                AccessibleName = "Search inventory"
+            };
+            _txtSearch.TextChanged += TxtSearch_TextChanged;
+            searchPanel.Controls.Add(searchLabel);
+            searchPanel.Controls.Add(_txtSearch);
+            pnlContent.Controls.Add(searchPanel);
+            dgvInventory.Dock = DockStyle.None;
+            dgvInventory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            searchPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pnlContent.Resize += PnlContent_Resize;
+            LayoutSearchAndGrid(searchPanel);
+        }
+
+        private void PnlContent_Resize(object sender, EventArgs e)
+        {
+            Panel searchPanel = pnlContent.Controls["InventorySearchPanel"] as Panel;
+            if (searchPanel != null)
+            {
+                LayoutSearchAndGrid(searchPanel);
+            }
+        }
+
+        private void LayoutSearchAndGrid(Panel searchPanel)
+        {
+            searchPanel.Name = "InventorySearchPanel";
+            searchPanel.Location = new Point(10, 10);
+            searchPanel.Size = new Size(Math.Max(0, pnlContent.ClientSize.Width - 20), 42);
+            dgvInventory.Location = new Point(10, 58);
+            dgvInventory.Size = new Size(Math.Max(0, pnlContent.ClientSize.Width - 20), Math.Max(0, pnlContent.ClientSize.Height - 68));
         }
 
         private void InventoryForm_Load(object sender, EventArgs e)
@@ -28,7 +76,8 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void LoadInventory()
         {
-            // Clear first, otherwise every refresh would add the columns again.
+            // Clear first, otherwise every refresh would add the columns and rows again.
+            dgvInventory.Rows.Clear();
             dgvInventory.Columns.Clear();
             dgvInventory.Columns.Add("ItemID", "Item ID");
             dgvInventory.Columns.Add("ItemName", "Item Name");
@@ -60,6 +109,28 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             }
 
             dgvInventory.AutoResizeColumns();
+            FilterInventoryRows();
+        }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            FilterInventoryRows();
+        }
+
+        private void FilterInventoryRows()
+        {
+            string searchText = _txtSearch.Text.Trim();
+            foreach (DataGridViewRow row in dgvInventory.Rows)
+            {
+                bool matches = string.IsNullOrEmpty(searchText);
+                for (int i = 1; !matches && i < row.Cells.Count; i++)
+                {
+                    string value = Convert.ToString(row.Cells[i].Value);
+                    matches = value != null && value.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                }
+                row.Visible = matches;
+            }
+            dgvInventory.ClearSelection();
         }
 
         // Colour-codes the Status column: red for Low Stock, green for In Stock.

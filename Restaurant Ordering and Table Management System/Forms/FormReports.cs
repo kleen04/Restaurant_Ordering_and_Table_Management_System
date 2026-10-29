@@ -40,24 +40,31 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             GenerateReport();
         }
 
+        private void CmbReportType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            GenerateReport();
+        }
+
         private void GenerateReport()
         {
             DateTime from = dtpFrom.Value.Date;
             DateTime to = dtpTo.Value.Date;
+            string reportType = cmbReportType.SelectedItem == null ? "Sales Summary" : cmbReportType.SelectedItem.ToString();
 
-            if (from > to)
+            if (reportType != "Inventory Status" && from > to)
             {
                 MessageHelper.ShowWarning("The start date must be on or before the end date.", "Reports");
                 return;
             }
 
-            string reportType = cmbReportType.SelectedItem == null ? "Sales Summary" : cmbReportType.SelectedItem.ToString();
             string range = from.ToString("yyyy-MM-dd") + " to " + to.ToString("yyyy-MM-dd");
+            pnlSummary.Visible = reportType == "Sales Summary";
+            dgvReport.DataSource = null;
+            dgvReport.Columns.Clear();
+            _currentReportTitle = "Report";
 
             try
             {
-                ShowSummary(_reportService.GetSalesSummary(from, to));
-
                 switch (reportType)
                 {
                     case "Order History":
@@ -72,14 +79,10 @@ namespace Restaurant_Ordering_and_Management_System.Forms
                         range = "as of " + DateTime.Today.ToString("yyyy-MM-dd");
                         break;
 
-                    case "Staff Performance":
-                        ShowReport(_reportService.GetStaffPerformance(from, to),
-                            new[] { "Staff Name", "Position", "Orders Handled", "Completed Sales" },
-                            "CompletedSales");
-                        break;
-
+                    case "Sales Summary":
                     default:
                         reportType = "Sales Summary";
+                        ShowSummary(_reportService.GetSalesSummary(from, to));
                         ShowReport(_reportService.GetDailySales(from, to),
                             new[] { "Date", "Orders", "Revenue" },
                             "Revenue");

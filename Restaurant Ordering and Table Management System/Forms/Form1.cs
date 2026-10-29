@@ -46,6 +46,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             _reportService = services.Reports;
 
             InitializeComponent();
+            ThemeHelper.StyleGridSelection(dgvRecentOrders);
             _preferences = ProgramPreferencesStore.Load();
             WindowState = _preferences.StartMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
             Text = _preferences.RestaurantName + " - Restaurant Ordering and Table Management System";

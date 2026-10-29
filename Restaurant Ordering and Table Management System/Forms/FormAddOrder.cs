@@ -37,6 +37,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             InitializeComponent();
             ThemeHelper.StyleGrid(dgvOrderItems);
             ThemeHelper.StyleGrid(dgvMenu);
+            ThemeHelper.StyleGridSelection(dgvMenu);
             AddStaffAndGuestControls();
             cmbTable.SelectedIndexChanged += CmbTable_SelectedIndexChanged;
             txtMenuSearch.TextChanged += TxtMenuSearch_TextChanged;

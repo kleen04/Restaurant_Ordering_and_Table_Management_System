@@ -39,6 +39,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             ThemeHelper.StyleGrid(this);
+            ThemeHelper.StyleGridSelection(this);
             CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             RowTemplate.Height = 25;
             DefaultCellStyle.Font = new Font("Segoe UI", 9.75F);

@@ -30,6 +30,14 @@ namespace Restaurant_Ordering_and_Management_System.Helper
             grid.AlternatingRowsDefaultCellStyle.SelectionForeColor = AppTheme.TextDark;
         }
 
+        public static void StyleGridSelection(DataGridView grid)
+        {
+            grid.DefaultCellStyle.SelectionBackColor = AppTheme.Primary;
+            grid.DefaultCellStyle.SelectionForeColor = AppTheme.OnPrimary;
+            grid.AlternatingRowsDefaultCellStyle.SelectionBackColor = AppTheme.Primary;
+            grid.AlternatingRowsDefaultCellStyle.SelectionForeColor = AppTheme.OnPrimary;
+        }
+
         /// <summary>Flat, borderless, white-text button in the given colour (AppTheme.Accent, Primary, Neutral or Danger).</summary>
         public static void StyleButton(Button button, Color back)
         {

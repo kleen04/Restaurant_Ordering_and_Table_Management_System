@@ -10,12 +10,59 @@ namespace Restaurant_Ordering_and_Management_System.Forms
     public partial class FormStaff : Form
     {
         private readonly IStaffService _staffService;
+        private TextBox _txtSearch;
 
         public FormStaff(IStaffService staffService)
         {
             _staffService = staffService ?? throw new ArgumentNullException(nameof(staffService));
             InitializeComponent();
             ThemeHelper.StyleGrid(dgvStaff);
+            AddSearchControl();
+        }
+
+        private void AddSearchControl()
+        {
+            Panel searchPanel = new Panel { BackColor = System.Drawing.Color.White, Height = 42, Name = "StaffSearchPanel" };
+            Label searchLabel = new Label
+            {
+                Text = "Search staff:",
+                AutoSize = true,
+                Location = new System.Drawing.Point(8, 12),
+                Font = dgvStaff.Font,
+                ForeColor = AppTheme.TextDark
+            };
+            _txtSearch = new TextBox
+            {
+                Location = new System.Drawing.Point(120, 8),
+                Width = 240,
+                AccessibleName = "Search staff"
+            };
+            _txtSearch.TextChanged += TxtSearch_TextChanged;
+            searchPanel.Controls.Add(searchLabel);
+            searchPanel.Controls.Add(_txtSearch);
+            pnlContent.Controls.Add(searchPanel);
+            dgvStaff.Dock = DockStyle.None;
+            dgvStaff.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            searchPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pnlContent.Resize += PnlContent_Resize;
+            LayoutSearchAndGrid(searchPanel);
+        }
+
+        private void PnlContent_Resize(object sender, EventArgs e)
+        {
+            Panel searchPanel = pnlContent.Controls["StaffSearchPanel"] as Panel;
+            if (searchPanel != null)
+            {
+                LayoutSearchAndGrid(searchPanel);
+            }
+        }
+
+        private void LayoutSearchAndGrid(Panel searchPanel)
+        {
+            searchPanel.Location = new System.Drawing.Point(16, 10);
+            searchPanel.Size = new System.Drawing.Size(Math.Max(0, pnlContent.ClientSize.Width - 32), 42);
+            dgvStaff.Location = new System.Drawing.Point(16, 58);
+            dgvStaff.Size = new System.Drawing.Size(Math.Max(0, pnlContent.ClientSize.Width - 32), Math.Max(0, pnlContent.ClientSize.Height - 74));
         }
 
         private void FormStaff_Load(object sender, EventArgs e)
@@ -25,6 +72,7 @@ namespace Restaurant_Ordering_and_Management_System.Forms
 
         private void LoadStaff()
         {
+            dgvStaff.Rows.Clear();
             dgvStaff.Columns.Clear();
             dgvStaff.Columns.Add("StaffId", "Staff ID");
             dgvStaff.Columns.Add("FullName", "Full Name");
@@ -52,6 +100,28 @@ namespace Restaurant_Ordering_and_Management_System.Forms
             }
 
             dgvStaff.AutoResizeColumns();
+            FilterStaffRows();
+        }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            FilterStaffRows();
+        }
+
+        private void FilterStaffRows()
+        {
+            string searchText = _txtSearch.Text.Trim();
+            foreach (DataGridViewRow row in dgvStaff.Rows)
+            {
+                bool matches = string.IsNullOrEmpty(searchText);
+                for (int i = 1; !matches && i < row.Cells.Count; i++)
+                {
+                    string value = Convert.ToString(row.Cells[i].Value);
+                    matches = value != null && value.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                }
+                row.Visible = matches;
+            }
+            dgvStaff.ClearSelection();
         }
 
         private int? GetSelectedStaffId()

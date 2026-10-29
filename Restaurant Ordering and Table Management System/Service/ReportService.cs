@@ -10,8 +10,8 @@ namespace Restaurant_Ordering_and_Management_System.Service
     // ============================================================
     // OWNER: Inventory & Reports module member — backs FormReports.
     // Stored procedures: sp_Report_GetSummary, sp_Report_GetDailySales,
-    // sp_Report_GetOrderHistory, sp_Report_GetInventoryStatus,
-    // sp_Report_GetStaffPerformance (see Database/stored_procedures.sql).
+    // sp_Report_GetOrderHistory and sp_Report_GetInventoryStatus
+    // (see Database/stored_procedures.sql).
     // ============================================================
     public class ReportService : IReportService
     {
@@ -53,11 +53,6 @@ namespace Restaurant_Ordering_and_Management_System.Service
         public DataTable GetInventoryStatus()
         {
             return _dbHelper.ExecuteQuery("sp_Report_GetInventoryStatus");
-        }
-
-        public DataTable GetStaffPerformance(DateTime startDate, DateTime endDate)
-        {
-            return _dbHelper.ExecuteQuery("sp_Report_GetStaffPerformance", DateRange(startDate, endDate));
         }
 
         // One place that turns the two picked dates into an inclusive range, so the

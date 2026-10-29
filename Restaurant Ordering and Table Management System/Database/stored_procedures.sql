@@ -452,22 +452,5 @@ BEGIN
 END$$
 
 DROP PROCEDURE IF EXISTS sp_Report_GetStaffPerformance$$
-CREATE PROCEDURE sp_Report_GetStaffPerformance(
-    IN p_StartDate DATETIME,
-    IN p_EndDate DATETIME
-)
-BEGIN
-    SELECT s.FullName AS StaffName, s.Position,
-           COUNT(DISTINCT o.OrderID) AS OrdersHandled,
-           COALESCE(SUM(CASE WHEN o.Status = 'Completed'
-                             THEN oi.Quantity * oi.UnitPrice END), 0) AS CompletedSales
-    FROM Staff s
-    LEFT JOIN Orders o ON o.StaffID = s.StaffID
-                      AND o.OrderTime BETWEEN p_StartDate AND p_EndDate
-                      AND o.Status <> 'Cancelled'
-    LEFT JOIN OrderItems oi ON oi.OrderID = o.OrderID
-    GROUP BY s.StaffID, s.FullName, s.Position
-    ORDER BY OrdersHandled DESC, s.FullName;
-END$$
 
 DELIMITER ;

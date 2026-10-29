@@ -83,7 +83,7 @@
             this.lblSubtitle.Name = "lblSubtitle";
             this.lblSubtitle.Size = new System.Drawing.Size(237, 17);
             this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "Sales, orders and performance insights";
+            this.lblSubtitle.Text = "Sales, order and inventory insights";
             // 
             // lblTitle
             // 
@@ -176,12 +176,12 @@
             this.cmbReportType.Items.AddRange(new object[] {
             "Sales Summary",
             "Order History",
-            "Inventory Status",
-            "Staff Performance"});
+            "Inventory Status"});
             this.cmbReportType.Location = new System.Drawing.Point(106, 18);
             this.cmbReportType.Name = "cmbReportType";
             this.cmbReportType.Size = new System.Drawing.Size(180, 25);
             this.cmbReportType.TabIndex = 1;
+            this.cmbReportType.SelectionChangeCommitted += new System.EventHandler(this.CmbReportType_SelectionChangeCommitted);
             // 
             // lblReportType
             // 
